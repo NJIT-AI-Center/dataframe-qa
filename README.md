@@ -1,6 +1,6 @@
 # DataFrameQA
 
-![DataFrameQA](prompt_code_generation.png)
+<img src="prompt_code_generation.png" alt="DataFrameQA" width="200"/>
 
 ## Introduction
 This paper introduces DataFrame Question Answering (QA), a novel task that utilizes natural language processing (NLP) models to generate Pandas queries for information retrieval and data analysis on dataframes, emphasizing safe and non-revealing data handling. Specifically, our method, leveraging a large language model (LLM), which solely relies on dataframe column names, not only ensures data privacy but also significantly reduces the context window in the prompt, streamlining information processing and addressing major challenges in LLM-based data analysis.
