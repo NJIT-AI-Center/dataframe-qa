@@ -1,0 +1,137 @@
+Code,Type,Name,Area (km 2 ),Population,Regional County Municipality,Region
+17005.0,M,Saint-Omer,125.35,362.0,L'Islet,12.0
+17010.0,V,Saint-Pamphile,136.8,2774.0,L'Islet,12.0
+17015.0,M,Saint-Adalbert,213.95,694.0,L'Islet,12.0
+17020.0,M,Saint-Marcel,178.86,527.0,L'Islet,12.0
+17025.0,M,Sainte-Félicité,95.82,431.0,L'Islet,12.0
+17030.0,M,Sainte-Perpétue,284.51,1900.0,L'Islet,12.0
+17035.0,M,Tourville,161.51,708.0,L'Islet,12.0
+17040.0,M,Saint-Damase-de-L'Islet,259.72,605.0,L'Islet,12.0
+17045.0,P,Saint-Cyrille-de-Lessard,228.95,760.0,L'Islet,12.0
+17055.0,M,Saint-Aubert,97.15,1370.0,L'Islet,12.0
+17060.0,P,Sainte-Louise,73.03,734.0,L'Islet,12.0
+17065.0,P,Saint-Roch-des-Aulnaies,48.28,1003.0,L'Islet,12.0
+17070.0,M,Saint-Jean-Port-Joli,68.55,3415.0,L'Islet,12.0
+17078.0,M,L'Islet,119.44,3876.0,L'Islet,12.0
+18005.0,M,Saint-Just-de-Bretenières,132.35,808.0,Montmagny,12.0
+18010.0,M,Lac-Frontière,51.33,168.0,Montmagny,12.0
+18015.0,P,Saint-Fabien-de-Panet,185.31,1024.0,Montmagny,12.0
+18020.0,M,Sainte-Lucie-de-Beauregard,80.18,306.0,Montmagny,12.0
+18025.0,P,Sainte-Apolline-de-Patton,255.7,638.0,Montmagny,12.0
+18030.0,M,Saint-Paul-de-Montminy,162.8,866.0,Montmagny,12.0
+18035.0,M,Sainte-Euphémie-sur-Rivière-du-Sud,93.21,340.0,Montmagny,12.0
+18040.0,M,Notre-Dame-du-Rosaire,158.53,391.0,Montmagny,12.0
+18045.0,M,Cap-Saint-Ignace,227.76,3225.0,Montmagny,12.0
+18050.0,V,Montmagny,125.76,11667.0,Montmagny,12.0
+18055.0,P,Saint-Pierre-de-la-Rivière-du-Sud,92.28,915.0,Montmagny,12.0
+18060.0,M,Saint-François-de-la-Rivière-du-Sud,95.49,1585.0,Montmagny,12.0
+18065.0,M,Berthier-sur-Mer,26.05,1356.0,Montmagny,12.0
+18070.0,P,Saint-Antoine-de-l'Isle-aux-Grues,26.4,155.0,Montmagny,12.0
+19005.0,P,Saint-Philémon,146.51,824.0,Bellechasse,12.0
+19010.0,P,Notre-Dame-Auxiliatrice-de-Buckland,96.32,800.0,Bellechasse,12.0
+19015.0,P,Saint-Nazaire-de-Dorchester,51.43,396.0,Bellechasse,12.0
+19020.0,P,Saint-Léon-de-Standon,136.9,1306.0,Bellechasse,12.0
+19025.0,P,Saint-Malachie,100.59,1399.0,Bellechasse,12.0
+19030.0,P,Saint-Damien-de-Buckland,85.17,2187.0,Bellechasse,12.0
+19037.0,M,Armagh,168.15,1578.0,Bellechasse,12.0
+19045.0,M,Saint-Nérée-de-Bellechasse,75.73,804.0,Bellechasse,12.0
+19050.0,M,Saint-Lazare-de-Bellechasse,85.53,1141.0,Bellechasse,12.0
+19055.0,M,Sainte-Claire,88.63,3189.0,Bellechasse,12.0
+19062.0,M,Saint-Anselme,74.45,3345.0,Bellechasse,12.0
+19068.0,M,Saint-Henri,121.78,4082.0,Bellechasse,12.0
+19070.0,M,Honfleur,50.99,874.0,Bellechasse,12.0
+19075.0,M,Saint-Gervais,87.23,1905.0,Bellechasse,12.0
+19082.0,M,Saint-Raphaël,120.06,2329.0,Bellechasse,12.0
+19090.0,P,La Durantaye,33.78,757.0,Bellechasse,12.0
+19097.0,M,Saint-Charles-de-Bellechasse,94.73,2285.0,Bellechasse,12.0
+19105.0,M,Beaumont,45.29,2291.0,Bellechasse,12.0
+19110.0,M,Saint-Michel-de-Bellechasse,53.43,1674.0,Bellechasse,12.0
+19117.0,M,Saint-Vallier,42.24,1072.0,Bellechasse,12.0
+25213.0,V,Lévis,443.65,129521.0,Not part of a RCM,12.0
+26005.0,M,Frampton,150.76,1305.0,La Nouvelle-Beauce,12.0
+26010.0,P,Saints-Anges,68.61,1076.0,La Nouvelle-Beauce,12.0
+26015.0,M,Vallée-Jonction,24.41,1901.0,La Nouvelle-Beauce,12.0
+26022.0,M,Saint-Elzéar,85.12,1910.0,La Nouvelle-Beauce,12.0
+26030.0,V,Sainte-Marie,106.65,11700.0,La Nouvelle-Beauce,12.0
+26035.0,P,Sainte-Marguerite,82.56,1052.0,La Nouvelle-Beauce,12.0
+26040.0,P,Sainte-Hénédine,53.06,1198.0,La Nouvelle-Beauce,12.0
+26048.0,M,Scott,32.91,1826.0,La Nouvelle-Beauce,12.0
+26055.0,M,Saint-Bernard,87.56,2005.0,La Nouvelle-Beauce,12.0
+26063.0,M,Saint-Isidore,101.18,2742.0,La Nouvelle-Beauce,12.0
+26070.0,P,Saint-Lambert-de-Lauzon,107.32,5383.0,La Nouvelle-Beauce,12.0
+27008.0,M,Saint-Victor,120.94,2485.0,Robert-Cliche,12.0
+27015.0,M,Saint-Alfred,42.42,446.0,Robert-Cliche,12.0
+27028.0,V,Beauceville,167.76,6403.0,Robert-Cliche,12.0
+27035.0,P,Saint-Odilon-de-Cranbourne,128.77,1405.0,Robert-Cliche,12.0
+27043.0,V,Saint-Joseph-de-Beauce,108.54,4492.0,Robert-Cliche,12.0
+27050.0,M,Saint-Joseph-des-Érables,50.01,460.0,Robert-Cliche,12.0
+27055.0,P,Saint-Jules,57.08,523.0,Robert-Cliche,12.0
+27060.0,VL,Tring-Jonction,25.71,1375.0,Robert-Cliche,12.0
+27065.0,P,Saint-Frédéric,71.58,1106.0,Robert-Cliche,12.0
+27070.0,P,Saint-Séverin,56.22,258.0,Robert-Cliche,12.0
+28005.0,M,Saint-Zacharie,189.7,2029.0,Les Etchemins,12.0
+28015.0,M,Sainte-Aurélie,78.52,937.0,Les Etchemins,12.0
+28020.0,M,Saint-Prosper,136.95,3765.0,Les Etchemins,12.0
+28025.0,M,Saint-Benjamin,110.53,876.0,Les Etchemins,12.0
+28030.0,M,Sainte-Rose-de-Watford,112.74,784.0,Les Etchemins,12.0
+28035.0,M,Saint-Louis-de-Gonzague,116.36,442.0,Les Etchemins,12.0
+28040.0,P,Saint-Cyprien,92.82,582.0,Les Etchemins,12.0
+28045.0,M,Sainte-Justine,124.55,1851.0,Les Etchemins,12.0
+28053.0,M,Lac-Etchemin,160.57,4037.0,Les Etchemins,12.0
+28060.0,M,Saint-Luc-de-Bellechasse,160.03,472.0,Les Etchemins,12.0
+28065.0,P,Sainte-Sabine,67.28,405.0,Les Etchemins,12.0
+28070.0,P,Saint-Camille-de-Lellis,252.08,899.0,Les Etchemins,12.0
+28075.0,M,Saint-Magloire,208.64,724.0,Les Etchemins,12.0
+29005.0,M,Saint-Théophile,429.58,801.0,Beauce-Sartigan,12.0
+29013.0,M,Saint-Gédéon-de-Beauce,193.45,2430.0,Beauce-Sartigan,12.0
+29020.0,P,Saint-Hilaire-de-Dorset,252.52,111.0,Beauce-Sartigan,12.0
+29025.0,M,Saint-Évariste-de-Forsyth,111.36,601.0,Beauce-Sartigan,12.0
+29030.0,VL,La Guadeloupe,31.67,1754.0,Beauce-Sartigan,12.0
+29038.0,M,Saint-Honoré-de-Shenley,136.46,1625.0,Beauce-Sartigan,12.0
+29045.0,P,Saint-Martin,119.34,2565.0,Beauce-Sartigan,12.0
+29050.0,P,Saint-René,61.53,609.0,Beauce-Sartigan,12.0
+29057.0,M,Saint-Côme–Linière,151.24,3284.0,Beauce-Sartigan,12.0
+29065.0,M,Saint-Philibert,57.26,384.0,Beauce-Sartigan,12.0
+29073.0,V,Saint-Georges,199.51,29562.0,Beauce-Sartigan,12.0
+29095.0,VL,Lac-Poulin,1.08,95.0,Beauce-Sartigan,12.0
+29100.0,M,Saint-Benoît-Labre,83.92,1617.0,Beauce-Sartigan,12.0
+29112.0,M,Saint-Éphrem-de-Beauce,115.35,2651.0,Beauce-Sartigan,12.0
+29120.0,P,Notre-Dame-des-Pins,24.6,1070.0,Beauce-Sartigan,12.0
+29125.0,M,Saint-Simon-les-Mines,44.8,458.0,Beauce-Sartigan,12.0
+31008.0,M,Beaulac-Garthby,76.81,922.0,Les Appalaches,12.0
+31015.0,V,Disraeli,6.47,2699.0,Les Appalaches,12.0
+31020.0,P,Disraeli,93.88,1019.0,Les Appalaches,12.0
+31025.0,P,Saint-Jacques-le-Majeur-de-Wolfestown,59.33,178.0,Les Appalaches,12.0
+31030.0,M,Saint-Fortunat,75.52,314.0,Les Appalaches,12.0
+31035.0,M,Saint-Julien,82.3,406.0,Les Appalaches,12.0
+31040.0,M,Irlande,110.2,1016.0,Les Appalaches,12.0
+31045.0,M,Saint-Joseph-de-Coleraine,125.11,1615.0,Les Appalaches,12.0
+31050.0,P,Sainte-Praxède,135.68,341.0,Les Appalaches,12.0
+31056.0,M,Adstock,289.22,2520.0,Les Appalaches,12.0
+31060.0,M,Sainte-Clotilde-de-Beauce,58.68,591.0,Les Appalaches,12.0
+31084.0,V,Thetford Mines,224.37,26124.0,Les Appalaches,12.0
+31095.0,M,Saint-Adrien-d'Irlande,52.78,398.0,Les Appalaches,12.0
+31100.0,M,Saint-Jean-de-Brébeuf,79.68,372.0,Les Appalaches,12.0
+31105.0,M,Kinnear's Mills,93.18,354.0,Les Appalaches,12.0
+31122.0,M,East Broughton,9.31,2366.0,Les Appalaches,12.0
+31130.0,P,Sacré-Cœur-de-Jésus,103.85,546.0,Les Appalaches,12.0
+31135.0,M,Saint-Pierre-de-Broughton,147.46,838.0,Les Appalaches,12.0
+31140.0,M,Saint-Jacques-de-Leeds,81.83,798.0,Les Appalaches,12.0
+33007.0,M,Saint-Sylvestre,143.34,988.0,Lotbinière,12.0
+33017.0,M,Sainte-Agathe-de-Lotbinière,169.5,1195.0,Lotbinière,12.0
+33025.0,M,Saint-Patrice-de-Beaurivage,86.18,1160.0,Lotbinière,12.0
+33030.0,P,Saint-Narcisse-de-Beaurivage,60.83,1002.0,Lotbinière,12.0
+33035.0,P,Saint-Gilles,174.74,1884.0,Lotbinière,12.0
+33040.0,M,Dosquet,67.26,891.0,Lotbinière,12.0
+33045.0,M,Saint-Agapit,65.91,3044.0,Lotbinière,12.0
+33052.0,M,Saint-Flavien,67.56,1597.0,Lotbinière,12.0
+33060.0,VL,Laurier-Station,12.43,2450.0,Lotbinière,12.0
+33065.0,M,Saint-Janvier-de-Joly,109.86,886.0,Lotbinière,12.0
+33070.0,M,Val-Alain,103.8,1017.0,Lotbinière,12.0
+33080.0,P,Saint-Édouard-de-Lotbinière,98.57,1280.0,Lotbinière,12.0
+33085.0,P,Notre-Dame-du-Sacré-Cœur-d'Issoudun,60.81,793.0,Lotbinière,12.0
+33090.0,M,Saint-Apollinaire,96.63,4375.0,Lotbinière,12.0
+33095.0,M,Saint-Antoine-de-Tilly,60.29,1442.0,Lotbinière,12.0
+33102.0,M,Sainte-Croix,69.64,2445.0,Lotbinière,12.0
+33115.0,M,Lotbinière,78.47,913.0,Lotbinière,12.0
+33123.0,M,Leclercville,135.4,559.0,Lotbinière,12.0

@@ -1,0 +1,83 @@
+Party,Constituency,Election,Candidate,Votes,Percentage,Position
+Alliance,Belfast East,1983.0,Oliver Napier,9373.0,24.1,3.0
+Alliance,Belfast East,1987.0,John Alderdice,10574.0,32.1,2.0
+Alliance,Belfast East,1992.0,John Alderdice,10650.0,29.8,2.0
+Alliance,Belfast East,1997.0,Jim Hendron,9288.0,23.8,3.0
+Alliance,Belfast East,2001.0,David Alderdice,5832.0,15.8,3.0
+Alliance,Belfast East,2005.0,Naomi Long,3746.0,12.2,3.0
+Alliance,Belfast South,1983.0,David Cook,8945.0,23.9,2.0
+Alliance,Belfast South,1987.0,David Cook,6963.0,21.3,2.0
+Alliance,Belfast South,1992.0,John Montgomery,5054.0,15.0,3.0
+Alliance,Belfast South,1997.0,Steve McBride,5112.0,12.9,4.0
+Alliance,Belfast South,2010.0,Anna Lo,5114.0,15.0,4.0
+Alliance,East Antrim,1983.0,Séan Neeson,7620.0,20.0,3.0
+Alliance,East Antrim,1987.0,Séan Neeson,8582.0,25.6,2.0
+Alliance,East Antrim,1992.0,Séan Neeson,9132.0,23.3,3.0
+Alliance,East Antrim,1997.0,Séan Neeson,6929.0,20.2,2.0
+Alliance,East Antrim,2001.0,John Matthews,4483.0,12.5,3.0
+Alliance,East Antrim,2005.0,Séan Neeson,4869.0,15.3,3.0
+Alliance,East Antrim,2010.0,Gerry Lynch,3377.0,11.1,3.0
+Alliance,Lagan Valley,1983.0,Seamus Close,4593.0,11.3,3.0
+Alliance,Lagan Valley,1987.0,Seamus Close,5728.0,13.8,2.0
+Alliance,Lagan Valley,1992.0,Seamus Close,6207.0,12.7,2.0
+Alliance,Lagan Valley,1997.0,Seamus Close,7635.0,17.2,2.0
+Alliance,Lagan Valley,2001.0,Seamus Close,7624.0,16.6,2.0
+Alliance,Lagan Valley,2005.0,Seamus Close,4316.0,10.1,3.0
+Alliance,Lagan Valley,2010.0,Trevor Lunn,4174.0,11.4,3.0
+Alliance,North Antrim,1987.0,Gareth Williams,5140.0,12.4,3.0
+Alliance,North Down,1983.0,John Cushnahan,9015.0,22.1,2.0
+Alliance,North Down,1987.0,John Cushnahan,7932.0,19.4,3.0
+Alliance,North Down,1992.0,Addie Morrow,6611.0,14.7,3.0
+Alliance,North Down,1997.0,Oliver Napier,7554.0,20.7,3.0
+Alliance,South Antrim,1983.0,Gordon Mawhinney,4612.0,11.9,3.0
+Alliance,South Antrim,1987.0,Gordon Mawhinney,5808.0,16.0,2.0
+Alliance,South Antrim,1992.0,John Blair,5244.0,12.4,3.0
+Alliance,South Antrim,1997.0,David Ford,4668.0,11.6,3.0
+Alliance,Strangford,1983.0,Addie Morrow,6171.0,15.8,3.0
+Alliance,Strangford,1987.0,Addie Morrow,7553.0,20.3,2.0
+Alliance,Strangford,1992.0,Kieran McCarthy,7585.0,16.9,3.0
+Alliance,Strangford,1997.0,Kieran McCarthy,5467.0,13.1,3.0
+BNP,Barking,2005.0,Richard Barnbrook,4916.0,16.9,3.0
+BNP,Barking,2010.0,Nick Griffin,6620.0,14.8,3.0
+BNP,Burnley,2001.0,Steve Smith,4151.0,11.3,4.0
+BNP,Burnley,2005.0,Len Starr,4003.0,10.1,5.0
+BNP,Dewsbury,2005.0,David Exley,5066.0,13.1,4.0
+BNP,Oldham West and Royton,2001.0,Nick Griffin,6552.0,16.4,3.0
+BNP,Rotherham,2010.0,Marlene Guest,3906.0,10.4,4.0
+Buckinghamshire Campaign for Democracy,Buckingham,2010.0,John Stevens,10331.0,21.4,2.0
+Burnley First,Burnley,2005.0,Harry Brooks,5786.0,14.8,3.0
+Green,Brighton Pavilion,2005.0,Keith Taylor,9571.0,22.0,3.0
+Green,Lewisham Deptford,2005.0,Darren Johnson,3367.0,11.4,4.0
+Green,Norwich South,2010.0,Adrian Ramsay,7095.0,14.9,4.0
+Independent,Fermanagh and South Tyrone,2010.0,Rodney Connor,21300.0,41.5,2.0
+Independent,Ealing Southall,2001.0,Avtar Lit,5764.0,12.3,3.0
+Independent,Fermanagh and South Tyrone,2001.0,Jim Dixon,6843.0,13.2,4.0
+Independent,Sedgefield,2005.0,Reg Keys,4252.0,10.3,4.0
+Independent,West Tyrone,2005.0,Kieran Deeny,11905.0,27.4,2.0
+Independent Labour,West Bromwich West,1997.0,Richard Silvester,8546.0,23.3,2.0
+Liberal,Liverpool West Derby,2001.0,Steve Radford,4601.0,14.9,2.0
+Liberal,Liverpool West Derby,2005.0,Steve Radford,3606.0,11.8,3.0
+National Democrats,West Bromwich West,1997.0,Steve Edwards,4181.0,11.4,3.0
+Orkney and Shetland Movement,Orkney and Shetland,1987.0,John Goodlad,3095.0,14.5,4.0
+People's Justice,Birmingham Sparkbrook and Small Heath,2001.0,Shafaq Hussain,4770.0,13.0,3.0
+Progressive Unionist,Belfast East,2001.0,David Ervine,3669.0,10.0,4.0
+Progressive Unionist,Belfast South,1997.0,David Ervine,5687.0,14.4,3.0
+Protestant Unionist,Belfast North,1987.0,George Seawright,5671.0,15.4,3.0
+Real Unionist,North Down,1987.0,Bob McCartney,14467.0,35.4,2.0
+Respect,Birmingham Sparkbrook and Small Heath,2005.0,Salma Yaqoob,10498.0,27.5,2.0
+Respect,East Ham,2005.0,Abdul Khaliq Mian,8171.0,20.7,2.0
+Respect,Poplar and Canning Town,2005.0,Oliur Rahman,6573.0,17.2,3.0
+Respect,West Ham,2005.0,Lindsey German,6039.0,19.5,2.0
+Scottish Militant Labour,Glasgow Pollok,1992.0,Tommy Sheridan,6287.0,19.3,2.0
+Scottish Socialist,Glasgow Pollok,1997.0,Tommy Sheridan,3639.0,11.1,3.0
+Sinn Féin,Belfast North,1997.0,Gerry Kelly,8375.0,20.2,3.0
+Sinn Féin,Fermanagh and South Tyrone,1997.0,Gerry McHugh,11174.0,23.1,2.0
+Sinn Féin,Foyle,1997.0,Mitchel McLaughlin,11445.0,23.9,2.0
+Sinn Féin,Newry and Armagh,1997.0,Pat McNamee,11218.0,21.1,3.0
+Sinn Féin,South Down,1997.0,Mick Murphy,5127.0,10.4,3.0
+Sinn Féin,Upper Bann,1997.0,Bernadette O'Hagan,5773.0,12.1,3.0
+Sinn Féin,West Tyrone,1997.0,Pat Doherty,14280.0,30.9,3.0
+Socialist Labour,Glasgow North East,2005.0,Doris Kelly,4036.0,14.2,3.0
+TUV,North Antrim,2010.0,Jim Allister,7114.0,16.8,2.0
+UKIP,Buckingham,2010.0,Nigel Farage,8410.0,17.4,3.0
+UKIP,South Staffordshire,2005.0,Malcolm Hurst,2675.0,10.4,4.0

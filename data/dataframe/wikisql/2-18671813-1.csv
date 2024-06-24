@@ -1,0 +1,102 @@
+Sr No,Name,Locale,Height,Floors,Building Type
+1.0,Imperial Tower 1,Tardeo,metres (ft),61.0,Residential
+2.0,Imperial Tower 2,Tardeo,metres (ft),61.0,Residential
+3.0,Lodha Bellissimo A & B,Mahalaxmi,metres (ft),53.0,Residential
+4.0,Lodha Bellissimo C,Mahalaxmi,metres (ft),53.0,Residential
+5.0,Kohinoor Square,Shivaji Park,metres (ft),52.0,Mixed Use
+6.0,Vivarea 1,Mahalaxmi,metres (ft),45.0,Residential
+7.0,Vivarea 2,Mahalaxmi,metres (ft),45.0,Residential
+8.0,Vivarea 3,Mahalaxmi,metres (ft),45.0,Residential
+9.0,Ashok Towers D,Parel,metres (ft),49.0,Residential
+10.0,The Ruby,Dadar,metres (ft),40.0,Commercial
+11.0,Orchid Woods 1,Goregaon,metres (ft),58.0,Residential
+12.0,Orchid Woods 2,Goregaon,metres (ft),58.0,Residential
+13.0,Orchid Woods 3,Goregaon,metres (ft),58.0,Residential
+14.0,Urmi Estate,Lower Parel,metres (ft),45.0,Commercial
+15.0,Planet Godrej,Mahalaxmi,metres (ft),51.0,Residential
+16.0,Sunshine Tower,Dadar,metres (ft),40.0,Commercial
+17.0,Imperial Heights 1,Oshiwara,metres (ft),49.0,Residential
+18.0,Imperial Heights 2,Oshiwara,metres (ft),49.0,Residential
+19.0,Antilia,Altamount Road,metres (ft),27.0,Residential
+20.0,Vasant Grandeur,Borivali,metres (ft),36.0,Residential
+21.0,Victoria,Worli,metres (ft),47.0,Residential
+22.0,Raheja Legend,Worli,metres (ft),40.0,Residential
+23.0,Springs,Wadala,metres (ft),41.0,Residential
+24.0,Rustomjee Elanza 1,Malad,metres (ft),36.0,Residential
+25.0,Rustomjee Elanza 2,Malad,metres (ft),36.0,Residential
+26.0,Rustomjee Elanza 3,Malad,metres (ft),36.0,Residential
+27.0,RNA Mirage,Worli,metres (ft),40.0,Residential
+28.0,Tabrez Tower,Wadala,metres (ft),45.0,Residential
+29.0,MRVDC (World Trade Center),Cuffe Parade,metres (ft),35.0,Commercial
+30.0,Shangri La,Worli,metres (ft),40.0,Hotel
+31.0,Shreepati Arcade,Nana Chowk,metres (ft),45.0,Residential
+32.0,Vasant Polaris,Goregaon,metres (ft),30.0,Residential
+33.0,Oberoi Skyheights Tower 1,Lokhandwala,metres (ft),37.0,Residential
+34.0,Oberoi Skyheights Tower 2,Lokhandwala,metres (ft),37.0,Residential
+35.0,Le Palazzo,Nana Chowk,metres (ft),46.0,Residential
+36.0,Seth Beaumonde 1,Prabhadevi,metres (ft),35.0,Resedential
+37.0,Seth Beaumonde 2,Prabhadevi,metres (ft),35.0,Residential
+38.0,Seth Beaumonde 3,Prabhadevi,metres (ft),35.0,Residential
+39.0,Summer Trinity 1,Prabhadevi,metres (ft),36.0,Residential
+40.0,Summer Trinity 2,Prabhadevi,metres (ft),36.0,Residential
+41.0,Raheja Excelsior,Tardeo,metres (ft),38.0,Residential
+42.0,Oberoi Woods Tower I,Kandivali,metres (ft),40.0,Residential
+43.0,Oberoi Woods Tower II,Kandivali,metres (ft),40.0,Residential
+44.0,Oberoi Woods Tower III,Kandivali,metres (ft),40.0,Residential
+45.0,Belvedere Court,Mahalaxmi,metres (ft),40.0,Residential
+46.0,Four Seasons Mumbai,Worli,metres (ft),35.0,Hotel
+47.0,JK House,Breach Candy,metres (ft),36.0,Residential
+48.0,Shreepati Castle,Girgaon,metres (ft),43.0,Residential
+49.0,Vandan Tower,Walkeshwar,metres (ft),43.0,Residential
+50.0,Lodha Imperia,Bhandup,metres (ft),42.0,Residential
+51.0,Sarvodaya Heights,Mulund,metres (ft),42.0,Residential
+52.0,Oberoi Commrez 2,Goregaon,metres (ft),35.0,Hotel
+53.0,Kalpatru Heights,Agripada,metres (ft),39.0,Residential
+54.0,IB Financial Center 1,Dadar,metres (ft),33.0,Commercial
+55.0,Heritage,Powai,metres (ft),36.0,Residential
+56.0,The Legend,Walkeshwar,metres (ft),40.0,Residential
+57.0,Suraj Tower,Breach Candy,metres (ft),40.0,Residential
+58.0,Tahnee heights,Nepean Sea Road,metres (ft),34.0,Residential
+59.0,Rushabh,Girgaon,metres (ft),40.0,Residential
+60.0,Shreepati Tower,Girgaon,metres (ft),40.0,Residential
+61.0,Orbit Heights,Nana Chowk,metres (ft),40.0,Residential
+62.0,Kalpataru Towers,Kandivali,metres (ft),34.0,Residential
+63.0,Commerz Tower,Goregaon,metres (ft),32.0,Hotel
+64.0,Raheja Atlantis,Worli,metres (ft),40.0,Residential
+65.0,Verona,Powai,metres (ft),30.0,Residential
+66.0,Avalon,Powai,metres (ft),30.0,Residential
+67.0,ITC Grand Central,Parel,metres (ft),35.0,Hotel
+68.0,Prarthna Heights,Parel,metres (ft),35.0,Residential
+69.0,Oberoi Springs 1,Andheri,metres (ft),36.0,Residential
+70.0,Oberoi Springs 2,Andheri,metres (ft),36.0,Residential
+71.0,Oberoi Springs 3,Andheri,metres (ft),36.0,Residential
+72.0,Octovious,Powai,metres (ft),36.0,Residential
+73.0,Bhoomi Paradise 1,Sanpada,metres (ft),31.0,Residential
+74.0,Bhoomi Paradise 2,Sanpada,metres (ft),31.0,Residential
+75.0,Raheja One,Altamount Road,metres (ft),36.0,Residential
+76.0,Ashok Towers A,Parel,metres (ft),31.0,Residential
+77.0,Ashok Towers B,Parel,metres (ft),31.0,Residential
+78.0,Ashok Towers C,Parel,metres (ft),31.0,Residential
+79.0,IB Financial Center 2,Dadar,metres (ft),29.0,Commercial
+80.0,Phiroze Jeejeebhoy Towers,Dalal Street,metres (ft),29.0,Commercial
+81.0,Vision Crest,Prabhadevi,metres (ft),35.0,Residential
+82.0,Oberoi Trident,Nariman Point,metres (ft),35.0,Hotel
+83.0,Lloyds Estate Tower 2,Wadala,metres (ft),34.0,Residential
+84.0,Avarsekar Heights,Worli,metres (ft),34.0,Residential
+85.0,Torino,Powai,metres (ft),34.0,Residential
+86.0,Peninsula Business Park 1,Lower Parel,metres (ft),25.0,Commercial
+87.0,Peninsula Business Park 2,Lower Parel,metres (ft),25.0,Commercial
+88.0,Gokul Concorde 1,Kandivali,metres (ft),33.0,Residential
+89.0,Gokul Concorde 2,Kandivali,metres (ft),33.0,Residential
+90.0,DSK Durgamata Towers,Cuffe Parade,metres (ft),32.0,Residential
+91.0,Tharwani Heights,Sanpada,metres (ft),28.0,Residential
+92.0,Kalpataru Pinnacle,Goregaon,metres (ft),33.0,Residential
+93.0,Phoenix Tower B,Lower Parel,metres (ft),32.0,Residential
+94.0,Dhawalgiri,Yashodham,metres (ft),33.0,Residential
+95.0,Zahra,Worli,metres (ft),32.0,Residential
+96.0,Samudra Mahal,Worli,metres (ft),30.0,Residential
+97.0,Tytan,Nepean Sea Road,metres (ft),32.0,Residential
+98.0,Sagar Sangeet,Colaba,metres (ft),32.0,Residential
+99.0,Kingston Tower,Parel,metres (ft),32.0,Residential
+100.0,Subhadra Tower,Worli,metres (ft),32.0,Residential
+101.0,Orbit Arya,Nepean Sea Road,metres (ft),30.0,Resedential

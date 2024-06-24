@@ -1,0 +1,3284 @@
+[
+    {
+        "question": "How does the average shell weight vary across different numbers of rings?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('Rings')['Shell_weight'].mean()"
+    },
+    {
+        "question": "Can you identify the outliers in shell weight using a standard deviation method?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "mean_shell_weight = df['Shell_weight'].mean(); std_shell_weight = df['Shell_weight'].std(); result = df[(df['Shell_weight'] > mean_shell_weight + 3 * std_shell_weight) | (df['Shell_weight'] < mean_shell_weight - 3 * std_shell_weight)]"
+    },
+    {
+        "question": "What is the distribution of sex categories in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "result = df['Sex'].value_counts()"
+    },
+    {
+        "question": "Create a pivot table showing the mean whole weight for each combination of sex and number of rings.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "result = df.pivot_table(index='Sex', columns='Rings', values='Whole_weight', aggfunc='mean')"
+    },
+    {
+        "question": "Which sex category (M, F, I) has the highest average height and what is the value?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('Sex')['Height'].mean().idxmax(), df.groupby('Sex')['Height'].mean().max()"
+    },
+    {
+        "question": "Can you calculate the ratio of shucked weight to whole weight for each abalone and find the one with the highest ratio?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "df['Weight_ratio'] = df['Shucked_weight'] / df['Whole_weight']; result = df[df['Weight_ratio'] == df['Weight_ratio'].max()]"
+    },
+    {
+        "question": "What are the mean and median lengths of abalone by each sex category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('Sex')['Length'].agg(['mean', 'median'])"
+    },
+    {
+        "question": "Can you create a new column 'Volume' as a product of Length, Diameter, and Height, then find the average Volume for each sex?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "df['Volume'] = df['Length'] * df['Diameter'] * df['Height']; result = df.groupby('Sex')['Volume'].mean()"
+    },
+    {
+        "question": "How does the average number of rings vary across different height quartiles?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "df['Height_quartile'] = pd.qcut(df['Height'], 4); result = df.groupby('Height_quartile')['Rings'].mean()"
+    },
+    {
+        "question": "Can you identify the sex category with the maximum average viscera weight to shell weight ratio?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "df['Weight_ratio'] = df['Viscera_weight'] / df['Shell_weight']; result = df.groupby('Sex')['Weight_ratio'].mean().idxmax()"
+    },
+    {
+        "question": "What is the standard deviation of whole weight for abalones with more than 10 rings?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['Rings'] > 10]['Whole_weight'].std()"
+    },
+    {
+        "question": "What is the percentage of abalones in each sex category that have more than 15 rings?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['Rings'] > 15]['Sex'].value_counts(normalize=True) * 100"
+    },
+    {
+        "question": "What are the average physical measurements of abalone?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[['Length', 'Diameter', 'Height', 'Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']].mean()"
+    },
+    {
+        "question": "How many abalone specimens are there for each sex?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df['Sex'].value_counts()"
+    },
+    {
+        "question": "I'm interested in knowing the most common age of abalone. Can you find that for me?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df['Rings'].mode()"
+    },
+    {
+        "question": "What is the average age of male and female abalones separately?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Sex')['Rings'].mean()"
+    },
+    {
+        "question": "I'd like to see a list of abalones older than 15 years. Can you provide that?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[df['Rings'] > 15]"
+    },
+    {
+        "question": "Could you provide a summary of the height measurements of the abalones?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df['Height'].describe()"
+    },
+    {
+        "question": "How many abalones have a shell weight greater than the average shell weight?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[df['Shell_weight'] > df['Shell_weight'].mean()].shape[0]"
+    },
+    {
+        "question": "Can we find out if there's any correlation between the diameter and age of abalones?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[['Diameter', 'Rings']].corr()"
+    },
+    {
+        "question": "Which abalones are heavier than average?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[df['Whole_weight'] > df['Whole_weight'].mean()]"
+    },
+    {
+        "question": "Can you identify the youngest abalones in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[df['Rings'] == df['Rings'].min()]"
+    },
+    {
+        "question": "What's the typical size range for abalones in this collection?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[['Length', 'Diameter', 'Height']].agg(['min', 'max'])"
+    },
+    {
+        "question": "Can you show me how the abalones' weight is distributed?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[['Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']].describe()"
+    },
+    {
+        "question": "I'm curious about the proportion of male to female abalones. Can you calculate that?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df['Sex'].value_counts(normalize=True)"
+    },
+    {
+        "question": "I'd like to compare the average dimensions of abalones by their sex. How do I do that?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df.pivot_table(index='Sex', values=['Length', 'Diameter', 'Height'], aggfunc='mean')"
+    },
+    {
+        "question": "What is the relationship between the weight of abalone meat and their age?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "general user",
+        "answer query": "result = df[['Shucked_weight', 'Rings']].corr()"
+    },
+    {
+        "question": "What is the average size (length, diameter, and height) of abalone in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df[['Length', 'Diameter', 'Height']].mean()"
+    },
+    {
+        "question": "How does the average shell weight differ between male and female abalones?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Sex')['Shell_weight'].mean()"
+    },
+    {
+        "question": "What is the correlation between whole weight and shell weight of abalones?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df[['Whole_weight', 'Shell_weight']].corr()"
+    },
+    {
+        "question": "Can we identify any trends in the age of abalone (as indicated by the number of rings) over the different sizes?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Rings')[['Length', 'Diameter', 'Height']].mean()"
+    },
+    {
+        "question": "What is the distribution of abalone sexes in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df['Sex'].value_counts()"
+    },
+    {
+        "question": "Which size category of abalone (small, medium, large) has the highest average weight, based on a classification of 'small' (length < 0.4), 'medium' (0.4 <= length < 0.6), and 'large' (length >= 0.6)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.assign(Size_Category=pd.cut(df['Length'], bins=[0, 0.4, 0.6, 1], labels=['Small', 'Medium', 'Large'])).groupby('Size_Category')['Whole_weight'].mean()"
+    },
+    {
+        "question": "What is the average number of rings for each sex?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Sex')['Rings'].mean()"
+    },
+    {
+        "question": "What proportion of abalones fall into each third of the ring count distribution?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = pd.qcut(df['Rings'], q=3).value_counts(normalize=True)"
+    },
+    {
+        "question": "Is there a significant difference in the average height of abalones based on their sex?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Sex')['Height'].mean()"
+    },
+    {
+        "question": "How many abalones are there in each unique ring count category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df['Rings'].value_counts()"
+    },
+    {
+        "question": "What is the maximum shell weight recorded for each sex of abalone?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Sex')['Shell_weight'].max()"
+    },
+    {
+        "question": "Can we find the average measurements (length, diameter, height) for abalones with more than 10 rings?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['Rings'] > 10][['Length', 'Diameter', 'Height']].mean()"
+    },
+    {
+        "question": "What are the top 5 heaviest whole weights observed in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df['Whole_weight'].nlargest(5)"
+    },
+    {
+        "question": "How does the average number of rings vary across different size categories of abalones?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.assign(Size_Category=pd.cut(df['Length'], bins=[0, 0.4, 0.6, 1], labels=['Small', 'Medium', 'Large'])).groupby('Size_Category')['Rings'].mean()"
+    },
+    {
+        "question": "What is the median viscera weight for abalones in each sex category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Sex')['Viscera_weight'].median()"
+    },
+    {
+        "question": "How does the count of abalones differ by their sex?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df['Sex'].value_counts()"
+    },
+    {
+        "question": "What is the standard deviation of the height of abalones in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df['Height'].std()"
+    },
+    {
+        "question": "Can we get a breakdown of average whole weight of abalones by their number of rings?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Rings')['Whole_weight'].mean()"
+    },
+    {
+        "question": "What are the minimum and maximum lengths recorded in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/1.csv",
+        "role": "data owner",
+        "answer query": "result = df['Length'].agg(['min', 'max'])"
+    },
+    {
+        "question": "What is the average age of individuals in each workclass who earn more than $50K per year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['income'] == '>50K'].groupby('workclass')['age'].mean()"
+    },
+    {
+        "question": "How does the average capital gain differ between those who have a Bachelor's degree and those who don't?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(df['education'] == 'Bachelors')['capital-gain'].mean()"
+    },
+    {
+        "question": "What is the correlation matrix between age, education-num, capital-gain, capital-loss, and hours-per-week?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']].corr()"
+    },
+    {
+        "question": "What are the top 5 native countries with the highest average age of individuals earning over $50K?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['income'] == '>50K'].groupby('native-country')['age'].mean().nlargest(5)"
+    },
+    {
+        "question": "For each occupation, calculate the difference between the highest and lowest hours-per-week worked.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('occupation')['hours-per-week'].max() - df.groupby('occupation')['hours-per-week'].min()"
+    },
+    {
+        "question": "Which combination of race and sex has the highest average capital loss, and what is that amount?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['race', 'sex'])['capital-loss'].mean().idxmax(), df.groupby(['race', 'sex'])['capital-loss'].mean().max()"
+    },
+    {
+        "question": "What is the median education number for individuals in each race category earning below $50K?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['income'] == '<=50K'].groupby('race')['education-num'].median()"
+    },
+    {
+        "question": "How many unique occupations are there for each workclass, and list them in descending order of their counts.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('workclass')['occupation'].nunique().sort_values(ascending=False)"
+    },
+    {
+        "question": "What is the standard deviation of ages for male and female individuals in each income bracket?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['sex', 'income'])['age'].std()"
+    },
+    {
+        "question": "Identify the workclass with the highest average capital gain, excluding those with zero capital gain.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['capital-gain'] > 0].groupby('workclass')['capital-gain'].mean().idxmax()"
+    },
+    {
+        "question": "Calculate the proportion of people with a marital status of 'Never-married' in each occupation.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['marital-status'] == 'Never-married'].groupby('occupation').size() / df.groupby('occupation').size() * 100"
+    },
+    {
+        "question": "What are the five most common native countries among individuals who work in 'Exec-managerial' positions?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['occupation'] == 'Exec-managerial']['native-country'].value_counts().head(5)"
+    },
+    {
+        "question": "Determine the average number of hours worked per week for each education level among individuals who lost capital.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['capital-loss'] > 0].groupby('education')['hours-per-week'].mean()"
+    },
+    {
+        "question": "What is the age distribution (in 10-year intervals) among individuals with a 'Prof-specialty' occupation?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = pd.cut(df[df['occupation'] == 'Prof-specialty']['age'], bins=range(0, 100, 10)).value_counts()"
+    },
+    {
+        "question": "Compare the average capital gain and loss for individuals in different marital statuses.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('marital-status')[['capital-gain', 'capital-loss']].mean()"
+    },
+    {
+        "question": "Identify the most common education level for each race category within the 'Private' workclass.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['workclass'] == 'Private'].groupby('race')['education'].agg(lambda x: x.mode()[0])"
+    },
+    {
+        "question": "What is the average age of individuals earning more than $50,000 per year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['income'] == '>50K']['age'].mean()"
+    },
+    {
+        "question": "Can we find out the most common job title among those who work more than 40 hours per week?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['hours-per-week'] > 40]['occupation'].mode()[0]"
+    },
+    {
+        "question": "What proportion of people have never been married in this dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['marital-status'] == 'Never-married'].shape[0] / df.shape[0]"
+    },
+    {
+        "question": "What is the highest capital gain achieved by individuals under the age of 30?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['age'] < 30]['capital-gain'].max()"
+    },
+    {
+        "question": "What are the top three most common native countries in this dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df['native-country'].value_counts().head(3)"
+    },
+    {
+        "question": "What's the average number of hours worked per week by divorced individuals?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['marital-status'] == 'Divorced']['hours-per-week'].mean()"
+    },
+    {
+        "question": "What is the median age of women in this dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sex'] == 'Female']['age'].median()"
+    },
+    {
+        "question": "Can we find the maximum hours per week worked by someone in the 'Exec-managerial' occupation?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['occupation'] == 'Exec-managerial']['hours-per-week'].max()"
+    },
+    {
+        "question": "What is the average capital loss for individuals in the 'Sales' occupation?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['occupation'] == 'Sales']['capital-loss'].mean()"
+    },
+    {
+        "question": "How many people are single (never married) and work more than 30 hours a week?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[(df['marital-status'] == 'Never-married') & (df['hours-per-week'] > 30)].shape[0]"
+    },
+    {
+        "question": "What are the five least common occupations in this dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df['occupation'].value_counts().tail(5)"
+    },
+    {
+        "question": "What's the average age of self-employed individuals?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "general user",
+        "answer query": "result = df[df['workclass'] == 'Self-emp-not-inc']['age'].mean()"
+    },
+    {
+        "question": "What is the average age of individuals earning more than 50K per year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '>50K']['age'].mean()"
+    },
+    {
+        "question": "Which top 5 occupations have the highest number of individuals earning over 50K?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '>50K']['occupation'].value_counts().head(5)"
+    },
+    {
+        "question": "What are the top 3 native countries contributing to the highest earners (>50K) in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '>50K']['native-country'].value_counts().head(3)"
+    },
+    {
+        "question": "How does the average capital gain differ between those earning above and below 50K?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('income')['capital-gain'].mean()"
+    },
+    {
+        "question": "What is the average education-num of individuals in different workclasses earning over 50K?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '>50K'].groupby('workclass')['education-num'].mean()"
+    },
+    {
+        "question": "What is the total number of individuals earning over 50K in each workclass category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '>50K'].groupby('workclass').size()"
+    },
+    {
+        "question": "Which education level has the highest average age among those earning over 50K?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '>50K'].groupby('education')['age'].mean().idxmax()"
+    },
+    {
+        "question": "How many different occupations are represented in the dataset among individuals earning more than 50K?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '>50K']['occupation'].nunique()"
+    },
+    {
+        "question": "Can we see a breakdown of average hours-per-week worked across different races for those earning under 50K?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '<=50K'].groupby('race')['hours-per-week'].mean()"
+    },
+    {
+        "question": "What are the top 5 native countries with the lowest average age of high earners (>50K)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['income'] == '>50K'].groupby('native-country')['age'].mean().nsmallest(5)"
+    },
+    {
+        "question": "Can we find out the most common occupation among high earners (>50K) in the United States?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/2.csv",
+        "role": "data owner",
+        "answer query": "result = df[(df['income'] == '>50K') & (df['native-country'] == 'United-States')]['occupation'].mode()[0]"
+    },
+    {
+        "question": "What is the average horsepower for each cylinder type?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('cylinders')['horsepower'].mean()"
+    },
+    {
+        "question": "How has the average weight of cars changed over the model years?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('model_year')['weight'].mean()"
+    },
+    {
+        "question": "What are the top 5 cars with the highest mpg for each country of origin?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('origin').apply(lambda x: x.nlargest(5, 'mpg'))"
+    },
+    {
+        "question": "What is the correlation matrix between displacement, horsepower, weight, acceleration, and mpg?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df[['displacement', 'horsepower', 'weight', 'acceleration', 'mpg']].corr()"
+    },
+    {
+        "question": "How many cars are there for each combination of cylinder and model year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['cylinders', 'model_year']).size()"
+    },
+    {
+        "question": "What is the average mpg for cars with more than 100 horsepower?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['horsepower'] > 100]['mpg'].mean()"
+    },
+    {
+        "question": "Can you create a pivot table showing the average acceleration for each combination of cylinders and model years?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.pivot_table(values='acceleration', index='cylinders', columns='model_year', aggfunc='mean')"
+    },
+    {
+        "question": "What are the five least common car names in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df['car_name'].value_counts().nsmallest(5)"
+    },
+    {
+        "question": "What is the standard deviation of acceleration for each cylinder type?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('cylinders')['acceleration'].std()"
+    },
+    {
+        "question": "Can you provide a breakdown of the average mpg by both origin and model year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['origin', 'model_year'])['mpg'].mean()"
+    },
+    {
+        "question": "What are the names of the five cars with the lowest horsepower for each cylinder type?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('cylinders').apply(lambda x: x.nsmallest(5, 'horsepower')['car_name'])"
+    },
+    {
+        "question": "Can you calculate the variance in weight for cars manufactured in each model year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('model_year')['weight'].var()"
+    },
+    {
+        "question": "What is the median displacement for cars with mpg higher than the overall median mpg?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['mpg'] > df['mpg'].median()]['displacement'].median()"
+    },
+    {
+        "question": "Can you create a new column 'weight_to_horsepower_ratio' and calculate its mean for each origin?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "df['weight_to_horsepower_ratio'] = df['weight'] / df['horsepower']; result = df.groupby('origin')['weight_to_horsepower_ratio'].mean()"
+    },
+    {
+        "question": "What is the difference in average mpg between the first and last model year in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('model_year')['mpg'].mean().iloc[-1] - df.groupby('model_year')['mpg'].mean().iloc[0]"
+    },
+    {
+        "question": "Can you identify the car name with the maximum displacement for each combination of cylinders and model year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['cylinders', 'model_year']).apply(lambda x: x[x['displacement'] == x['displacement'].max()]['car_name'])"
+    },
+    {
+        "question": "What is the proportion of cars from each origin within the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data scientist",
+        "answer query": "result = df['origin'].value_counts(normalize=True)"
+    },
+    {
+        "question": "What are the top 5 cars with the highest fuel efficiency?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df.nlargest(5, 'mpg')"
+    },
+    {
+        "question": "How many cars were manufactured each year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df['model_year'].value_counts()"
+    },
+    {
+        "question": "Which cars have more than 6 cylinders?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df[df['cylinders'] > 6]"
+    },
+    {
+        "question": "Can you show me the average weight of cars by their number of cylinders?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('cylinders')['weight'].mean()"
+    },
+    {
+        "question": "What is the overall average acceleration of the cars in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df['acceleration'].mean()"
+    },
+    {
+        "question": "I'm interested in cars from the earliest year in the dataset. Can you list them?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df[df['model_year'] == df['model_year'].min()]"
+    },
+    {
+        "question": "Which cars have an unknown value for horsepower?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df[df['horsepower'].isna()]"
+    },
+    {
+        "question": "Can you provide a summary of fuel efficiency across different countries of origin?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('origin')['mpg'].mean()"
+    },
+    {
+        "question": "I'd like to know the correlation between weight and fuel efficiency. Can you calculate that?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df[['weight', 'mpg']].corr()"
+    },
+    {
+        "question": "Which car names appear most frequently in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df['car_name'].value_counts().head()"
+    },
+    {
+        "question": "What are the five lightest cars in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df.nsmallest(5, 'weight')"
+    },
+    {
+        "question": "Can you show the average horsepower for cars with different cylinder counts?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('cylinders')['horsepower'].mean()"
+    },
+    {
+        "question": "I'm curious about the range of displacement values in the dataset. Could you provide the minimum and maximum displacement?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df['displacement'].agg(['min', 'max'])"
+    },
+    {
+        "question": "Which cars have a fuel efficiency greater than 30 mpg?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df[df['mpg'] > 30]"
+    },
+    {
+        "question": "I'm interested in recent car models. Can you list cars manufactured after 1980?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df[df['model_year'] > 1980]"
+    },
+    {
+        "question": "Can you provide a count of cars based on their country of origin?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df['origin'].value_counts()"
+    },
+    {
+        "question": "How has the average fuel efficiency changed over the years?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('model_year')['mpg'].mean()"
+    },
+    {
+        "question": "What is the median weight of the cars in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df['weight'].median()"
+    },
+    {
+        "question": "Can you find cars that have an acceleration above the dataset's average?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df[df['acceleration'] > df['acceleration'].mean()]"
+    },
+    {
+        "question": "I'd like to compare the distribution of horsepower in 4-cylinder cars versus 6-cylinder cars. Can you help?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "general user",
+        "answer query": "result = df[df['cylinders'].isin([4, 6])].groupby('cylinders')['horsepower'].describe()"
+    },
+    {
+        "question": "What is the average fuel efficiency (mpg) across all car models in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df['mpg'].mean()"
+    },
+    {
+        "question": "How many car models do we have for each cylinder type?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df['cylinders'].value_counts()"
+    },
+    {
+        "question": "What is the average horsepower for cars produced in each year in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('model_year')['horsepower'].mean()"
+    },
+    {
+        "question": "What are the top 5 heaviest car models in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.nlargest(5, 'weight')[['car_name', 'weight']]"
+    },
+    {
+        "question": "What is the trend in average weight of cars over the years?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('model_year')['weight'].mean()"
+    },
+    {
+        "question": "Which year had the highest average fuel efficiency (mpg) in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('model_year')['mpg'].mean().idxmax()"
+    },
+    {
+        "question": "What is the distribution of car origins in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df['origin'].value_counts()"
+    },
+    {
+        "question": "Which cylinder type has the highest average acceleration?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('cylinders')['acceleration'].mean().idxmax()"
+    },
+    {
+        "question": "Can we see a summary of the statistical distribution of horsepower across all cars?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df['horsepower'].describe()"
+    },
+    {
+        "question": "What are the names of the cars with the top 3 highest fuel efficiencies in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.nlargest(3, 'mpg')['car_name']"
+    },
+    {
+        "question": "What is the correlation between horsepower and fuel efficiency (mpg) in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df[['horsepower', 'mpg']].corr()"
+    },
+    {
+        "question": "Identify the cars with displacement greater than the median displacement in our dataset.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['displacement'] > df['displacement'].median()]['car_name']"
+    },
+    {
+        "question": "How has the average displacement changed over the model years?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('model_year')['displacement'].mean()"
+    },
+    {
+        "question": "What are the top 5 years with the highest number of car models introduced?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df['model_year'].value_counts().head(5)"
+    },
+    {
+        "question": "What is the average weight of cars for each origin category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('origin')['weight'].mean()"
+    },
+    {
+        "question": "Can we list the unique car names with 4 cylinders?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['cylinders'] == 4]['car_name'].unique()"
+    },
+    {
+        "question": "What is the most common number of cylinders in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df['cylinders'].mode()[0]"
+    },
+    {
+        "question": "How many cars in our dataset have a horsepower greater than 100?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['horsepower'] > 100].shape[0]"
+    },
+    {
+        "question": "What is the range (max - min) of acceleration in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df['acceleration'].max() - df['acceleration'].min()"
+    },
+    {
+        "question": "Can we find the average mpg for each combination of cylinders and origin?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/9.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby(['cylinders', 'origin'])['mpg'].mean()"
+    },
+    {
+        "question": "How does the average city-mpg differ between cars with different numbers of cylinders? Provide a summary statistic table.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('num-of-cylinders')['city-mpg'].mean()"
+    },
+    {
+        "question": "For each body style, what is the correlation coefficient between engine size and price?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('body-style')[['engine-size', 'price']].corr().iloc[0::2,-1]"
+    },
+    {
+        "question": "Identify the make and body style of cars that have a higher than average highway-mpg for their respective fuel type.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['highway-mpg'] > df.groupby('fuel-type')['highway-mpg'].transform('mean')][['make', 'body-style']]"
+    },
+    {
+        "question": "What is the distribution of cars based on the number of doors and their respective average normalized losses?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('num-of-doors')['normalized-losses'].mean()"
+    },
+    {
+        "question": "For cars with horsepower greater than 150, determine the average price categorized by their engine type and number of cylinders.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['horsepower'] > 150].groupby(['engine-type', 'num-of-cylinders'])['price'].mean()"
+    },
+    {
+        "question": "Is there a significant difference in the average curb weight between front and rear engine locations? Provide the mean values.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('engine-location')['curb-weight'].mean()"
+    },
+    {
+        "question": "Calculate the average peak-rpm for each combination of aspiration and fuel type.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['aspiration', 'fuel-type'])['peak-rpm'].mean()"
+    },
+    {
+        "question": "Which make has the widest range of prices, and what is this range?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('make')['price'].agg(lambda x: x.max() - x.min()).idxmax(), df.groupby('make')['price'].agg(lambda x: x.max() - x.min()).max()"
+    },
+    {
+        "question": "Create a pivot table showing the average price for each combination of number of doors and body style.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.pivot_table(values='price', index='num-of-doors', columns='body-style', aggfunc='mean')"
+    },
+    {
+        "question": "What is the relationship between normalized losses and symboling? Calculate the Pearson correlation coefficient.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df['normalized-losses'].corr(df['symboling'])"
+    },
+    {
+        "question": "Identify the make of cars that have an average compression-ratio higher than the overall average.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('make')['compression-ratio'].mean().loc[lambda x: x > df['compression-ratio'].mean()]"
+    },
+    {
+        "question": "For each fuel type, determine the variance in highway-mpg.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('fuel-type')['highway-mpg'].var()"
+    },
+    {
+        "question": "What is the average price of cars for each combination of aspiration and number of doors, excluding those with missing price values?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.dropna(subset=['price']).groupby(['aspiration', 'num-of-doors'])['price'].mean()"
+    },
+    {
+        "question": "How do the average city-mpg and highway-mpg compare for diesel and gas cars?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('fuel-type')[['city-mpg', 'highway-mpg']].mean()"
+    },
+    {
+        "question": "Identify the makes of cars that have a symboling rating of 3. Calculate the average price for these cars.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['symboling'] == 3].groupby('make')['price'].mean()"
+    },
+    {
+        "question": "What is the standard deviation of curb weight across different body styles?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('body-style')['curb-weight'].std()"
+    },
+    {
+        "question": "For cars with more than 4 cylinders, how does the average price vary with the number of doors?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['num-of-cylinders'] > 4].groupby('num-of-doors')['price'].mean()"
+    },
+    {
+        "question": "Create a summary table showing the count, mean, and median price of cars grouped by make and body style.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['make', 'body-style'])['price'].agg(['count', 'mean', 'median'])"
+    },
+    {
+        "question": "Calculate the average engine size for each combination of number of cylinders and engine location.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['num-of-cylinders', 'engine-location'])['engine-size'].mean()"
+    },
+    {
+        "question": "What are the top 5 cars with the lowest average loss payment per year?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df.sort_values(by='normalized-losses').head(5)"
+    },
+    {
+        "question": "How many cars are there for each body style available?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df['body-style'].value_counts()"
+    },
+    {
+        "question": "Can you show a list of unique car makes available in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df['make'].unique()"
+    },
+    {
+        "question": "What is the average price of diesel and gas cars?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('fuel-type')['price'].mean()"
+    },
+    {
+        "question": "Which cars have a risk rating of +3?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df[df['symboling'] == 3]"
+    },
+    {
+        "question": "How many cars have more than 4 cylinders?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df[df['num-of-cylinders'] > 4].shape[0]"
+    },
+    {
+        "question": "Can I see a breakdown of the number of cars by their number of doors?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df['num-of-doors'].value_counts()"
+    },
+    {
+        "question": "What are the 3 most common engine types in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df['engine-type'].value_counts().head(3)"
+    },
+    {
+        "question": "What are the five most expensive car brands in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('make')['price'].mean().nlargest(5)"
+    },
+    {
+        "question": "What is the average weight of cars classified as sports/speciality?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df[df['body-style'] == 'sports/speciality']['curb-weight'].mean()"
+    },
+    {
+        "question": "Can we see a list of cars that have turbo aspiration?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df[df['aspiration'] == 'turbo']"
+    },
+    {
+        "question": "How does fuel efficiency (highway-mpg) vary across different car makes?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('make')['highway-mpg'].mean()"
+    },
+    {
+        "question": "Which cars have more than 200 horsepower but are priced below $20,000?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df[(df['horsepower'] > 200) & (df['price'] < 20000)]"
+    },
+    {
+        "question": "Can you show the distribution of cars based on their engine sizes?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df['engine-size'].value_counts()"
+    },
+    {
+        "question": "What are the characteristics of cars that have a safety rating of -3?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df[df['symboling'] == -3]"
+    },
+    {
+        "question": "Which cars have a wheelbase longer than 100 inches?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "general user",
+        "answer query": "result = df[df['wheel-base'] > 100]"
+    },
+    {
+        "question": "What are the top 5 makes of cars in our database in terms of the number of models available?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df['make'].value_counts().head(5)"
+    },
+    {
+        "question": "How does the average price of cars vary across different body styles?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('body-style')['price'].mean()"
+    },
+    {
+        "question": "What is the correlation between engine size and price for our automobiles?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df[['engine-size', 'price']].corr()"
+    },
+    {
+        "question": "Which fuel type (gas or diesel) has a higher average highway mileage?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('fuel-type')['highway-mpg'].mean()"
+    },
+    {
+        "question": "What are the average normalized losses for cars with different numbers of doors (2 and 4)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('num-of-doors')['normalized-losses'].mean()"
+    },
+    {
+        "question": "Can we get a summary of average city and highway mileage by car make?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('make')[['city-mpg', 'highway-mpg']].mean()"
+    },
+    {
+        "question": "How many cars have a risk factor symbol of +3, and which makes are they?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['symboling'] == 3]['make'].value_counts()"
+    },
+    {
+        "question": "What is the average price of cars for each engine type?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('engine-type')['price'].mean()"
+    },
+    {
+        "question": "Which make of cars has the highest average curb weight?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('make')['curb-weight'].mean().idxmax()"
+    },
+    {
+        "question": "What are the five most common combinations of aspiration and body style in our database?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby(['aspiration', 'body-style']).size().nlargest(5)"
+    },
+    {
+        "question": "What is the overall average price of the automobiles in our database?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df['price'].mean()"
+    },
+    {
+        "question": "How many unique car makes are in our database, and what are they?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df['make'].nunique(), df['make'].unique()"
+    },
+    {
+        "question": "What are the top 3 most frequent engine types used in our car models?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df['engine-type'].value_counts().head(3)"
+    },
+    {
+        "question": "For each car make, what is the average engine size and average price?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('make')[['engine-size', 'price']].mean()"
+    },
+    {
+        "question": "Which car make has the lowest average normalized loss?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('make')['normalized-losses'].mean().idxmin()"
+    },
+    {
+        "question": "How does the average price of cars compare between front and rear engine locations?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('engine-location')['price'].mean()"
+    },
+    {
+        "question": "What is the distribution of car body styles in our database?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df['body-style'].value_counts()"
+    },
+    {
+        "question": "Can we identify the make and model of cars with the highest and lowest insurance risk ratings?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.loc[df['symboling'].idxmax(), 'make'], df.loc[df['symboling'].idxmin(), 'make']"
+    },
+    {
+        "question": "What is the average horsepower for cars in each fuel type category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('fuel-type')['horsepower'].mean()"
+    },
+    {
+        "question": "What are the top 5 makes with the most fuel-efficient cars, based on average city-mpg?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/10.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('make')['city-mpg'].mean().nlargest(5)"
+    },
+    {
+        "question": "What is the average degree of malignancy (deg-malig) for each menopause category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('menopause')['deg-malig'].mean()"
+    },
+    {
+        "question": "How many cases are there for each combination of 'breast' and 'breast-quad' location?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['breast', 'breast-quad']).size()"
+    },
+    {
+        "question": "Calculate the proportion of cases with irradiation for each tumor size category.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('tumor-size')['irradiat'].value_counts(normalize=True)"
+    },
+    {
+        "question": "What is the median age range of patients for each degree of malignancy?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('deg-malig')['age'].median()"
+    },
+    {
+        "question": "Identify the most common tumor size category in the dataset.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df['tumor-size'].mode()[0]"
+    },
+    {
+        "question": "What is the proportion of cases with and without irradiation in each 'inv-nodes' category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('inv-nodes')['irradiat'].value_counts(normalize=True)"
+    },
+    {
+        "question": "Compare the mean 'deg-malig' between patients with and without node-caps.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('node-caps')['deg-malig'].mean()"
+    },
+    {
+        "question": "Find the count of patients in each 'age' range grouped by their 'Class' status.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['age', 'Class']).size()"
+    },
+    {
+        "question": "Determine the proportion of recurrence and no-recurrence events for each 'deg-malig' level.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('deg-malig')['Class'].value_counts(normalize=True)"
+    },
+    {
+        "question": "Identify the most common 'inv-nodes' category in patients with a high degree of malignancy (deg-malig >= 3).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['deg-malig'] >= 3]['inv-nodes'].mode()[0]"
+    },
+    {
+        "question": "What is the proportion of each 'menopause' category in patients with left and right breast cancer?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('breast')['menopause'].value_counts(normalize=True)"
+    },
+    {
+        "question": "Compare the frequency of 'irradiat' status between patients aged 30-39 and those aged 50-59.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['age'].isin(['30-39', '50-59'])].groupby('age')['irradiat'].value_counts()"
+    },
+    {
+        "question": "Determine the count of 'node-caps' occurrences for each 'tumor-size' category.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('tumor-size')['node-caps'].value_counts()"
+    },
+    {
+        "question": "What is the median 'deg-malig' value for each 'inv-nodes' category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('inv-nodes')['deg-malig'].median()"
+    },
+    {
+        "question": "What is the most common tumor size observed in the data?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df['tumor-size'].mode()[0]"
+    },
+    {
+        "question": "Is there a more frequent breast quadrant where the cancer appears?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df['breast-quad'].value_counts().idxmax()"
+    },
+    {
+        "question": "How many individuals are there in each menopause stage?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df['menopause'].value_counts()"
+    },
+    {
+        "question": "Can we determine the percentage of individuals who have both breasts affected?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df[df['breast'] == 'both'].shape[0] / df.shape[0]"
+    },
+    {
+        "question": "What is the count of individuals with each unique combination of 'breast' and 'breast-quad'?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby(['breast', 'breast-quad']).size()"
+    },
+    {
+        "question": "How many individuals fall within the '40-49' age range?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df[df['age'] == '40-49'].shape[0]"
+    },
+    {
+        "question": "Which age group has the least occurrences in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df['age'].value_counts().idxmin()"
+    },
+    {
+        "question": "Can we figure out the proportion of individuals with a tumor size of '30-34'?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df[df['tumor-size'] == '30-34'].shape[0] / df.shape[0]"
+    },
+    {
+        "question": "What is the median malignancy degree observed in the data?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df['deg-malig'].median()"
+    },
+    {
+        "question": "How many individuals have 'no' in the node-caps column?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df[df['node-caps'] == 'no'].shape[0]"
+    },
+    {
+        "question": "Is there a dominant side (left or right) when it comes to the affected breast?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df['breast'].value_counts().idxmax()"
+    },
+    {
+        "question": "What is the count of individuals who underwent irradiation treatment?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df[df['irradiat'] == 'yes'].shape[0]"
+    },
+    {
+        "question": "Could you determine how many different tumor sizes are represented in the data?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df['tumor-size'].nunique()"
+    },
+    {
+        "question": "What is the distribution of individuals based on their menopause status?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "general user",
+        "answer query": "result = df['menopause'].value_counts(normalize=True)"
+    },
+    {
+        "question": "What is the average degree of malignancy (deg-malig) across all cases in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df['deg-malig'].mean()"
+    },
+    {
+        "question": "How many cases are there in each breast quadrant?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df['breast-quad'].value_counts()"
+    },
+    {
+        "question": "What is the proportion of recurrence events in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df['Class'].value_counts(normalize=True)['recurrence-events']"
+    },
+    {
+        "question": "What is the count of cases for each menopause category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df['menopause'].value_counts()"
+    },
+    {
+        "question": "Which tumor size range is most common among all cases?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df['tumor-size'].mode()[0]"
+    },
+    {
+        "question": "How many cases have irradiation treatment?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['irradiat'] == 'yes'].shape[0]"
+    },
+    {
+        "question": "What is the relationship between menopause status and recurrence events?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = pd.crosstab(df['menopause'], df['Class'])"
+    },
+    {
+        "question": "Which age group has the highest degree of malignancy on average?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('age')['deg-malig'].mean().idxmax()"
+    },
+    {
+        "question": "How does the left versus right breast cancer occurrence compare?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df['breast'].value_counts()"
+    },
+    {
+        "question": "How many cases have node-caps present?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['node-caps'] == 'yes'].shape[0]"
+    },
+    {
+        "question": "Can you show the average degree of malignancy for each breast quadrant?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('breast-quad')['deg-malig'].mean()"
+    },
+    {
+        "question": "What is the frequency of tumor sizes in the age group 50-59?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['age'] == '50-59']['tumor-size'].value_counts()"
+    },
+    {
+        "question": "How does the degree of malignancy vary with menopause status?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('menopause')['deg-malig'].mean()"
+    },
+    {
+        "question": "What percentage of cases in each age group have recurrence events?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('age')['Class'].apply(lambda x: (x == 'recurrence-events').mean())"
+    },
+    {
+        "question": "How many cases are there with the highest degree of malignancy (deg-malig of 3)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['deg-malig'] == 3].shape[0]"
+    },
+    {
+        "question": "What is the distribution of breast cancer cases by age and breast quadrant?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = pd.crosstab(df['age'], df['breast-quad'])"
+    },
+    {
+        "question": "What are the top three age groups with the highest number of recurrence events?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/14.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['Class'] == 'recurrence-events']['age'].value_counts().head(3)"
+    },
+    {
+        "question": "What is the distribution of car acceptability classes (unacc, acc, etc.) for each combination of safety rating and luggage boot size?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['safety', 'lug_boot'])['class'].value_counts().unstack()"
+    },
+    {
+        "question": "Can you calculate the average number of doors for cars in each class, assuming '5more' is treated as 5?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.replace({'doors': {'5more': 5}}).groupby('class')['doors'].apply(lambda x: pd.to_numeric(x).mean())"
+    },
+    {
+        "question": "What is the proportion of cars that have more than 2 doors and are considered safe ('safety' rating high), across each maintenance cost category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df[(df['doors'] != '2') & (df['safety'] == 'high')].groupby('maint').size() / df.groupby('maint').size()"
+    },
+    {
+        "question": "How does the average number of doors vary between cars with high and low safety ratings?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.replace({'doors': {'5more': 5}}).groupby('safety')['doors'].apply(lambda x: pd.to_numeric(x).mean())"
+    },
+    {
+        "question": "Can you identify the buying price category (low, med, high, vhigh) with the highest frequency of cars deemed unacceptable (class 'unacc')?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['class'] == 'unacc']['buying'].value_counts().idxmax()"
+    },
+    {
+        "question": "What is the correlation matrix between the categorical variables represented as numerical (buying price, maintenance cost, number of doors, number of persons, luggage boot size, safety rating)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.apply(lambda x: pd.factorize(x)[0]).corr()"
+    },
+    {
+        "question": "For cars with a 'high' safety rating, what is the distribution of car acceptability classes in relation to the number of doors?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['safety'] == 'high'].groupby(['doors'])['class'].value_counts().unstack()"
+    },
+    {
+        "question": "Can you create a pivot table that shows the median number of doors for each combination of luggage boot size and car acceptability class, treating '5more' as 5?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.replace({'doors': {'5more': 5}}).pivot_table(index='lug_boot', columns='class', values='doors', aggfunc='median')"
+    },
+    {
+        "question": "How many cars have a maintenance cost lower than their buying price?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.apply(lambda x: pd.factorize(x)[0]).query('maint < buying').shape[0]"
+    },
+    {
+        "question": "What is the most common number of doors among cars with a large luggage boot and a high safety rating?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df[(df['lug_boot'] == 'big') & (df['safety'] == 'high')]['doors'].mode()[0]"
+    },
+    {
+        "question": "What is the frequency of each buying price category within each car acceptability class?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['buying'].value_counts().unstack()"
+    },
+    {
+        "question": "How many cars have the highest safety rating ('high') but the lowest luggage boot size ('small')?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df[(df['safety'] == 'high') & (df['lug_boot'] == 'small')].shape[0]"
+    },
+    {
+        "question": "Can you identify the most common maintenance cost category for each combination of number of doors and number of persons?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['doors', 'persons'])['maint'].agg(lambda x: x.mode()[0])"
+    },
+    {
+        "question": "What proportion of cars have the same rating for buying price and maintenance cost?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = (df['buying'] == df['maint']).mean()"
+    },
+    {
+        "question": "For each luggage boot size, what is the average number of persons carried in cars, assuming 'more' is treated as 5?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.replace({'persons': {'more': 5}}).groupby('lug_boot')['persons'].apply(lambda x: pd.to_numeric(x).mean())"
+    },
+    {
+        "question": "Can you display a breakdown of car acceptability classes for each combination of safety rating and number of doors?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['safety', 'doors'])['class'].value_counts().unstack()"
+    },
+    {
+        "question": "How does the distribution of buying prices vary between cars classified as acceptable ('acc') and unacceptable ('unacc')?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['buying'].value_counts().unstack().loc[['acc', 'unacc']]"
+    },
+    {
+        "question": "Can you find the buying price category with the least number of cars with a 'low' safety rating?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['safety'] == 'low']['buying'].value_counts().idxmin()"
+    },
+    {
+        "question": "What is the ratio of cars with more capacity in terms of persons to carry ('more') to those with less capacity ('2') across each buying price category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['persons'] == 'more'].groupby('buying').size() / df[df['persons'] == '2'].groupby('buying').size()"
+    },
+    {
+        "question": "I need a car with a small luggage boot, irrespective of other features. What are my options?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "general user",
+        "answer query": "result = df[df['lug_boot'] == 'small']"
+    },
+    {
+        "question": "I'm curious to know, which cars have the lowest safety rating and also have the smallest luggage boot?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "general user",
+        "answer query": "result = df[(df['safety'] == 'low') & (df['lug_boot'] == 'small')]"
+    },
+    {
+        "question": "Can you identify cars that are inexpensive to buy but have high maintenance costs?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "general user",
+        "answer query": "result = df[(df['buying'] == 'low') & (df['maint'] == 'high')]"
+    },
+    {
+        "question": "Which cars are most budget-friendly in terms of both buying and maintenance price?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "general user",
+        "answer query": "result = df[(df['buying'] == 'low') & (df['maint'] == 'low')]"
+    },
+    {
+        "question": "I'm interested in finding out which cars have 4 doors but are not designed to carry more than 2 people. Can you list them?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "general user",
+        "answer query": "result = df[(df['doors'] == '4') & (df['persons'] == '2')]"
+    },
+    {
+        "question": "What are the top three most common combinations of buying price and maintenance price in our car catalog?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby(['buying', 'maint']).size().nlargest(3)"
+    },
+    {
+        "question": "How many cars in our catalog are classified as acceptable ('acc') or highly acceptable ('vgood') with a high safety rating?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[(df['class'].isin(['acc', 'vgood'])) & (df['safety'] == 'high')].shape[0]"
+    },
+    {
+        "question": "What percentage of our cars have a capacity of more than 4 persons and are categorized as 'unacc' (unacceptable)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = (df[(df['persons'] == 'more') & (df['class'] == 'unacc')].shape[0] / df.shape[0]) * 100"
+    },
+    {
+        "question": "Can we identify a trend in acceptability based on the luggage boot size? Show the number of cars in each class category for each luggage boot size.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby(['lug_boot', 'class']).size().unstack().fillna(0)"
+    },
+    {
+        "question": "What is the distribution of safety ratings among cars with a low buying price?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['buying'] == 'low']['safety'].value_counts()"
+    },
+    {
+        "question": "How many cars have a combination of low maintenance cost and high safety rating?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[(df['maint'] == 'low') & (df['safety'] == 'high')].shape[0]"
+    },
+    {
+        "question": "For each type of buying price, what is the average number of doors across all cars?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df.replace({'doors': {'5more': 5}}).groupby('buying')['doors'].mean()"
+    },
+    {
+        "question": "Which maintenance cost category has the highest number of cars with a 'big' luggage boot size?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['lug_boot'] == 'big']['maint'].value_counts().idxmax()"
+    },
+    {
+        "question": "What is the breakdown of car acceptability classes for cars with 'high' buying prices?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['buying'] == 'high']['class'].value_counts()"
+    },
+    {
+        "question": "How does the frequency of different safety ratings vary across cars with different maintenance costs?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('maint')['safety'].value_counts().unstack()"
+    },
+    {
+        "question": "Which lug_boot size is most prevalent among cars with 'vhigh' maintenance cost?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['maint'] == 'vhigh']['lug_boot'].value_counts().idxmax()"
+    },
+    {
+        "question": "What is the distribution of number of doors in cars classified as highly acceptable ('vgood')?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['class'] == 'vgood']['doors'].value_counts()"
+    },
+    {
+        "question": "What is the ratio of cars with 'high' buying prices to those with 'low' buying prices?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['buying'] == 'high'].shape[0] / df[df['buying'] == 'low'].shape[0]"
+    },
+    {
+        "question": "How many cars have a 'big' lug_boot size and are rated as 'med' in safety?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/19.csv",
+        "role": "data owner",
+        "answer query": "result = df[(df['lug_boot'] == 'big') & (df['safety'] == 'med')].shape[0]"
+    },
+    {
+        "question": "What are the average 'PRP' values for each unique 'VendorName', and how do they compare against the overall average 'PRP'?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('VendorName')['PRP'].mean().reset_index().assign(Overall_Avg_PRP=df['PRP'].mean())"
+    },
+    {
+        "question": "Identify and list the outliers in the 'CACH' column using the IQR method.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "Q1 = df['CACH'].quantile(0.25)\nQ3 = df['CACH'].quantile(0.75)\nIQR = Q3 - Q1\nresult = df[(df['CACH'] < (Q1 - 1.5 * IQR)) | (df['CACH'] > (Q3 + 1.5 * IQR))]"
+    },
+    {
+        "question": "Create a new column 'Performance_Class' that categorizes computers into 'High', 'Medium', and 'Low' performance based on 'ERP' percentiles (High: >75th percentile, Medium: 25th-75th percentile, Low: <25th percentile).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "percentiles = df['ERP'].quantile([0.25, 0.75])\nresult = df.assign(Performance_Class=pd.cut(df['ERP'], bins=[0, percentiles[0.25], percentiles[0.75], df['ERP'].max()], labels=['Low', 'Medium', 'High']))"
+    },
+    {
+        "question": "For each 'VendorName', find the model with the highest 'ERP' and list these models along with their 'ERP' values.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.sort_values('ERP', ascending=False).drop_duplicates('VendorName')[['VendorName', 'ModelName', 'ERP']]"
+    },
+    {
+        "question": "Calculate the mean and standard deviation of 'MYCT' for each combination of 'CHMIN' and 'CHMAX'.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['CHMIN', 'CHMAX'])['MYCT'].agg(['mean', 'std'])"
+    },
+    {
+        "question": "Create a pivot table showing the average 'PRP' for each 'VendorName' across different ranges of 'MMIN' (0-2000, 2001-4000, 4001+).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.assign(MMIN_Range=pd.cut(df['MMIN'], bins=[0, 2000, 4000, df['MMIN'].max()])).pivot_table(index='VendorName', columns='MMIN_Range', values='PRP', aggfunc='mean')"
+    },
+    {
+        "question": "Identify the 'ModelName' with the highest 'ERP' for each 'VendorName' and calculate the percentage difference of its 'ERP' from the average 'ERP' for that vendor.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "avg_erp_per_vendor = df.groupby('VendorName')['ERP'].mean()\nmax_erp_per_model = df.loc[df.groupby('VendorName')['ERP'].idxmax()][['VendorName', 'ModelName', 'ERP']]\nresult = max_erp_per_model.set_index('VendorName').join(avg_erp_per_vendor, rsuffix='_avg').assign(Percent_Diff=lambda x: ((x['ERP'] - x['ERP_avg']) / x['ERP_avg']) * 100)"
+    },
+    {
+        "question": "How many unique vendor and model combinations are there in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['VendorName', 'ModelName']).ngroups"
+    },
+    {
+        "question": "What is the distribution of 'MMAX' values across different 'VendorName' groups?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('VendorName')['MMAX'].describe()"
+    },
+    {
+        "question": "Which 'ModelName' has the highest 'ERP' value, and what is the corresponding 'VendorName'?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.loc[df['ERP'].idxmax(), ['VendorName', 'ModelName']]"
+    },
+    {
+        "question": "Which 'VendorName' has the most consistent performance in terms of 'PRP', as indicated by the smallest standard deviation?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('VendorName')['PRP'].std().idxmin()"
+    },
+    {
+        "question": "Calculate the Pearson correlation coefficient between 'CHMIN' and 'CHMAX'.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df['CHMIN'].corr(df['CHMAX'])"
+    },
+    {
+        "question": "Generate a histogram of 'ERP' values, segmented into 10 equal bins.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df['ERP'].hist(bins=10)"
+    },
+    {
+        "question": "Find the average 'MYCT' for computers with 'MMAX' greater than 10000.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['MMAX'] > 10000]['MYCT'].mean()"
+    },
+    {
+        "question": "Create a new column 'Memory_Ratio' as the ratio of 'MMAX' to 'MMIN', and find the model with the highest ratio.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "result = df.assign(Memory_Ratio=df['MMAX'] / df['MMIN']).nlargest(1, 'Memory_Ratio', keep='all')[['VendorName', 'ModelName', 'Memory_Ratio']]"
+    },
+    {
+        "question": "What percentage of computers have a 'CACH' value above the median of the 'CACH' column?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data scientist",
+        "answer query": "median_cach = df['CACH'].median()\nresult = (df[df['CACH'] > median_cach].shape[0] / df.shape[0]) * 100"
+    },
+    {
+        "question": "Which computer models have the highest estimated relative performance?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df.sort_values(by='ERP', ascending=False).head()"
+    },
+    {
+        "question": "Can you show me a list of different vendors along with the number of models they have?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df['VendorName'].value_counts()"
+    },
+    {
+        "question": "I'm interested in models with a minimum memory of at least 4000. Which ones are available?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[df['MMIN'] >= 4000]"
+    },
+    {
+        "question": "What are the average maximum and minimum memory across all computer models?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[['MMIN', 'MMAX']].mean()"
+    },
+    {
+        "question": "Which models have a maximum channel configuration greater than 50?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[df['CHMAX'] > 50]"
+    },
+    {
+        "question": "Can you find the models that have the least and the most cache memory?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[df['CACH'] == df['CACH'].min()], df[df['CACH'] == df['CACH'].max()]"
+    },
+    {
+        "question": "I'd like to know how many models have a machine cycle time (MYCT) less than 100.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[df['MYCT'] < 100].shape[0]"
+    },
+    {
+        "question": "Is there a correlation between machine cycle time (MYCT) and estimated relative performance (ERP)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[['MYCT', 'ERP']].corr()"
+    },
+    {
+        "question": "What are the top 5 models with the highest cache memory?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df.sort_values(by='CACH', ascending=False).head(5)"
+    },
+    {
+        "question": "Can you group the models by vendor and show the average estimated relative performance for each vendor?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('VendorName')['ERP'].mean()"
+    },
+    {
+        "question": "Which computer models are the most efficient in terms of performance to machine cycle time ratio?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df.assign(EfficiencyRatio=df['PRP'] / df['MYCT']).sort_values(by='EfficiencyRatio', ascending=False).head()"
+    },
+    {
+        "question": "Can we see a breakdown of the number of computer models by their minimum memory (MMIN) ranges?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = pd.cut(df['MMIN'], bins=[0, 1000, 4000, 8000, 16000, 32000]).value_counts()"
+    },
+    {
+        "question": "I'm curious, are there any models that have exactly the same minimum and maximum memory?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[df['MMIN'] == df['MMAX']]"
+    },
+    {
+        "question": "What's the median value of cache memory across all models?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df['CACH'].median()"
+    },
+    {
+        "question": "Which vendor offers the widest range of channel configurations (difference between CHMIN and CHMAX)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df.assign(ChannelRange=df['CHMAX'] - df['CHMIN']).groupby('VendorName')['ChannelRange'].max().idxmax()"
+    },
+    {
+        "question": "How many models have a higher estimated relative performance (ERP) than the average ERP?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[df['ERP'] > df['ERP'].mean()].shape[0]"
+    },
+    {
+        "question": "What is the average machine cycle time (MYCT) among the top 10 highest performing models?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df.nlargest(10, 'PRP')['MYCT'].mean()"
+    },
+    {
+        "question": "Can you list the models which have a cache memory of 0?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df[df['CACH'] == 0]"
+    },
+    {
+        "question": "What is the total number of models provided by each vendor?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('VendorName').size()"
+    },
+    {
+        "question": "What are the top 5 performing models in terms of Estimated Relative Performance (ERP)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df.sort_values(by='ERP', ascending=False).head(5)"
+    },
+    {
+        "question": "Which vendor has the most models in our database?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df['VendorName'].value_counts().idxmax()"
+    },
+    {
+        "question": "What is the average Machine Cycle Time (MYCT) across all models?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df['MYCT'].mean()"
+    },
+    {
+        "question": "How many models have a Maximum Main Memory (MMAX) greater than 16000?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['MMAX'] > 16000].shape[0]"
+    },
+    {
+        "question": "Can we get a breakdown of the number of models per vendor?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df['VendorName'].value_counts()"
+    },
+    {
+        "question": "What is the correlation between Cache Memory (CACH) and Estimated Relative Performance (ERP)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df[['CACH', 'ERP']].corr()"
+    },
+    {
+        "question": "Which model has the lowest Machine Cycle Time (MYCT) and how low is it?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df.loc[df['MYCT'].idxmin(), ['ModelName', 'MYCT']]"
+    },
+    {
+        "question": "Can we see the average Estimated Relative Performance (ERP) for each vendor?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('VendorName')['ERP'].mean()"
+    },
+    {
+        "question": "What is the maximum Channel Maximum (CHMAX) value across all models?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df['CHMAX'].max()"
+    },
+    {
+        "question": "Which models have a Cache Memory (CACH) greater than 50 and an ERP above 100?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df[(df['CACH'] > 50) & (df['ERP'] > 100)]"
+    },
+    {
+        "question": "What is the distribution of models based on their Minimum Main Memory (MMIN)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df['MMIN'].value_counts()"
+    },
+    {
+        "question": "Can we identify the most common range of Maximum Main Memory (MMAX) across our models?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = pd.cut(df['MMAX'], bins=[0, 4000, 8000, 16000, 32000, 64000]).value_counts()"
+    },
+    {
+        "question": "How does the Average Channel Maximum (CHMAX) compare across different vendors?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('VendorName')['CHMAX'].mean()"
+    },
+    {
+        "question": "What are the minimum, maximum, and average values for Estimated Relative Performance (ERP)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df['ERP'].agg(['min', 'max', 'mean'])"
+    },
+    {
+        "question": "Which models have a Cache Memory (CACH) of zero?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['CACH'] == 0]"
+    },
+    {
+        "question": "Can we group the models based on their Machine Cycle Time (MYCT) into 'Low', 'Medium', and 'High' categories?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = pd.qcut(df['MYCT'], q=3, labels=['Low', 'Medium', 'High']).value_counts()"
+    },
+    {
+        "question": "What is the total number of models provided by each vendor?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('VendorName').size()"
+    },
+    {
+        "question": "Which model has the highest Channel Minimum (CHMIN) and what is its value?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df.loc[df['CHMIN'].idxmax(), ['ModelName', 'CHMIN']]"
+    },
+    {
+        "question": "Can we find the average Machine Cycle Time (MYCT) for models with more than 100 Estimated Relative Performance (ERP)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['ERP'] > 100]['MYCT'].mean()"
+    },
+    {
+        "question": "How many unique vendors are represented in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/29.csv",
+        "role": "data owner",
+        "answer query": "result = df['VendorName'].nunique()"
+    },
+    {
+        "question": "What is the correlation matrix of the continuous variables (Elevation, Aspect, Slope, etc.) in the dataframe?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "result = df[['Elevation', 'Aspect', 'Slope', 'Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology', 'Horizontal_Distance_To_Roadways', 'Hillshade_9am', 'Hillshade_Noon', 'Hillshade_3pm', 'Horizontal_Distance_To_Fire_Points']].corr()"
+    },
+    {
+        "question": "How many unique combinations of soil types and wilderness areas exist in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "result = df[['Wilderness_Area'] + [f'Soil_Type{i}' for i in range(1, 41)]].drop_duplicates().shape[0]"
+    },
+    {
+        "question": "What is the average elevation for each type of cover type, and how does it compare to the overall average elevation?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "overall_avg = df['Elevation'].mean()\nresult = df.groupby('Cover_Type')['Elevation'].mean() - overall_avg"
+    },
+    {
+        "question": "Create a new column 'Hydrology_Distance' as the Euclidean distance from water sources and calculate the mean for each wilderness area.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "df['Hydrology_Distance'] = (df['Horizontal_Distance_To_Hydrology']**2 + df['Vertical_Distance_To_Hydrology']**2)**0.5\nresult = df.groupby('Wilderness_Area')['Hydrology_Distance'].mean()"
+    },
+    {
+        "question": "Which top 5 soil types are most prevalent in areas with the highest elevations (top 10%)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "top_elevation = df['Elevation'].quantile(0.9)\ntop_elevation_df = df[df['Elevation'] >= top_elevation]\nresult = top_elevation_df[[f'Soil_Type{i}' for i in range(1, 41)]].sum().nlargest(5)"
+    },
+    {
+        "question": "Identify the cover type that has the highest average Hillshade_3pm value. What is the average aspect for this cover type?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "highest_hillshade_cover = df.groupby('Cover_Type')['Hillshade_3pm'].mean().idxmax()\nresult = df[df['Cover_Type'] == highest_hillshade_cover]['Aspect'].mean()"
+    },
+    {
+        "question": "Construct a pivot table showing the mean elevation for each combination of cover type and wilderness area.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "result = df.pivot_table(values='Elevation', index='Cover_Type', columns='Wilderness_Area', aggfunc='mean')"
+    },
+    {
+        "question": "What are the top 3 cover types with the highest average horizontal distance to hydrology?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('Cover_Type')['Horizontal_Distance_To_Hydrology'].mean().nlargest(3)"
+    },
+    {
+        "question": "For each cover type, calculate the variance in slope and sort the results in descending order.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('Cover_Type')['Slope'].var().sort_values(ascending=False)"
+    },
+    {
+        "question": "Which combination of soil types (considering any two at a time) appears most frequently together in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "soil_combinations = df[[f'Soil_Type{i}' for i in range(1, 41)]].dot(df.columns[11:51] + ',').str[:-1]\nresult = soil_combinations.value_counts().idxmax()"
+    },
+    {
+        "question": "Create a new column 'Total_Hillshade' as the sum of 'Hillshade_9am', 'Hillshade_Noon', and 'Hillshade_3pm', and find the wilderness area with the lowest mean total hillshade.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "df['Total_Hillshade'] = df['Hillshade_9am'] + df['Hillshade_Noon'] + df['Hillshade_3pm']\nresult = df.groupby('Wilderness_Area')['Total_Hillshade'].mean().idxmin()"
+    },
+    {
+        "question": "Is there a significant correlation between 'Aspect' and 'Hillshade_Noon'? Compute the Pearson correlation coefficient.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "result = df[['Aspect', 'Hillshade_Noon']].corr(method='pearson').iloc[0, 1]"
+    },
+    {
+        "question": "Determine the average vertical distance to hydrology for each cover type, and rank these averages from lowest to highest.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('Cover_Type')['Vertical_Distance_To_Hydrology'].mean().sort_values()"
+    },
+    {
+        "question": "How many observations have a 'Slope' greater than the 75th percentile of the 'Slope' column?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "slope_75th_percentile = df['Slope'].quantile(0.75)\nresult = df[df['Slope'] > slope_75th_percentile].shape[0]"
+    },
+    {
+        "question": "Identify the soil type (among Soil_Type1 to Soil_Type40) that has the least occurrence in areas with elevation higher than the median elevation.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "median_elevation = df['Elevation'].median()\nresult = df[df['Elevation'] > median_elevation][[f'Soil_Type{i}' for i in range(1, 41)]].sum().idxmin()"
+    },
+    {
+        "question": "Create a scatter plot data for 'Elevation' versus 'Horizontal_Distance_To_Roadways', color-coded by 'Cover_Type'. What are the mean values of 'Elevation' and 'Horizontal_Distance_To_Roadways' for each cover type?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data scientist",
+        "answer query": "scatter_plot_data = df.plot.scatter(x='Elevation', y='Horizontal_Distance_To_Roadways', c='Cover_Type')\nresult = df.groupby('Cover_Type')[['Elevation', 'Horizontal_Distance_To_Roadways']].mean()"
+    },
+    {
+        "question": "What are the average elevations for each type of forest cover?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Cover_Type')['Elevation'].mean()"
+    },
+    {
+        "question": "How many unique elevation levels are there in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df['Elevation'].nunique()"
+    },
+    {
+        "question": "Can we find out which wilderness areas have the most variation in slope?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Wilderness_Area')['Slope'].std().sort_values(ascending=False)"
+    },
+    {
+        "question": "What is the maximum horizontal distance to hydrology across all observations?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df['Horizontal_Distance_To_Hydrology'].max()"
+    },
+    {
+        "question": "How does the average hillshade at noon compare across different forest cover types?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Cover_Type')['Hillshade_Noon'].mean()"
+    },
+    {
+        "question": "Can we identify the top three soil types that are most frequent in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df[['Soil_Type'+str(i) for i in range(1, 41)]].sum().nlargest(3)"
+    },
+    {
+        "question": "What is the average distance to the nearest roadway for each type of forest cover?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Cover_Type')['Horizontal_Distance_To_Roadways'].mean()"
+    },
+    {
+        "question": "What proportion of the dataset represents areas with a slope greater than 30 degrees?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = (df['Slope'] > 30).mean()"
+    },
+    {
+        "question": "Can we determine the least common forest cover type in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df['Cover_Type'].value_counts().idxmin()"
+    },
+    {
+        "question": "Which wilderness area contains the highest average elevation?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Wilderness_Area')['Elevation'].mean().idxmax()"
+    },
+    {
+        "question": "What is the average slope for areas where the primary tree species is lodgepole pine (type 2)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df[df['Cover_Type'] == 2]['Slope'].mean()"
+    },
+    {
+        "question": "Can we identify the range of elevations present in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df['Elevation'].min(), df['Elevation'].max()"
+    },
+    {
+        "question": "What are the least common soil types found in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df[['Soil_Type'+str(i) for i in range(1, 41)]].sum().nsmallest(3)"
+    },
+    {
+        "question": "Which forest cover type has the lowest average hillshade at 9am?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Cover_Type')['Hillshade_9am'].mean().idxmin()"
+    },
+    {
+        "question": "Can we find the average vertical distance to hydrology for each wilderness area?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Wilderness_Area')['Vertical_Distance_To_Hydrology'].mean()"
+    },
+    {
+        "question": "What is the most common aspect (orientation) in areas with Ponderosa pine (type 3)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df[df['Cover_Type'] == 3]['Aspect'].mode()"
+    },
+    {
+        "question": "How does the average elevation compare between areas with primarily spruce/fir (type 1) and those with Douglas-fir (type 6)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('Cover_Type')['Elevation'].mean().loc[[1, 6]]"
+    },
+    {
+        "question": "What is the total number of observations with a slope greater than 45 degrees?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "general user",
+        "answer query": "result = (df['Slope'] > 45).sum()"
+    },
+    {
+        "question": "Which wilderness area has the lowest average hillshade at noon, and how can this information guide our visitor activities planning?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Wilderness_Area')['Hillshade_Noon'].mean().idxmin()"
+    },
+    {
+        "question": "Can we determine the correlation between slope and elevation, and how might this affect safety measures for our hiking trails?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df[['Slope', 'Elevation']].corr()"
+    },
+    {
+        "question": "What is the average distance to roadways in areas with Ponderosa Pine (Cover Type 3), and how can we use this data for improving access?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['Cover_Type'] == 3]['Horizontal_Distance_To_Roadways'].mean()"
+    },
+    {
+        "question": "How does the distribution of aspect values vary among the different cover types, and what insights does this offer for sunlight exposure in forested areas?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Cover_Type')['Aspect'].describe()"
+    },
+    {
+        "question": "Can we compare the average slope in each wilderness area to assess the feasibility of new construction projects?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Wilderness_Area')['Slope'].mean()"
+    },
+    {
+        "question": "What are the top three cover types in terms of average elevation, and how does this align with our strategic planning for forest preservation?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Cover_Type')['Elevation'].mean().nlargest(3)"
+    },
+    {
+        "question": "What is the distribution of tree cover types in the wilderness area with the lowest average elevation?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['Wilderness_Area'] == df.groupby('Wilderness_Area')['Elevation'].mean().idxmin()]['Cover_Type'].value_counts()"
+    },
+    {
+        "question": "Can we determine the average distance to fire points for each cover type, to prioritize areas for fire prevention measures?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Cover_Type')['Horizontal_Distance_To_Fire_Points'].mean()"
+    },
+    {
+        "question": "What are the common statistical measures (mean, median, standard deviation) of aspect for each wilderness area?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Wilderness_Area')['Aspect'].agg(['mean', 'median', 'std'])"
+    },
+    {
+        "question": "How does the average vertical distance to hydrology differ among various cover types, and what does this tell us about water accessibility in these areas?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('Cover_Type')['Vertical_Distance_To_Hydrology'].mean()"
+    },
+    {
+        "question": "What is the total area (sum of the 30x30 meter cells) for each cover type, and how can this inform our land use planning?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df['Cover_Type'].value_counts() * 900"
+    },
+    {
+        "question": "Can we analyze the relationship between elevation and distance to roadways to improve accessibility for emergency services?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/31.csv",
+        "role": "data owner",
+        "answer query": "result = df[['Elevation', 'Horizontal_Distance_To_Roadways']].corr()"
+    },
+    {
+        "question": "What is the average age of patients for each heart disease severity category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('num')['age'].mean()"
+    },
+    {
+        "question": "How does the average cholesterol level vary between different types of chest pain (cp) across genders?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['sex', 'cp'])['chol'].mean()"
+    },
+    {
+        "question": "What is the count and percentage of male and female patients in each heart disease severity category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('num')['sex'].value_counts(normalize=True).unstack().fillna(0) * 100"
+    },
+    {
+        "question": "Determine the median of maximum heart rate achieved (thalach) for each age group (10-year intervals).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(pd.cut(df['age'], bins=range(20, 81, 10)))['thalach'].median()"
+    },
+    {
+        "question": "For each severity of heart disease (num), what is the proportion of patients with reversible defect (thal=7.0)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('num')['thal'].apply(lambda x: (x == 7.0).sum() / len(x))"
+    },
+    {
+        "question": "What is the standard deviation of resting blood pressure (trestbps) for each chest pain type (cp)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('cp')['trestbps'].std()"
+    },
+    {
+        "question": "Find the age group (10-year intervals) with the highest average number of major vessels colored by fluoroscopy (ca) in patients with heart disease (num > 0).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['num'] > 0].groupby(pd.cut(df['age'], bins=range(20, 81, 10)))['ca'].mean().idxmax()"
+    },
+    {
+        "question": "Compare the mean cholesterol levels between patients with and without exercise-induced angina (exang) for each sex.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['sex', 'exang'])['chol'].mean()"
+    },
+    {
+        "question": "What is the distribution of maximum heart rate achieved (thalach) across different heart disease severity levels?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('num')['thalach'].describe()"
+    },
+    {
+        "question": "Calculate the average oldpeak (ST depression induced by exercise relative to rest) for each combination of chest pain type (cp) and slope of the peak exercise ST segment (slope).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['cp', 'slope'])['oldpeak'].mean()"
+    },
+    {
+        "question": "Identify the top three ages with the highest prevalence of heart disease (num > 0).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['num'] > 0]['age'].value_counts().head(3)"
+    },
+    {
+        "question": "How does the presence of heart disease vary with the number of major vessels colored by fluoroscopy (ca)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('ca')['num'].value_counts(normalize=True).unstack().fillna(0)"
+    },
+    {
+        "question": "What is the proportion of patients with reversible defect thalassemia (thal=7.0) among different resting electrocardiographic results (restecg)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('restecg')['thal'].apply(lambda x: (x == 7.0).mean())"
+    },
+    {
+        "question": "Determine the relationship between age and cholesterol level, segmented by the presence of heart disease (num).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('num').apply(lambda x: x[['age', 'chol']].corr().iloc[0, 1])"
+    },
+    {
+        "question": "Find the average number of major vessels colored by fluoroscopy (ca) for patients without heart disease (num = 0) and compare it with patients with heart disease (num > 0).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(df['num'] > 0)['ca'].mean()"
+    },
+    {
+        "question": "What is the variance in resting blood pressure (trestbps) among different heart disease severity levels?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('num')['trestbps'].var()"
+    },
+    {
+        "question": "Compare the mean oldpeak values between genders for each heart disease severity level.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(['num', 'sex'])['oldpeak'].mean()"
+    },
+    {
+        "question": "Identify the chest pain type (cp) that has the highest median cholesterol level among patients aged 50 and above.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['age'] >= 50].groupby('cp')['chol'].median().idxmax()"
+    },
+    {
+        "question": "What is the average age of individuals in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df['age'].mean()"
+    },
+    {
+        "question": "How many individuals in the dataset are above the age of 50?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['age'] > 50].shape[0]"
+    },
+    {
+        "question": "What proportion of the dataset represents females?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sex'] == 0].shape[0] / df.shape[0]"
+    },
+    {
+        "question": "Find the average cholesterol level for individuals without heart disease.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['num'] == 0]['chol'].mean()"
+    },
+    {
+        "question": "How many individuals have a resting blood pressure greater than 140?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['trestbps'] > 140].shape[0]"
+    },
+    {
+        "question": "What is the maximum heart rate achieved among individuals aged 60 and above?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['age'] >= 60]['thalach'].max()"
+    },
+    {
+        "question": "What is the average oldpeak (ST depression induced by exercise) value for individuals with different types of chest pain?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('cp')['oldpeak'].mean()"
+    },
+    {
+        "question": "How many individuals have exercise-induced angina (exang)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['exang'] == 1].shape[0]"
+    },
+    {
+        "question": "How many individuals are there in each category of heart disease severity?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df['num'].value_counts()"
+    },
+    {
+        "question": "What is the minimum cholesterol level recorded in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df['chol'].min()"
+    },
+    {
+        "question": "Calculate the average age of males in the dataset.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sex'] == 1]['age'].mean()"
+    },
+    {
+        "question": "How many individuals have a normal resting electrocardiographic (restecg) result?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['restecg'] == 0].shape[0]"
+    },
+    {
+        "question": "Find the top 5 ages with the highest frequency in the dataset.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df['age'].value_counts().head(5)"
+    },
+    {
+        "question": "What is the percentage of individuals with a maximum heart rate (thalach) above 150?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['thalach'] > 150].shape[0] / df.shape[0] * 100"
+    },
+    {
+        "question": "Determine the average value of 'oldpeak' for each heart disease severity level.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('num')['oldpeak'].mean()"
+    },
+    {
+        "question": "How many individuals do not have exercise-induced angina (exang)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df[df['exang'] == 0].shape[0]"
+    },
+    {
+        "question": "Find the range (max - min) of resting blood pressure (trestbps) in the dataset.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df['trestbps'].max() - df['trestbps'].min()"
+    },
+    {
+        "question": "What is the count of missing values in the 'thal' column?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "general user",
+        "answer query": "result = df['thal'].isna().sum()"
+    },
+    {
+        "question": "What is the average age of patients in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df['age'].mean()"
+    },
+    {
+        "question": "How many patients in the dataset have a history of heart disease (num > 0)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['num'] > 0].shape[0]"
+    },
+    {
+        "question": "What is the gender distribution among patients with a high cholesterol level (chol > 240)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['chol'] > 240]['sex'].value_counts()"
+    },
+    {
+        "question": "Which age group (decades: 20s, 30s, etc.) has the highest incidence of heart disease?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['num'] > 0]['age'].apply(lambda x: x // 10 * 10).value_counts().idxmax()"
+    },
+    {
+        "question": "What is the average maximum heart rate (thalach) for patients without heart disease compared to those with it?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby(df['num'] > 0)['thalach'].mean()"
+    },
+    {
+        "question": "Are there any correlations between resting blood pressure (trestbps) and cholesterol levels (chol) among patients?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df[['trestbps', 'chol']].corr()"
+    },
+    {
+        "question": "What proportion of patients have a fasting blood sugar above 120 mg/dl (fbs = 1)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df['fbs'].mean()"
+    },
+    {
+        "question": "How many patients have chest pain type '4' and a heart disease diagnosis?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df[(df['cp'] == 4) & (df['num'] > 0)].shape[0]"
+    },
+    {
+        "question": "What is the median value of the 'oldpeak' attribute for patients over 60 years of age?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['age'] > 60]['oldpeak'].median()"
+    },
+    {
+        "question": "How does the average cholesterol level differ between males and females in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('sex')['chol'].mean()"
+    },
+    {
+        "question": "How many patients are there in each category of the 'num' column, which indicates the presence of heart disease?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df['num'].value_counts()"
+    },
+    {
+        "question": "What is the highest cholesterol level recorded in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df['chol'].max()"
+    },
+    {
+        "question": "Can we get a breakdown of the average age for each chest pain type (cp)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('cp')['age'].mean()"
+    },
+    {
+        "question": "What percentage of patients have a resting electrocardiographic result (restecg) of 0?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = (df['restecg'] == 0).mean() * 100"
+    },
+    {
+        "question": "Is there a significant difference in maximum heart rate (thalach) between males and females?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('sex')['thalach'].mean()"
+    },
+    {
+        "question": "What are the top three most common values for the 'ca' column, representing the number of major vessels colored by fluoroscopy?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df['ca'].value_counts().head(3)"
+    },
+    {
+        "question": "Can we identify the average resting blood pressure (trestbps) for patients with different types of chest pain (cp)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('cp')['trestbps'].mean()"
+    },
+    {
+        "question": "What proportion of patients experience exercise induced angina (exang)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df['exang'].mean()"
+    },
+    {
+        "question": "How does the slope of the peak exercise ST segment (slope) vary among different age groups?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/45.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby(pd.cut(df['age'], bins=[20, 30, 40, 50, 60, 70, 80]))['slope'].mean()"
+    },
+    {
+        "question": "How does the average sepal width vary among the different classes of iris plants?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['sepal width'].mean()"
+    },
+    {
+        "question": "Identify the iris class that has the highest average petal length to sepal length ratio.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.assign(ratio = df['petal length'] / df['sepal length']).groupby('class')['ratio'].mean().idxmax()"
+    },
+    {
+        "question": "Create a pivot table showing the mean petal width for each combination of sepal length (binned into 3 equal-width bins) and iris class.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.pivot_table(values='petal width', index=pd.cut(df['sepal length'], 3), columns='class', aggfunc='mean')"
+    },
+    {
+        "question": "Determine the class of iris plant that has the most variability in sepal width.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['sepal width'].std().idxmax()"
+    },
+    {
+        "question": "Calculate the skewness for each numerical feature grouped by the class of the iris plant.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class').skew()"
+    },
+    {
+        "question": "Identify which class of iris plant has the smallest difference between its maximum and minimum petal length.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['petal length'].apply(lambda x: x.max() - x.min()).idxmin()"
+    },
+    {
+        "question": "Generate a list of iris plant classes ordered by descending mean sepal length.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['sepal length'].mean().sort_values(ascending=False).index.tolist()"
+    },
+    {
+        "question": "Compute the percentage of iris plants in each class having a sepal width greater than the overall median sepal width.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['sepal width'] > df['sepal width'].median()].groupby('class').size() / df.groupby('class').size() * 100"
+    },
+    {
+        "question": "What is the range of petal lengths for each iris class?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['petal length'].agg(['min', 'max'])"
+    },
+    {
+        "question": "Calculate the interquartile range for sepal width for each class of iris plant.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['sepal width'].apply(lambda x: x.quantile(0.75) - x.quantile(0.25))"
+    },
+    {
+        "question": "Which iris class has the highest mean petal width to sepal width ratio?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.assign(ratio = df['petal width'] / df['sepal width']).groupby('class')['ratio'].mean().idxmax()"
+    },
+    {
+        "question": "Find the standard deviation of the mean petal lengths for each class.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['petal length'].mean().std()"
+    },
+    {
+        "question": "Create a summary statistic table that shows the mean, median, and standard deviation for sepal length and petal length, grouped by iris class.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')[['sepal length', 'petal length']].agg(['mean', 'median', 'std'])"
+    },
+    {
+        "question": "Determine the class with the highest average petal length to petal width ratio.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.assign(ratio = df['petal length'] / df['petal width']).groupby('class')['ratio'].mean().idxmax()"
+    },
+    {
+        "question": "What percentage of each iris class have a petal length greater than the overall average petal length?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['petal length'] > df['petal length'].mean()].groupby('class').size() / df.groupby('class').size() * 100"
+    },
+    {
+        "question": "Identify the class of iris plant that has the least variation in sepal length.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['sepal length'].var().idxmin()"
+    },
+    {
+        "question": "Generate a histogram data for petal width, categorized by class, using 5 bins.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class')['petal width'].apply(lambda x: pd.cut(x, 5).value_counts())"
+    },
+    {
+        "question": "Calculate the pairwise Pearson correlation coefficient between sepal length and sepal width for each iris class.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('class').apply(lambda x: x['sepal length'].corr(x['sepal width']))"
+    },
+    {
+        "question": "Can you tell me how many different types of iris plants are represented in our data?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df['class'].nunique()"
+    },
+    {
+        "question": "I'm curious, what is the average petal length for the iris plants in our collection?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df['petal length'].mean()"
+    },
+    {
+        "question": "Could you find out which type of iris plant appears most frequently in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df['class'].mode()[0]"
+    },
+    {
+        "question": "Is it possible to know the range of sepal widths we have across all iris plants?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df['sepal width'].max() - df['sepal width'].min()"
+    },
+    {
+        "question": "Can we identify the iris plants with the longest sepals in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sepal length'] == df['sepal length'].max()]['class']"
+    },
+    {
+        "question": "I'd like to understand, on average, how do the petal widths vary among the different types of iris plants?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('class')['petal width'].mean()"
+    },
+    {
+        "question": "Could you determine the number of iris plants in our data that have a petal length greater than 4.5 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['petal length'] > 4.5].shape[0]"
+    },
+    {
+        "question": "What is the median sepal length for the Iris-setosa plants in our collection?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['class'] == 'Iris-setosa']['sepal length'].median()"
+    },
+    {
+        "question": "Can we find out if there are any iris plants with a petal width less than 0.3 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['petal width'] < 0.3].shape[0] > 0"
+    },
+    {
+        "question": "I'm interested in the variety of our collection. How many iris plants have a sepal width of more than 3.5 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sepal width'] > 3.5].shape[0]"
+    },
+    {
+        "question": "What's the smallest petal width we have recorded for any iris plant in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df['petal width'].min()"
+    },
+    {
+        "question": "How many iris plants do we have with a sepal length of exactly 5.0 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sepal length'] == 5.0].shape[0]"
+    },
+    {
+        "question": "For each type of iris plant, what's the average sepal width we've observed?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('class')['sepal width'].mean()"
+    },
+    {
+        "question": "Can you show me the details of the iris plant that has the longest petal length in our data?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['petal length'] == df['petal length'].max()]"
+    },
+    {
+        "question": "I wonder, how many iris plants in our collection have petal widths narrower than 0.5 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['petal width'] < 0.5].shape[0]"
+    },
+    {
+        "question": "Could you tell me what the most common sepal length is among all our iris plants?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df['sepal length'].mode()[0]"
+    },
+    {
+        "question": "Can you find out how many iris plants have a sepal width greater than the average sepal width?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sepal width'] > df['sepal width'].mean()].shape[0]"
+    },
+    {
+        "question": "What's the average petal length for the Iris-virginica plants in our collection?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['class'] == 'Iris-virginica']['petal length'].mean()"
+    },
+    {
+        "question": "Could we identify any iris plants in our dataset that have an unusually high petal width compared to petal length ratio?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "general user",
+        "answer query": "result = df[df['petal width'] / df['petal length'] > 0.5]"
+    },
+    {
+        "question": "What is the average sepal length across all iris plants in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df['sepal length'].mean()"
+    },
+    {
+        "question": "How many iris plants of each class do we have in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df['class'].value_counts()"
+    },
+    {
+        "question": "What is the median petal width for each class of iris plant?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('class')['petal width'].median()"
+    },
+    {
+        "question": "Can we identify the maximum petal length observed for Iris-virginica species?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['class'] == 'Iris-virginica']['petal length'].max()"
+    },
+    {
+        "question": "What are the average sepal width and petal width for each class of iris plant?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('class')[['sepal width', 'petal width']].mean()"
+    },
+    {
+        "question": "How does the distribution of sepal length vary among different classes of iris plants?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('class')['sepal length'].describe()"
+    },
+    {
+        "question": "Can we find the minimum and maximum sepal width for Iris-setosa species?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['class'] == 'Iris-setosa']['sepal width'].agg(['min', 'max'])"
+    },
+    {
+        "question": "What is the total number of iris plants with a petal length greater than 4.5 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['petal length'] > 4.5].shape[0]"
+    },
+    {
+        "question": "Can we compare the mean values of sepal length, sepal width, petal length, and petal width for each iris class?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('class').mean()"
+    },
+    {
+        "question": "Is there any iris plant in our dataset with a sepal length less than 5 cm and petal length greater than 3 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df[(df['sepal length'] < 5) & (df['petal length'] > 3)].shape[0] > 0"
+    },
+    {
+        "question": "How can we determine the standard deviation of petal widths for each class of iris plants?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('class')['petal width'].std()"
+    },
+    {
+        "question": "What is the count of iris plants that have a sepal width greater than the average sepal width?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['sepal width'] > df['sepal width'].mean()].shape[0]"
+    },
+    {
+        "question": "Can we find the top three longest petal lengths in the Iris-virginica class?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['class'] == 'Iris-virginica']['petal length'].nlargest(3)"
+    },
+    {
+        "question": "What percentage of iris plants have a petal width less than 1 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = (df[df['petal width'] < 1].shape[0] / df.shape[0]) * 100"
+    },
+    {
+        "question": "How can we list the unique values of sepal lengths in our dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df['sepal length'].unique()"
+    },
+    {
+        "question": "Can we filter the dataset to only include Iris-setosa plants with sepal lengths greater than 5 cm?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df[(df['class'] == 'Iris-setosa') & (df['sepal length'] > 5)]"
+    },
+    {
+        "question": "How can we determine the range (minimum and maximum values) of petal lengths for the Iris-versicolor class?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['class'] == 'Iris-versicolor']['petal length'].agg(['min', 'max'])"
+    },
+    {
+        "question": "Can we create a pivot table showing the mean sepal length and petal length for each class?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/53.csv",
+        "role": "data owner",
+        "answer query": "result = df.pivot_table(index='class', values=['sepal length', 'petal length'], aggfunc='mean')"
+    },
+    {
+        "question": "What is the average value of each blood test result for individuals who consume more than 5 drinks daily?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['drinks'] > 5].mean()"
+    },
+    {
+        "question": "How does the average gamma GT level vary between individuals who consume less than 3 drinks daily and those who consume 3 or more?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby(df['drinks'] >= 3)['gammagt'].mean()"
+    },
+    {
+        "question": "Identify the top 10% of individuals with the highest SGPT levels and calculate their average number of drinks.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df.nlargest(int(len(df) * 0.1), 'sgpt')['drinks'].mean()"
+    },
+    {
+        "question": "Is there a correlation between the SGOT and Gamma GT levels? Compute the Pearson correlation coefficient.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df[['sgot', 'gammagt']].corr(method='pearson')"
+    },
+    {
+        "question": "Create a new column 'risk_factor' which is the product of SGPT and Gamma GT, then determine the average risk factor for each group of drinks (0-2, 3-5, 6+).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df.assign(risk_factor=df['sgpt'] * df['gammagt']).groupby(pd.cut(df['drinks'], bins=[0, 2, 5, float('inf')]))['risk_factor'].mean()"
+    },
+    {
+        "question": "What is the median value of AlkPhos for individuals with MCV levels in the top 25%?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['mcv'] > df['mcv'].quantile(0.75)]['alkphos'].median()"
+    },
+    {
+        "question": "Calculate the standard deviation of drinks consumed for individuals with SGOT levels above the 75th percentile.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['sgot'] > df['sgot'].quantile(0.75)]['drinks'].std()"
+    },
+    {
+        "question": "Group the individuals based on the 'selector' field and calculate the average MCV level for each group.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('selector')['mcv'].mean()"
+    },
+    {
+        "question": "Identify the individual(s) with the highest number of drinks and return their entire record.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['drinks'] == df['drinks'].max()]"
+    },
+    {
+        "question": "Create a pivot table showing the mean SGPT levels, indexed by the 'selector' and columned by the number of drinks (rounded down to the nearest integer).",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df.pivot_table(values='sgpt', index='selector', columns=df['drinks'].astype(int).rename('drinks_rounded'), aggfunc='mean')"
+    },
+    {
+        "question": "How many individuals have Gamma GT levels above the 90th percentile?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = (df['gammagt'] > df['gammagt'].quantile(0.9)).sum()"
+    },
+    {
+        "question": "What is the range (difference between max and min) of SGPT levels for individuals consuming exactly 5 drinks?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['drinks'] == 5]['sgpt'].max() - df[df['drinks'] == 5]['sgpt'].min()"
+    },
+    {
+        "question": "Find the interquartile range (IQR) for AlkPhos levels in the dataset.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df['alkphos'].quantile(0.75) - df['alkphos'].quantile(0.25)"
+    },
+    {
+        "question": "For each level of drinks consumed (rounded to the nearest integer), what is the percentage of individuals that fall into each selector category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby([df['drinks'].round(), 'selector']).size().groupby(level=0).apply(lambda x: 100 * x / float(x.sum()))"
+    },
+    {
+        "question": "Identify the correlation matrix for the first five blood test results.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df.iloc[:, :5].corr()"
+    },
+    {
+        "question": "Calculate the skewness of the 'drinks' distribution.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df['drinks'].skew()"
+    },
+    {
+        "question": "How many unique values are there in the MCV blood test results, and what is their median value?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = {'unique_count': df['mcv'].nunique(), 'median_value': df['mcv'].median()}"
+    },
+    {
+        "question": "Create a new dataframe showing the mean and median of SGOT levels for each 'selector' value.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df.groupby('selector')['sgot'].agg(['mean', 'median'])"
+    },
+    {
+        "question": "What is the average number of drinks for individuals with SGOT levels in the lowest 10%?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data scientist",
+        "answer query": "result = df[df['sgot'] < df['sgot'].quantile(0.1)]['drinks'].mean()"
+    },
+    {
+        "question": "How many individuals have consumed more than 5 drinks?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df[df['drinks'] > 5].shape[0]"
+    },
+    {
+        "question": "What is the average value of the first blood test across all individuals?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df['mcv'].mean()"
+    },
+    {
+        "question": "Can you find the top 3 individuals with the highest values in the second blood test?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df.nlargest(3, 'alkphos')"
+    },
+    {
+        "question": "How many individuals have the third blood test value below 30?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sgpt'] < 30].count()"
+    },
+    {
+        "question": "What is the median value of the fourth blood test?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df['sgot'].median()"
+    },
+    {
+        "question": "Can we see a summary of statistics for the fifth blood test?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df['gammagt'].describe()"
+    },
+    {
+        "question": "How many individuals are in each category of the 'selector' field?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df['selector'].value_counts()"
+    },
+    {
+        "question": "What is the lowest drinking level recorded and in which individual does it appear?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df[df['drinks'] == df['drinks'].min()]"
+    },
+    {
+        "question": "Can you provide a sorted list of individuals based on their drinking levels?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df.sort_values(by='drinks')"
+    },
+    {
+        "question": "What is the correlation between the first blood test and alcohol consumption levels?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df[['mcv', 'drinks']].corr()"
+    },
+    {
+        "question": "Which individual has the highest recorded value in the first blood test?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df[df['mcv'] == df['mcv'].max()]"
+    },
+    {
+        "question": "How many individuals have a drinking level greater than the median drinking level?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df[df['drinks'] > df['drinks'].median()].shape[0]"
+    },
+    {
+        "question": "Can you identify the individual with the lowest value in the third blood test?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df[df['sgpt'] == df['sgpt'].min()]"
+    },
+    {
+        "question": "What is the range (difference between max and min) for the fourth blood test?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df['sgot'].max() - df['sgot'].min()"
+    },
+    {
+        "question": "Is there a significant difference in average alcohol consumption between the two selector categories?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df.groupby('selector')['drinks'].mean()"
+    },
+    {
+        "question": "What percentage of individuals have a fifth blood test value above 50?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = (df[df['gammagt'] > 50].shape[0] / df.shape[0]) * 100"
+    },
+    {
+        "question": "Can we see a breakdown of the number of individuals by their drinking levels in intervals of 2 (0-2, 2-4, etc.)?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = pd.cut(df['drinks'], bins=range(0, int(df['drinks'].max()) + 2, 2)).value_counts()"
+    },
+    {
+        "question": "What is the relationship between the second and fifth blood tests?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "general user",
+        "answer query": "result = df[['alkphos', 'gammagt']].corr()"
+    },
+    {
+        "question": "What is the average value of each blood test across all records?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df[['mcv', 'alkphos', 'sgpt', 'sgot', 'gammagt']].mean()"
+    },
+    {
+        "question": "How many individuals have a drinks value exceeding 5.0?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['drinks'] > 5.0].shape[0]"
+    },
+    {
+        "question": "Which individual has the highest Gammagt value and what is that value?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['gammagt'] == df['gammagt'].max()][['gammagt']]"
+    },
+    {
+        "question": "Can we group the individuals by 'selector' and compute the average drinks consumption for each group?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('selector')['drinks'].mean()"
+    },
+    {
+        "question": "How many individuals have 'sgpt' levels above the average sgpt level?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['sgpt'] > df['sgpt'].mean()].shape[0]"
+    },
+    {
+        "question": "Is there a significant difference in average 'alkphos' levels between the two selector groups?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('selector')['alkphos'].mean()"
+    },
+    {
+        "question": "What is the median 'mcv' value for individuals who consume more than 4 drinks?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['drinks'] > 4]['mcv'].median()"
+    },
+    {
+        "question": "Can we find the top 10 individuals with the highest 'sgot' levels?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df.nlargest(10, 'sgot')[['sgot']]"
+    },
+    {
+        "question": "What is the distribution of 'drinks' values in the dataset? (using bins of 0-1, 1-2, 2-3, etc.)",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = pd.cut(df['drinks'], bins=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], include_lowest=True).value_counts().sort_index()"
+    },
+    {
+        "question": "What percentage of individuals have 'mcv' levels above 90?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = (df['mcv'] > 90).mean() * 100"
+    },
+    {
+        "question": "Can we identify the top 5% of individuals with the highest 'alkphos' levels?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df.nlargest(int(len(df) * 0.05), 'alkphos')"
+    },
+    {
+        "question": "What is the standard deviation of the 'sgpt' levels in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df['sgpt'].std()"
+    },
+    {
+        "question": "How does the average 'gammagt' level vary between different 'selector' groups?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df.groupby('selector')['gammagt'].mean()"
+    },
+    {
+        "question": "Is there a linear relationship between 'sgot' and 'drinks'? Calculate the Pearson correlation coefficient.",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df['sgot'].corr(df['drinks'])"
+    },
+    {
+        "question": "What is the average number of drinks for individuals with 'mcv' levels below 85?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['mcv'] < 85]['drinks'].mean()"
+    },
+    {
+        "question": "Can we categorize the 'drinks' data into 'low' (0-3), 'medium' (3-6), and 'high' (above 6) consumption and find the count for each category?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = pd.cut(df['drinks'], bins=[0, 3, 6, df['drinks'].max()], labels=['low', 'medium', 'high'], right=False).value_counts()"
+    },
+    {
+        "question": "What is the distribution of 'alkphos' levels in the dataset, categorized into quartiles?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = pd.qcut(df['alkphos'], q=4).value_counts().sort_index()"
+    },
+    {
+        "question": "How many individuals have 'gammagt' levels more than two standard deviations above the mean?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df[df['gammagt'] > df['gammagt'].mean() + 2 * df['gammagt'].std()].shape[0]"
+    },
+    {
+        "question": "What is the relationship between the minimum and maximum values of 'sgpt' and 'sgot' in the dataset?",
+        "csv_filename": "../data/dataframe/uci_dataframeqa/60.csv",
+        "role": "data owner",
+        "answer query": "result = df[['sgpt', 'sgot']].agg(['min', 'max'])"
+    }
+]

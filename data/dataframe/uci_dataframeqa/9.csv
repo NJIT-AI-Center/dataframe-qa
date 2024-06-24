@@ -1,0 +1,697 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Auto MPG
+- Description of dataframe: This dataset is a slightly modified version of the dataset provided in the StatLib library.  In line with the use by Ross Quinlan (1993) in predicting the attribute ""mpg"", 8 of the original instances were removed because they had unknown values for the ""mpg"" attribute.  The original dataset is available in the file ""auto-mpg.data-original"".
+
+""The data concerns city-cycle fuel consumption in miles per gallon, to be predicted in terms of 3 multivalued discrete and 5 continuous attributes."" (Quinlan, 1993)
+- Column information of dataframe:
+#   Column        Dtype 
+--- ------        ----- 
+0   car_name      str   
+1   cylinders     int   
+2   displacement  float 
+3   horsepower    float 
+4   weight        int   
+5   acceleration  float 
+6   model_year    int   
+7   origin        int   
+8   mpg           float 
+
+- Sample rows of dataframe in CSV format:
+car_name,cylinders,displacement,horsepower,weight,acceleration,model_year,origin,mpg
+""chevrolet,nova"",6,250.0,100.0,3336,17.0,74,1,15.0
+""ford,futura"",8,302.0,139.0,3205,11.2,78,1,18.1
+""volvo,264gl"",6,163.0,125.0,3140,13.6,78,2,17.0
+""volvo,145e,(sw)"",4,121.0,112.0,2933,14.5,72,2,18.0
+""chevrolet,citation"",4,151.0,90.0,2678,16.5,80,1,28.0
+""chevy,c20"",8,307.0,200.0,4376,15.0,70,1,10.0
+""datsun,210"",4,85.0,65.0,2110,19.2,80,3,40.8
+""chrysler,cordoba"",8,400.0,190.0,4325,12.2,77,1,15.5
+""plymouth,'cuda,340"",8,340.0,160.0,3609,8.0,70,1,14.0
+""chevrolet,cavalier"",4,112.0,88.0,2605,19.6,82,1,28.0
+""dodge,aries,wagon,(sw)"",4,156.0,92.0,2620,14.4,81,1,25.8
+""plymouth,horizon,tc3"",4,105.0,70.0,2150,14.9,79,1,34.5
+""buick,century,350"",8,350.0,175.0,4100,13.0,73,1,13.0
+""amc,gremlin"",6,199.0,90.0,2648,15.0,70,1,21.0
+""buick,century,luxus,(sw)"",8,350.0,150.0,4699,14.5,74,1,13.0
+""volkswagen,1131,deluxe,sedan"",4,97.0,46.0,1835,20.5,70,2,26.0
+""fiat,strada,custom"",4,91.0,69.0,2130,14.7,79,2,37.3
+""maxda,rx3"",3,70.0,90.0,2124,13.5,73,3,18.0
+""peugeot,504"",4,141.0,71.0,3190,24.8,79,2,27.2
+""volkswagen,jetta"",4,105.0,74.0,2190,14.2,81,2,33.0
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average horsepower for each cylinder type?"",
+        ""query"": ""result = df.groupby('cylinders')['horsepower'].mean()"",
+    },
+    {
+        ""question"": ""How has the average weight of cars changed over the model years?"",
+        ""query"": ""result = df.groupby('model_year')['weight'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 cars with the highest mpg for each country of origin?"",
+        ""query"": ""result = df.groupby('origin').apply(lambda x: x.nlargest(5, 'mpg'))"",
+    },
+    {
+        ""question"": ""What is the correlation matrix between displacement, horsepower, weight, acceleration, and mpg?"",
+        ""query"": ""result = df[['displacement', 'horsepower', 'weight', 'acceleration', 'mpg']].corr()"",
+    },
+    {
+        ""question"": ""How many cars are there for each combination of cylinder and model year?"",
+        ""query"": ""result = df.groupby(['cylinders', 'model_year']).size()"",
+    },
+    {
+        ""question"": ""What is the average mpg for cars with more than 100 horsepower?"",
+        ""query"": ""result = df[df['horsepower'] > 100]['mpg'].mean()"",
+    },
+    {
+        ""question"": ""Can you create a pivot table showing the average acceleration for each combination of cylinders and model years?"",
+        ""query"": ""result = df.pivot_table(values='acceleration', index='cylinders', columns='model_year', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""What is the linear regression model between weight and mpg (considering weight as the independent variable and mpg as the dependent variable)?"",
+        ""query"": ""import statsmodels.api as sm; result = sm.OLS(df['mpg'], sm.add_constant(df['weight'])).fit()"",
+    },
+    {
+        ""question"": ""Can you identify outliers in mpg for each cylinder type using the Interquartile Range (IQR) method?"",
+        ""query"": ""Q1 = df.groupby('cylinders')['mpg'].quantile(0.25); Q3 = df.groupby('cylinders')['mpg'].quantile(0.75); IQR = Q3 - Q1; result = df[~((df['mpg'] < (Q1 - 1.5 * IQR)) | (df['mpg'] > (Q3 + 1.5 * IQR)))]"",
+    },
+    {
+        ""question"": ""What are the five least common car names in the dataset?"",
+        ""query"": ""result = df['car_name'].value_counts().nsmallest(5)"",
+    }
+]","[
+    {
+        ""question"": ""What is the standard deviation of acceleration for each cylinder type?"",
+        ""query"": ""result = df.groupby('cylinders')['acceleration'].std()"",
+    },
+    {
+        ""question"": ""Can you provide a breakdown of the average mpg by both origin and model year?"",
+        ""query"": ""result = df.groupby(['origin', 'model_year'])['mpg'].mean()"",
+    },
+    {
+        ""question"": ""What are the names of the five cars with the lowest horsepower for each cylinder type?"",
+        ""query"": ""result = df.groupby('cylinders').apply(lambda x: x.nsmallest(5, 'horsepower')['car_name'])"",
+    },
+    {
+        ""question"": ""Can you calculate the variance in weight for cars manufactured in each model year?"",
+        ""query"": ""result = df.groupby('model_year')['weight'].var()"",
+    },
+    {
+        ""question"": ""What is the median displacement for cars with mpg higher than the overall median mpg?"",
+        ""query"": ""result = df[df['mpg'] > df['mpg'].median()]['displacement'].median()"",
+    },
+    {
+        ""question"": ""Can you create a new column 'weight_to_horsepower_ratio' and calculate its mean for each origin?"",
+        ""query"": ""df['weight_to_horsepower_ratio'] = df['weight'] / df['horsepower']; result = df.groupby('origin')['weight_to_horsepower_ratio'].mean()"",
+    },
+    {
+        ""question"": ""What is the difference in average mpg between the first and last model year in the dataset?"",
+        ""query"": ""result = df.groupby('model_year')['mpg'].mean().iloc[-1] - df.groupby('model_year')['mpg'].mean().iloc[0]"",
+    },
+    {
+        ""question"": ""Can you identify the car name with the maximum displacement for each combination of cylinders and model year?"",
+        ""query"": ""result = df.groupby(['cylinders', 'model_year']).apply(lambda x: x[x['displacement'] == x['displacement'].max()]['car_name'])"",
+    },
+    {
+        ""question"": ""What is the proportion of cars from each origin within the dataset?"",
+        ""query"": ""result = df['origin'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Can you create a scatter plot matrix for displacement, weight, and mpg?"",
+        ""query"": ""import seaborn as sns; result = sns.pairplot(df[['displacement', 'weight', 'mpg']])"",
+    }
+]","[
+    {
+        ""question"": ""What is the average horsepower for each cylinder type?"",
+        ""query"": ""result = df.groupby('cylinders')['horsepower'].mean()"",
+    },
+    {
+        ""question"": ""How has the average weight of cars changed over the model years?"",
+        ""query"": ""result = df.groupby('model_year')['weight'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 cars with the highest mpg for each country of origin?"",
+        ""query"": ""result = df.groupby('origin').apply(lambda x: x.nlargest(5, 'mpg'))"",
+    },
+    {
+        ""question"": ""What is the correlation matrix between displacement, horsepower, weight, acceleration, and mpg?"",
+        ""query"": ""result = df[['displacement', 'horsepower', 'weight', 'acceleration', 'mpg']].corr()"",
+    },
+    {
+        ""question"": ""How many cars are there for each combination of cylinder and model year?"",
+        ""query"": ""result = df.groupby(['cylinders', 'model_year']).size()"",
+    },
+    {
+        ""question"": ""What is the average mpg for cars with more than 100 horsepower?"",
+        ""query"": ""result = df[df['horsepower'] > 100]['mpg'].mean()"",
+    },
+    {
+        ""question"": ""Can you create a pivot table showing the average acceleration for each combination of cylinders and model years?"",
+        ""query"": ""result = df.pivot_table(values='acceleration', index='cylinders', columns='model_year', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Can you identify outliers in mpg for each cylinder type using the Interquartile Range (IQR) method?"",
+        ""query"": ""Q1 = df.groupby('cylinders')['mpg'].quantile(0.25); Q3 = df.groupby('cylinders')['mpg'].quantile(0.75); IQR = Q3 - Q1; result = df[~((df['mpg'] < (Q1 - 1.5 * IQR)) | (df['mpg'] > (Q3 + 1.5 * IQR)))]"",
+    },
+    {
+        ""question"": ""What are the five least common car names in the dataset?"",
+        ""query"": ""result = df['car_name'].value_counts().nsmallest(5)"",
+    },
+    {
+        ""question"": ""What is the standard deviation of acceleration for each cylinder type?"",
+        ""query"": ""result = df.groupby('cylinders')['acceleration'].std()"",
+    },
+    {
+        ""question"": ""Can you provide a breakdown of the average mpg by both origin and model year?"",
+        ""query"": ""result = df.groupby(['origin', 'model_year'])['mpg'].mean()"",
+    },
+    {
+        ""question"": ""What are the names of the five cars with the lowest horsepower for each cylinder type?"",
+        ""query"": ""result = df.groupby('cylinders').apply(lambda x: x.nsmallest(5, 'horsepower')['car_name'])"",
+    },
+    {
+        ""question"": ""Can you calculate the variance in weight for cars manufactured in each model year?"",
+        ""query"": ""result = df.groupby('model_year')['weight'].var()"",
+    },
+    {
+        ""question"": ""What is the median displacement for cars with mpg higher than the overall median mpg?"",
+        ""query"": ""result = df[df['mpg'] > df['mpg'].median()]['displacement'].median()"",
+    },
+    {
+        ""question"": ""Can you create a new column 'weight_to_horsepower_ratio' and calculate its mean for each origin?"",
+        ""query"": ""df['weight_to_horsepower_ratio'] = df['weight'] / df['horsepower']; result = df.groupby('origin')['weight_to_horsepower_ratio'].mean()"",
+    },
+    {
+        ""question"": ""What is the difference in average mpg between the first and last model year in the dataset?"",
+        ""query"": ""result = df.groupby('model_year')['mpg'].mean().iloc[-1] - df.groupby('model_year')['mpg'].mean().iloc[0]"",
+    },
+    {
+        ""question"": ""Can you identify the car name with the maximum displacement for each combination of cylinders and model year?"",
+        ""query"": ""result = df.groupby(['cylinders', 'model_year']).apply(lambda x: x[x['displacement'] == x['displacement'].max()]['car_name'])"",
+    },
+    {
+        ""question"": ""What is the proportion of cars from each origin within the dataset?"",
+        ""query"": ""result = df['origin'].value_counts(normalize=True)"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Auto MPG
+- Description of dataframe: This dataset is a slightly modified version of the dataset provided in the StatLib library.  In line with the use by Ross Quinlan (1993) in predicting the attribute ""mpg"", 8 of the original instances were removed because they had unknown values for the ""mpg"" attribute.  The original dataset is available in the file ""auto-mpg.data-original"".
+
+""The data concerns city-cycle fuel consumption in miles per gallon, to be predicted in terms of 3 multivalued discrete and 5 continuous attributes."" (Quinlan, 1993)
+- Column information of dataframe:
+#   Column        Dtype 
+--- ------        ----- 
+0   car_name      str   
+1   cylinders     int   
+2   displacement  float 
+3   horsepower    float 
+4   weight        int   
+5   acceleration  float 
+6   model_year    int   
+7   origin        int   
+8   mpg           float 
+
+- Sample rows of dataframe in CSV format:
+car_name,cylinders,displacement,horsepower,weight,acceleration,model_year,origin,mpg
+""volvo,245"",4,130.0,102.0,3150,15.7,76,2,20.0
+""plymouth,horizon,4"",4,105.0,63.0,2215,14.9,81,1,34.7
+""datsun,310"",4,86.0,65.0,2019,16.4,80,3,37.2
+""chevrolet,impala"",8,350.0,165.0,4209,12.0,71,1,14.0
+""mercury,monarch,ghia"",8,302.0,139.0,3570,12.8,78,1,20.2
+""toyota,corolla,tercel"",4,89.0,60.0,1968,18.8,80,3,38.1
+""dodge,aspen"",6,225.0,110.0,3620,18.7,78,1,18.6
+""audi,100ls"",4,114.0,91.0,2582,14.0,73,2,20.0
+""renault,lecar,deluxe"",4,85.0,,1835,17.3,80,2,40.9
+""pontiac,grand,prix,lj"",8,400.0,180.0,4220,11.1,77,1,16.0
+""toyota,cressida"",6,168.0,116.0,2900,12.6,81,3,25.4
+""dodge,aries,wagon,(sw)"",4,156.0,92.0,2620,14.4,81,1,25.8
+""toyota,corolla,1200"",4,71.0,65.0,1836,21.0,74,3,32.0
+""datsun,200-sx"",4,119.0,97.0,2405,14.9,78,3,23.9
+""datsun,200sx"",4,119.0,100.0,2615,14.8,81,3,32.9
+""renault,18i"",4,100.0,,2320,15.8,81,2,34.5
+""amc,rebel,sst"",8,304.0,150.0,3433,12.0,70,1,16.0
+""mazda,rx-7,gs"",3,70.0,100.0,2420,12.5,80,3,23.7
+""chevrolet,vega,(sw)"",4,140.0,72.0,2408,19.0,71,1,22.0
+""ford,fairmont,4"",4,140.0,88.0,2890,17.3,79,1,22.3
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What are the top 5 cars with the highest fuel efficiency?"",
+        ""query"": ""result = df.nlargest(5, 'mpg')"",
+    },
+    {
+        ""question"": ""How many cars were manufactured each year?"",
+        ""query"": ""result = df['model_year'].value_counts()"",
+    },
+    {
+        ""question"": ""Which cars have more than 6 cylinders?"",
+        ""query"": ""result = df[df['cylinders'] > 6]"",
+    },
+    {
+        ""question"": ""Can you show me the average weight of cars by their number of cylinders?"",
+        ""query"": ""result = df.groupby('cylinders')['weight'].mean()"",
+    },
+    {
+        ""question"": ""What is the overall average acceleration of the cars in the dataset?"",
+        ""query"": ""result = df['acceleration'].mean()"",
+    },
+    {
+        ""question"": ""I'm interested in cars from the earliest year in the dataset. Can you list them?"",
+        ""query"": ""result = df[df['model_year'] == df['model_year'].min()]"",
+    },
+    {
+        ""question"": ""Which cars have an unknown value for horsepower?"",
+        ""query"": ""result = df[df['horsepower'].isna()]"",
+    },
+    {
+        ""question"": ""Can you provide a summary of fuel efficiency across different countries of origin?"",
+        ""query"": ""result = df.groupby('origin')['mpg'].mean()"",
+    },
+    {
+        ""question"": ""I'd like to know the correlation between weight and fuel efficiency. Can you calculate that?"",
+        ""query"": ""result = df[['weight', 'mpg']].corr()"",
+    },
+    {
+        ""question"": ""Which car names appear most frequently in the dataset?"",
+        ""query"": ""result = df['car_name'].value_counts().head()"",
+    }
+]","[
+    {
+        ""question"": ""What are the five lightest cars in the dataset?"",
+        ""query"": ""result = df.nsmallest(5, 'weight')"",
+    },
+    {
+        ""question"": ""Can you show the average horsepower for cars with different cylinder counts?"",
+        ""query"": ""result = df.groupby('cylinders')['horsepower'].mean()"",
+    },
+    {
+        ""question"": ""I'm curious about the range of displacement values in the dataset. Could you provide the minimum and maximum displacement?"",
+        ""query"": ""result = df['displacement'].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""Which cars have a fuel efficiency greater than 30 mpg?"",
+        ""query"": ""result = df[df['mpg'] > 30]"",
+    },
+    {
+        ""question"": ""I'm interested in recent car models. Can you list cars manufactured after 1980?"",
+        ""query"": ""result = df[df['model_year'] > 1980]"",
+    },
+    {
+        ""question"": ""Can you provide a count of cars based on their country of origin?"",
+        ""query"": ""result = df['origin'].value_counts()"",
+    },
+    {
+        ""question"": ""How has the average fuel efficiency changed over the years?"",
+        ""query"": ""result = df.groupby('model_year')['mpg'].mean()"",
+    },
+    {
+        ""question"": ""What is the median weight of the cars in the dataset?"",
+        ""query"": ""result = df['weight'].median()"",
+    },
+    {
+        ""question"": ""Can you find cars that have an acceleration above the dataset's average?"",
+        ""query"": ""result = df[df['acceleration'] > df['acceleration'].mean()]"",
+    },
+    {
+        ""question"": ""I'd like to compare the distribution of horsepower in 4-cylinder cars versus 6-cylinder cars. Can you help?"",
+        ""query"": ""result = df[df['cylinders'].isin([4, 6])].groupby('cylinders')['horsepower'].describe()"",
+    }
+]","[
+    {
+        ""question"": ""What are the top 5 cars with the highest fuel efficiency?"",
+        ""query"": ""result = df.nlargest(5, 'mpg')"",
+    },
+    {
+        ""question"": ""How many cars were manufactured each year?"",
+        ""query"": ""result = df['model_year'].value_counts()"",
+    },
+    {
+        ""question"": ""Which cars have more than 6 cylinders?"",
+        ""query"": ""result = df[df['cylinders'] > 6]"",
+    },
+    {
+        ""question"": ""Can you show me the average weight of cars by their number of cylinders?"",
+        ""query"": ""result = df.groupby('cylinders')['weight'].mean()"",
+    },
+    {
+        ""question"": ""What is the overall average acceleration of the cars in the dataset?"",
+        ""query"": ""result = df['acceleration'].mean()"",
+    },
+    {
+        ""question"": ""I'm interested in cars from the earliest year in the dataset. Can you list them?"",
+        ""query"": ""result = df[df['model_year'] == df['model_year'].min()]"",
+    },
+    {
+        ""question"": ""Which cars have an unknown value for horsepower?"",
+        ""query"": ""result = df[df['horsepower'].isna()]"",
+    },
+    {
+        ""question"": ""Can you provide a summary of fuel efficiency across different countries of origin?"",
+        ""query"": ""result = df.groupby('origin')['mpg'].mean()"",
+    },
+    {
+        ""question"": ""I'd like to know the correlation between weight and fuel efficiency. Can you calculate that?"",
+        ""query"": ""result = df[['weight', 'mpg']].corr()"",
+    },
+    {
+        ""question"": ""Which car names appear most frequently in the dataset?"",
+        ""query"": ""result = df['car_name'].value_counts().head()"",
+    },
+    {
+        ""question"": ""What are the five lightest cars in the dataset?"",
+        ""query"": ""result = df.nsmallest(5, 'weight')"",
+    },
+    {
+        ""question"": ""Can you show the average horsepower for cars with different cylinder counts?"",
+        ""query"": ""result = df.groupby('cylinders')['horsepower'].mean()"",
+    },
+    {
+        ""question"": ""I'm curious about the range of displacement values in the dataset. Could you provide the minimum and maximum displacement?"",
+        ""query"": ""result = df['displacement'].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""Which cars have a fuel efficiency greater than 30 mpg?"",
+        ""query"": ""result = df[df['mpg'] > 30]"",
+    },
+    {
+        ""question"": ""Can you provide a count of cars based on their country of origin?"",
+        ""query"": ""result = df['origin'].value_counts()"",
+    },
+    {
+        ""question"": ""How has the average fuel efficiency changed over the years?"",
+        ""query"": ""result = df.groupby('model_year')['mpg'].mean()"",
+    },
+    {
+        ""question"": ""What is the median weight of the cars in the dataset?"",
+        ""query"": ""result = df['weight'].median()"",
+    },
+    {
+        ""question"": ""Can you find cars that have an acceleration above the dataset's average?"",
+        ""query"": ""result = df[df['acceleration'] > df['acceleration'].mean()]"",
+    },
+    {
+        ""question"": ""I'd like to compare the distribution of horsepower in 4-cylinder cars versus 6-cylinder cars. Can you help?"",
+        ""query"": ""result = df[df['cylinders'].isin([4, 6])].groupby('cylinders')['horsepower'].describe()"",
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Auto MPG
+- Description of dataframe: This dataset is a slightly modified version of the dataset provided in the StatLib library.  In line with the use by Ross Quinlan (1993) in predicting the attribute ""mpg"", 8 of the original instances were removed because they had unknown values for the ""mpg"" attribute.  The original dataset is available in the file ""auto-mpg.data-original"".
+
+""The data concerns city-cycle fuel consumption in miles per gallon, to be predicted in terms of 3 multivalued discrete and 5 continuous attributes."" (Quinlan, 1993)
+- Column information of dataframe:
+#   Column        Dtype 
+--- ------        ----- 
+0   car_name      str   
+1   cylinders     int   
+2   displacement  float 
+3   horsepower    float 
+4   weight        int   
+5   acceleration  float 
+6   model_year    int   
+7   origin        int   
+8   mpg           float 
+
+- Sample rows of dataframe in CSV format:
+car_name,cylinders,displacement,horsepower,weight,acceleration,model_year,origin,mpg
+""volkswagen,jetta"",4,105.0,74.0,2190,14.2,81,2,33.0
+""dodge,charger,2.2"",4,135.0,84.0,2370,13.0,82,1,36.0
+""peugeot,604sl"",6,163.0,133.0,3410,15.8,78,2,16.2
+""toyota,starlet"",4,79.0,58.0,1755,16.9,81,3,39.1
+""renault,5,gtl"",4,79.0,58.0,1825,18.6,77,2,36.0
+""honda,civic"",4,91.0,67.0,1965,15.0,82,3,38.0
+""plymouth,fury,iii"",8,440.0,215.0,4312,8.5,70,1,14.0
+""mercury,lynx,l"",4,98.0,70.0,2125,17.3,82,1,36.0
+""plymouth,horizon,4"",4,105.0,63.0,2215,14.9,81,1,34.7
+""peugeot,504,(sw)"",4,120.0,87.0,2979,19.5,72,2,21.0
+""vw,dasher,(diesel)"",4,90.0,48.0,2335,23.7,80,2,43.4
+""plymouth,reliant"",4,135.0,84.0,2385,12.9,81,1,30.0
+""datsun,1200"",4,72.0,69.0,1613,18.0,71,3,35.0
+""amc,hornet"",6,232.0,100.0,2945,16.0,73,1,18.0
+""renault,12tl"",4,101.0,83.0,2202,15.3,76,2,27.0
+""buick,century"",6,231.0,110.0,3415,15.8,81,1,22.4
+""mazda,glc,4"",4,91.0,68.0,1985,16.0,81,3,34.1
+""ford,mustang,ii,2+2"",4,140.0,89.0,2755,15.8,77,1,25.5
+""ford,ltd"",8,351.0,148.0,4657,13.5,75,1,14.0
+""opel,manta"",4,116.0,75.0,2158,15.5,73,2,24.0
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average fuel efficiency (mpg) across all car models in our dataset?"",
+        ""query"": ""result = df['mpg'].mean()"",
+    },
+    {
+        ""question"": ""How many car models do we have for each cylinder type?"",
+        ""query"": ""result = df['cylinders'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the average horsepower for cars produced in each year in the dataset?"",
+        ""query"": ""result = df.groupby('model_year')['horsepower'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 heaviest car models in our dataset?"",
+        ""query"": ""result = df.nlargest(5, 'weight')[['car_name', 'weight']]"",
+    },
+    {
+        ""question"": ""What is the trend in average weight of cars over the years?"",
+        ""query"": ""result = df.groupby('model_year')['weight'].mean()"",
+    },
+    {
+        ""question"": ""Which year had the highest average fuel efficiency (mpg) in our dataset?"",
+        ""query"": ""result = df.groupby('model_year')['mpg'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What is the distribution of car origins in our dataset?"",
+        ""query"": ""result = df['origin'].value_counts()"",
+    },
+    {
+        ""question"": ""Which cylinder type has the highest average acceleration?"",
+        ""query"": ""result = df.groupby('cylinders')['acceleration'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""Can we see a summary of the statistical distribution of horsepower across all cars?"",
+        ""query"": ""result = df['horsepower'].describe()"",
+    },
+    {
+        ""question"": ""What are the names of the cars with the top 3 highest fuel efficiencies in our dataset?"",
+        ""query"": ""result = df.nlargest(3, 'mpg')['car_name']"",
+    }
+]","[
+    {
+        ""question"": ""What is the correlation between horsepower and fuel efficiency (mpg) in our dataset?"",
+        ""query"": ""result = df[['horsepower', 'mpg']].corr()"",
+    },
+    {
+        ""question"": ""Identify the cars with displacement greater than the median displacement in our dataset."",
+        ""query"": ""result = df[df['displacement'] > df['displacement'].median()]['car_name']"",
+    },
+    {
+        ""question"": ""How has the average displacement changed over the model years?"",
+        ""query"": ""result = df.groupby('model_year')['displacement'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 years with the highest number of car models introduced?"",
+        ""query"": ""result = df['model_year'].value_counts().head(5)"",
+    },
+    {
+        ""question"": ""What is the average weight of cars for each origin category?"",
+        ""query"": ""result = df.groupby('origin')['weight'].mean()"",
+    },
+    {
+        ""question"": ""Can we list the unique car names with 4 cylinders?"",
+        ""query"": ""result = df[df['cylinders'] == 4]['car_name'].unique()"",
+    },
+    {
+        ""question"": ""What is the most common number of cylinders in the dataset?"",
+        ""query"": ""result = df['cylinders'].mode()[0]"",
+    },
+    {
+        ""question"": ""How many cars in our dataset have a horsepower greater than 100?"",
+        ""query"": ""result = df[df['horsepower'] > 100].shape[0]"",
+    },
+    {
+        ""question"": ""What is the range (max - min) of acceleration in our dataset?"",
+        ""query"": ""result = df['acceleration'].max() - df['acceleration'].min()"",
+    },
+    {
+        ""question"": ""Can we find the average mpg for each combination of cylinders and origin?"",
+        ""query"": ""result = df.groupby(['cylinders', 'origin'])['mpg'].mean()"",
+    }
+]","[
+    {
+        ""question"": ""What is the average fuel efficiency (mpg) across all car models in our dataset?"",
+        ""query"": ""result = df['mpg'].mean()"",
+    },
+    {
+        ""question"": ""How many car models do we have for each cylinder type?"",
+        ""query"": ""result = df['cylinders'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the average horsepower for cars produced in each year in the dataset?"",
+        ""query"": ""result = df.groupby('model_year')['horsepower'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 heaviest car models in our dataset?"",
+        ""query"": ""result = df.nlargest(5, 'weight')[['car_name', 'weight']]"",
+    },
+    {
+        ""question"": ""What is the trend in average weight of cars over the years?"",
+        ""query"": ""result = df.groupby('model_year')['weight'].mean()"",
+    },
+    {
+        ""question"": ""Which year had the highest average fuel efficiency (mpg) in our dataset?"",
+        ""query"": ""result = df.groupby('model_year')['mpg'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What is the distribution of car origins in our dataset?"",
+        ""query"": ""result = df['origin'].value_counts()"",
+    },
+    {
+        ""question"": ""Which cylinder type has the highest average acceleration?"",
+        ""query"": ""result = df.groupby('cylinders')['acceleration'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""Can we see a summary of the statistical distribution of horsepower across all cars?"",
+        ""query"": ""result = df['horsepower'].describe()"",
+    },
+    {
+        ""question"": ""What are the names of the cars with the top 3 highest fuel efficiencies in our dataset?"",
+        ""query"": ""result = df.nlargest(3, 'mpg')['car_name']"",
+    },
+    {
+        ""question"": ""What is the correlation between horsepower and fuel efficiency (mpg) in our dataset?"",
+        ""query"": ""result = df[['horsepower', 'mpg']].corr()"",
+    },
+    {
+        ""question"": ""Identify the cars with displacement greater than the median displacement in our dataset."",
+        ""query"": ""result = df[df['displacement'] > df['displacement'].median()]['car_name']"",
+    },
+    {
+        ""question"": ""How has the average displacement changed over the model years?"",
+        ""query"": ""result = df.groupby('model_year')['displacement'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 years with the highest number of car models introduced?"",
+        ""query"": ""result = df['model_year'].value_counts().head(5)"",
+    },
+    {
+        ""question"": ""What is the average weight of cars for each origin category?"",
+        ""query"": ""result = df.groupby('origin')['weight'].mean()"",
+    },
+    {
+        ""question"": ""Can we list the unique car names with 4 cylinders?"",
+        ""query"": ""result = df[df['cylinders'] == 4]['car_name'].unique()"",
+    },
+    {
+        ""question"": ""What is the most common number of cylinders in the dataset?"",
+        ""query"": ""result = df['cylinders'].mode()[0]"",
+    },
+    {
+        ""question"": ""How many cars in our dataset have a horsepower greater than 100?"",
+        ""query"": ""result = df[df['horsepower'] > 100].shape[0]"",
+    },
+    {
+        ""question"": ""What is the range (max - min) of acceleration in our dataset?"",
+        ""query"": ""result = df['acceleration'].max() - df['acceleration'].min()"",
+    },
+    {
+        ""question"": ""Can we find the average mpg for each combination of cylinders and origin?"",
+        ""query"": ""result = df.groupby(['cylinders', 'origin'])['mpg'].mean()"",
+    }
+]"

@@ -1,0 +1,57 @@
+Rank,Park,Location,Peak Name,Elevation (ft),Minimum Elevation (ft),Vertical Relief (ft)
+1.0,Denali,AK0573,Mount McKinley,20320.0,240,20080.0
+2.0,Wrangell-St. Elias,AK0573,Mount Saint Elias,18008.0,0,18008.0
+3.0,Glacier Bay,AK0573,Mount Fairweather,15300.0,0,15300.0
+4.0,Sequoia,CA0621,Mount Whitney,14505.0,"1,360",13145.0
+5.0,Mount Rainier,WA0621,Mount Rainier,14411.0,"1,610",12801.0
+6.0,Rocky Mountain,CO0621,Longs Peak,14259.0,"7,630",6629.0
+7.0,Kings Canyon,CA0621,North Palisade,14242.0,"3,480",10762.0
+8.0,Grand Teton,WY0621,Grand Teton,13770.0,"6,310",7460.0
+9.0,Hawaii Volcanoes,HI0621,Mauna Loa,13679.0,0,13679.0
+10.0,Great Sand Dunes,CO0621,Tijeras Peak,13604.0,"7,520",6084.0
+11.0,Yosemite,CA0573,Mount Lyell,13114.0,"2,105",11009.0
+12.0,Great Basin,NV0573,Wheeler Peak,13065.0,"6,195",6870.0
+13.0,Yellowstone,WY0573 MT0621 ID0621,Eagle Peak,11358.0,"5,282",6076.0
+14.0,Death Valley,CA0621 NV0621,Telescope Peak,11049.0,−282,11331.0
+15.0,Glacier,MT0621,Mount Cleveland,10466.0,"3,150",7316.0
+16.0,Lassen Volcanic,CA0621,Lassen Peak,10457.0,"5,275",5182.0
+17.0,Lake Clark,AK0621,Redoubt Volcano,10197.0,0,10197.0
+18.0,Haleakala,HI0621,Haleakala,10023.0,0,10023.0
+19.0,North Cascades,WA0621,Goode Mountain,9206.0,605,8601.0
+20.0,Grand Canyon,AZ0621,Lookout tower near the North Rim 's main entrance,9165.0,"1,173",7992.0
+21.0,Bryce Canyon,UT0621,Rainbow Point,9115.0,"6,565",2550.0
+22.0,Black Canyon of the Gunnison,CO0621,Poison Spring Hill,9040.0,"5,440",3600.0
+23.0,Capitol Reef,UT0621,park boundary near Billings Pass,8960.0,"3,877",5083.0
+24.0,Crater Lake,OR0621,Mount Scott,8929.0,"3,990",4939.0
+25.0,Guadalupe Mountains,TX0621,Guadalupe Peak,8749.0,"3,636",5113.0
+26.0,Zion,UT0621,Horse Ranch Mountain,8726.0,"3,640",5086.0
+27.0,Saguaro,AZ0621,Mica Mountain,8666.0,"2,180",6486.0
+28.0,Mesa Verde,CO0621,Park Point Lookout,8571.0,"6,015",2556.0
+29.0,Gates of the Arctic,AK0621,Mount Igikpak,8276.0,280,7996.0
+30.0,Olympic,WA0573,Mount Olympus,7962.0,0,7962.0
+31.0,Big Bend,TX0621,Emory Peak,7825.0,"1,715",6110.0
+32.0,Katmai,AK0573,Mount Denison,7606.0,0,7606.0
+33.0,Canyonlands,UT0621,Cathedral Point,7120.0,"3,730",3390.0
+34.0,Great Smoky Mountains,TN0621 NC0621,Clingmans Dome,6643.0,874,5769.0
+35.0,Carlsbad Caverns,NM0621,Guadalupe Ridge,6535.0,"3,596",2939.0
+36.0,Kenai Fjords,AK0573,unnamed nunatak,6450.0,0,6450.0
+37.0,Petrified Forest,AZ0621,Pilot Rock,6234.0,"5,200",1034.0
+38.0,Joshua Tree,CA0621,Quail Mountain,5813.0,"1,780",4033.0
+39.0,Arches,UT0621,Elephant Butte,5653.0,"3,960",1693.0
+40.0,Wind Cave,SD0573,Rankin Ridge,5013.0,"3,559",1454.0
+41.0,Kobuk Valley,AK0573,Mount Angayukaqsraq,4760.0,40,4720.0
+42.0,Shenandoah,VA0573,Hawksbill Mountain,4051.0,530,3521.0
+43.0,Badlands,SD0573,Red Shirt Table,3340.0,"2,365",975.0
+44.0,Redwood,CA0573,Coyote Peak,3170.0,0,3170.0
+45.0,Teddy Roosevelt,ND0573,Peck Hill,2860.0,"1,940",920.0
+46.0,Channel Islands,CA0573,"El Montañon , Santa Cruz Island",1812.0,0,1812.0
+47.0,Acadia,ME0573,Cadillac Mountain,1530.0,0,1530.0
+48.0,Voyageurs,MN0573,Tower near Mead Wood Road entrance,1410.0,"1,108",302.0
+49.0,Hot Springs,AR0573,Music Mountain,1405.0,415,990.0
+50.0,Isle Royale,MI0573,Mount Desor,1394.0,600,794.0
+51.0,Cuyahoga,OH0573,Black & Brush Roads,1164.0,590,574.0
+52.0,Mammoth Cave,KY0573,Mammoth Cave Ridge near Park Ridge Road,925.0,421,504.0
+53.0,Congaree,SC0573,Old Bluff Road near main entrance,140.0,80,60.0
+54.0,Everglades,FL0573,Calusa shell mound,20.0,0,20.0
+55.0,Dry Tortugas,FL0573,Loggerhead Key,10.0,0,10.0
+56.0,Biscayne,FL0573,"Totten Key , Old Rhodes Key",9.0,0,9.0

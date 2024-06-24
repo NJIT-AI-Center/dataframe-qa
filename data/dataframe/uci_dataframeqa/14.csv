@@ -1,0 +1,715 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Breast Cancer
+- Description of dataframe: This is one of three domains provided by the Oncology Institute that has repeatedly appeared in the machine learning literature. (See also lymphography and primary-tumor.)
+
+This data set includes 201 instances of one class and 85 instances of another class.  The instances are described by 9 attributes, some of which are linear and some are nominal.
+
+- Column information of dataframe:
+#   Column       Dtype 
+--- ------       ----- 
+0   age          str   
+1   menopause    str   
+2   tumor-size   str   
+3   inv-nodes    str   
+4   node-caps    str   
+5   deg-malig    int   
+6   breast       str   
+7   breast-quad  str   
+8   irradiat     str   
+9   Class        str   
+
+- Sample rows of dataframe in CSV format:
+age,menopause,tumor-size,inv-nodes,node-caps,deg-malig,breast,breast-quad,irradiat,Class
+60-69,ge40,25-29,5-Mar,,1,right,left_up,yes,no-recurrence-events
+50-59,ge40,15-19,0-2,no,1,right,central,no,no-recurrence-events
+70-79,ge40,15-19,11-Sep,,1,left,left_low,yes,recurrence-events
+60-69,lt40,14-Oct,0-2,no,1,left,right_up,no,no-recurrence-events
+30-39,premeno,40-44,0-2,no,2,left,left_low,yes,no-recurrence-events
+40-49,premeno,20-24,5-Mar,yes,2,left,left_low,yes,recurrence-events
+40-49,premeno,40-44,5-Mar,yes,3,right,left_up,yes,no-recurrence-events
+30-39,premeno,0-4,0-2,no,2,right,central,no,no-recurrence-events
+50-59,ge40,20-24,0-2,no,2,right,central,no,recurrence-events
+30-39,premeno,30-34,8-Jun,yes,2,right,right_up,no,no-recurrence-events
+40-49,premeno,14-Oct,0-2,no,2,left,left_low,yes,no-recurrence-events
+50-59,premeno,35-39,15-17,yes,3,right,right_up,no,recurrence-events
+50-59,ge40,25-29,0-2,no,2,left,left_low,no,no-recurrence-events
+50-59,ge40,25-29,0-2,no,1,left,right_low,no,no-recurrence-events
+30-39,premeno,20-24,0-2,no,2,left,right_low,no,no-recurrence-events
+30-39,premeno,15-19,8-Jun,yes,3,left,left_low,yes,recurrence-events
+40-49,ge40,40-44,15-17,yes,2,right,left_up,yes,no-recurrence-events
+30-39,premeno,30-34,0-2,no,1,right,left_up,no,recurrence-events
+30-39,premeno,35-39,11-Sep,yes,3,left,left_low,no,recurrence-events
+50-59,premeno,25-29,5-Mar,no,2,right,left_up,yes,no-recurrence-events
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average degree of malignancy (deg-malig) for each menopause category?"",
+        ""query"": ""result = df.groupby('menopause')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""How many cases are there for each combination of 'breast' and 'breast-quad' location?"",
+        ""query"": ""result = df.groupby(['breast', 'breast-quad']).size()"",
+    },
+    {
+        ""question"": ""What is the distribution of tumor size for cases with recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['tumor-size'].value_counts()"",
+    },
+    {
+        ""question"": ""Calculate the proportion of cases with irradiation for each tumor size category."",
+        ""query"": ""result = df.groupby('tumor-size')['irradiat'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""What is the median age range of patients for each degree of malignancy?"",
+        ""query"": ""result = df.groupby('deg-malig')['age'].median()"",
+    },
+    {
+        ""question"": ""How many unique age ranges are there for patients with no-recurrence events and premenopausal menopause?"",
+        ""query"": ""result = df[(df['Class'] == 'no-recurrence-events') & (df['menopause'] == 'premeno')]['age'].nunique()"",
+    },
+    {
+        ""question"": ""For each 'node-caps' status, what is the average 'deg-malig' for patients with recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events'].groupby('node-caps')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""Identify the most common tumor size category in the dataset."",
+        ""query"": ""result = df['tumor-size'].mode()[0]"",
+    },
+    {
+        ""question"": ""What is the proportion of cases with and without irradiation in each 'inv-nodes' category?"",
+        ""query"": ""result = df.groupby('inv-nodes')['irradiat'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Compare the mean 'deg-malig' between patients with and without node-caps."",
+        ""query"": ""result = df.groupby('node-caps')['deg-malig'].mean()"",
+    }
+]","[
+    {
+        ""question"": ""Find the count of patients in each 'age' range grouped by their 'Class' status."",
+        ""query"": ""result = df.groupby(['age', 'Class']).size()"",
+    },
+    {
+        ""question"": ""Determine the proportion of recurrence and no-recurrence events for each 'deg-malig' level."",
+        ""query"": ""result = df.groupby('deg-malig')['Class'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""What is the most frequent combination of 'breast' and 'breast-quad' among patients with recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events'].groupby(['breast', 'breast-quad']).size().idxmax()"",
+    },
+    {
+        ""question"": ""Calculate the average age of patients for each combination of 'menopause' and 'irradiat' status."",
+        ""query"": ""result = df.groupby(['menopause', 'irradiat'])['age'].mean()"",
+    },
+    {
+        ""question"": ""Identify the most common 'inv-nodes' category in patients with a high degree of malignancy (deg-malig >= 3)."",
+        ""query"": ""result = df[df['deg-malig'] >= 3]['inv-nodes'].mode()[0]"",
+    },
+    {
+        ""question"": ""Assess the distribution of 'tumor-size' categories in patients without node caps."",
+        ""query"": ""result = df[df['node-caps'] == 'no']['tumor-size'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the proportion of each 'menopause' category in patients with left and right breast cancer?"",
+        ""query"": ""result = df.groupby('breast')['menopause'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Compare the frequency of 'irradiat' status between patients aged 30-39 and those aged 50-59."",
+        ""query"": ""result = df[df['age'].isin(['30-39', '50-59'])].groupby('age')['irradiat'].value_counts()"",
+    },
+    {
+        ""question"": ""Determine the count of 'node-caps' occurrences for each 'tumor-size' category."",
+        ""query"": ""result = df.groupby('tumor-size')['node-caps'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the median 'deg-malig' value for each 'inv-nodes' category?"",
+        ""query"": ""result = df.groupby('inv-nodes')['deg-malig'].median()"",
+    }
+]","[
+    {
+        ""question"": ""What is the average degree of malignancy (deg-malig) for each menopause category?"",
+        ""query"": ""result = df.groupby('menopause')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""How many cases are there for each combination of 'breast' and 'breast-quad' location?"",
+        ""query"": ""result = df.groupby(['breast', 'breast-quad']).size()"",
+    },
+    {
+        ""question"": ""What is the distribution of tumor size for cases with recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['tumor-size'].value_counts()"",
+    },
+    {
+        ""question"": ""Calculate the proportion of cases with irradiation for each tumor size category."",
+        ""query"": ""result = df.groupby('tumor-size')['irradiat'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""What is the median age range of patients for each degree of malignancy?"",
+        ""query"": ""result = df.groupby('deg-malig')['age'].median()"",
+    },
+    {
+        ""question"": ""How many unique age ranges are there for patients with no-recurrence events and premenopausal menopause?"",
+        ""query"": ""result = df[(df['Class'] == 'no-recurrence-events') & (df['menopause'] == 'premeno')]['age'].nunique()"",
+    },
+    {
+        ""question"": ""For each 'node-caps' status, what is the average 'deg-malig' for patients with recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events'].groupby('node-caps')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""Identify the most common tumor size category in the dataset."",
+        ""query"": ""result = df['tumor-size'].mode()[0]"",
+    },
+    {
+        ""question"": ""What is the proportion of cases with and without irradiation in each 'inv-nodes' category?"",
+        ""query"": ""result = df.groupby('inv-nodes')['irradiat'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Compare the mean 'deg-malig' between patients with and without node-caps."",
+        ""query"": ""result = df.groupby('node-caps')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""Find the count of patients in each 'age' range grouped by their 'Class' status."",
+        ""query"": ""result = df.groupby(['age', 'Class']).size()"",
+    },
+    {
+        ""question"": ""Determine the proportion of recurrence and no-recurrence events for each 'deg-malig' level."",
+        ""query"": ""result = df.groupby('deg-malig')['Class'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""What is the most frequent combination of 'breast' and 'breast-quad' among patients with recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events'].groupby(['breast', 'breast-quad']).size().idxmax()"",
+    },
+    {
+        ""question"": ""Calculate the average age of patients for each combination of 'menopause' and 'irradiat' status."",
+        ""query"": ""result = df.groupby(['menopause', 'irradiat'])['age'].mean()"",
+    },
+    {
+        ""question"": ""Identify the most common 'inv-nodes' category in patients with a high degree of malignancy (deg-malig >= 3)."",
+        ""query"": ""result = df[df['deg-malig'] >= 3]['inv-nodes'].mode()[0]"",
+    },
+    {
+        ""question"": ""Assess the distribution of 'tumor-size' categories in patients without node caps."",
+        ""query"": ""result = df[df['node-caps'] == 'no']['tumor-size'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the proportion of each 'menopause' category in patients with left and right breast cancer?"",
+        ""query"": ""result = df.groupby('breast')['menopause'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Compare the frequency of 'irradiat' status between patients aged 30-39 and those aged 50-59."",
+        ""query"": ""result = df[df['age'].isin(['30-39', '50-59'])].groupby('age')['irradiat'].value_counts()"",
+    },
+    {
+        ""question"": ""Determine the count of 'node-caps' occurrences for each 'tumor-size' category."",
+        ""query"": ""result = df.groupby('tumor-size')['node-caps'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the median 'deg-malig' value for each 'inv-nodes' category?"",
+        ""query"": ""result = df.groupby('inv-nodes')['deg-malig'].median()"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Breast Cancer
+- Description of dataframe: This is one of three domains provided by the Oncology Institute that has repeatedly appeared in the machine learning literature. (See also lymphography and primary-tumor.)
+
+This data set includes 201 instances of one class and 85 instances of another class.  The instances are described by 9 attributes, some of which are linear and some are nominal.
+
+- Column information of dataframe:
+#   Column       Dtype 
+--- ------       ----- 
+0   age          str   
+1   menopause    str   
+2   tumor-size   str   
+3   inv-nodes    str   
+4   node-caps    str   
+5   deg-malig    int   
+6   breast       str   
+7   breast-quad  str   
+8   irradiat     str   
+9   Class        str   
+
+- Sample rows of dataframe in CSV format:
+age,menopause,tumor-size,inv-nodes,node-caps,deg-malig,breast,breast-quad,irradiat,Class
+40-49,premeno,30-34,0-2,no,1,right,left_up,no,no-recurrence-events
+40-49,premeno,15-19,0-2,no,2,left,left_low,no,no-recurrence-events
+60-69,ge40,30-34,0-2,no,2,left,left_low,yes,no-recurrence-events
+40-49,premeno,50-54,0-2,no,2,left,left_low,no,no-recurrence-events
+40-49,premeno,25-29,11-Sep,yes,3,right,left_up,no,recurrence-events
+50-59,ge40,30-34,8-Jun,yes,3,left,right_low,no,recurrence-events
+50-59,ge40,25-29,0-2,no,2,left,left_low,no,no-recurrence-events
+60-69,ge40,25-29,0-2,no,3,right,left_up,no,no-recurrence-events
+30-39,premeno,14-Oct,0-2,no,1,right,left_low,no,no-recurrence-events
+50-59,premeno,14-Oct,0-2,no,2,right,left_up,no,no-recurrence-events
+40-49,premeno,25-29,0-2,no,1,left,right_low,no,no-recurrence-events
+30-39,premeno,20-24,0-2,no,2,left,right_low,no,no-recurrence-events
+40-49,ge40,25-29,14-Dec,yes,3,left,right_low,yes,recurrence-events
+30-39,premeno,30-34,0-2,no,1,right,left_up,no,recurrence-events
+60-69,ge40,35-39,8-Jun,yes,3,left,left_low,no,recurrence-events
+40-49,premeno,35-39,0-2,no,2,right,right_up,no,no-recurrence-events
+30-39,premeno,40-44,0-2,no,1,left,left_up,no,recurrence-events
+60-69,ge40,20-24,24-26,yes,3,left,left_low,yes,recurrence-events
+40-49,premeno,30-34,5-Mar,yes,2,left,right_up,no,recurrence-events
+40-49,premeno,20-24,8-Jun,no,2,right,left_low,yes,no-recurrence-events
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""How many individuals are in the youngest and oldest age groups respectively?"",
+        ""query"": ""result = df['age'].value_counts().iloc[[0, -1]]"",
+    },
+    {
+        ""question"": ""What is the most common tumor size observed in the data?"",
+        ""query"": ""result = df['tumor-size'].mode()[0]"",
+    },
+    {
+        ""question"": ""Can you find out how many individuals did not have recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'no-recurrence-events'].shape[0]"",
+    },
+    {
+        ""question"": ""What proportion of individuals had high malignancy (deg-malig of 3) and underwent irradiation?"",
+        ""query"": ""result = df[(df['deg-malig'] == 3) & (df['irradiat'] == 'yes')].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""Is there a more frequent breast quadrant where the cancer appears?"",
+        ""query"": ""result = df['breast-quad'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""How many individuals are there in each menopause stage?"",
+        ""query"": ""result = df['menopause'].value_counts()"",
+    },
+    {
+        ""question"": ""Could you identify the average malignancy degree among those who experienced recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have the tumor size in the range of 20-29?"",
+        ""query"": ""result = df[df['tumor-size'].str.contains('20-29')].shape[0]"",
+    },
+    {
+        ""question"": ""Can we determine the percentage of individuals who have both breasts affected?"",
+        ""query"": ""result = df[df['breast'] == 'both'].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""What is the count of individuals with each unique combination of 'breast' and 'breast-quad'?"",
+        ""query"": ""result = df.groupby(['breast', 'breast-quad']).size()"",
+    }
+]","[
+    {
+        ""question"": ""How many individuals fall within the '40-49' age range?"",
+        ""query"": ""result = df[df['age'] == '40-49'].shape[0]"",
+    },
+    {
+        ""question"": ""Which age group has the least occurrences in the dataset?"",
+        ""query"": ""result = df['age'].value_counts().idxmin()"",
+    },
+    {
+        ""question"": ""Can we figure out the proportion of individuals with a tumor size of '30-34'?"",
+        ""query"": ""result = df[df['tumor-size'] == '30-34'].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""What is the median malignancy degree observed in the data?"",
+        ""query"": ""result = df['deg-malig'].median()"",
+    },
+    {
+        ""question"": ""How many individuals have 'no' in the node-caps column?"",
+        ""query"": ""result = df[df['node-caps'] == 'no'].shape[0]"",
+    },
+    {
+        ""question"": ""Is there a dominant side (left or right) when it comes to the affected breast?"",
+        ""query"": ""result = df['breast'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""Can we find out the average age of individuals who have experienced recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['age'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""What is the count of individuals who underwent irradiation treatment?"",
+        ""query"": ""result = df[df['irradiat'] == 'yes'].shape[0]"",
+    },
+    {
+        ""question"": ""Could you determine how many different tumor sizes are represented in the data?"",
+        ""query"": ""result = df['tumor-size'].nunique()"",
+    },
+    {
+        ""question"": ""What is the distribution of individuals based on their menopause status?"",
+        ""query"": ""result = df['menopause'].value_counts(normalize=True)"",
+    }
+]","[
+    {
+        ""question"": ""How many individuals are in the youngest and oldest age groups respectively?"",
+        ""query"": ""result = df['age'].value_counts().iloc[[0, -1]]"",
+    },
+    {
+        ""question"": ""What is the most common tumor size observed in the data?"",
+        ""query"": ""result = df['tumor-size'].mode()[0]"",
+    },
+    {
+        ""question"": ""Can you find out how many individuals did not have recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'no-recurrence-events'].shape[0]"",
+    },
+    {
+        ""question"": ""What proportion of individuals had high malignancy (deg-malig of 3) and underwent irradiation?"",
+        ""query"": ""result = df[(df['deg-malig'] == 3) & (df['irradiat'] == 'yes')].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""Is there a more frequent breast quadrant where the cancer appears?"",
+        ""query"": ""result = df['breast-quad'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""How many individuals are there in each menopause stage?"",
+        ""query"": ""result = df['menopause'].value_counts()"",
+    },
+    {
+        ""question"": ""Could you identify the average malignancy degree among those who experienced recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have the tumor size in the range of 20-29?"",
+        ""query"": ""result = df[df['tumor-size'].str.contains('20-29')].shape[0]"",
+    },
+    {
+        ""question"": ""Can we determine the percentage of individuals who have both breasts affected?"",
+        ""query"": ""result = df[df['breast'] == 'both'].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""What is the count of individuals with each unique combination of 'breast' and 'breast-quad'?"",
+        ""query"": ""result = df.groupby(['breast', 'breast-quad']).size()"",
+    },
+    {
+        ""question"": ""How many individuals fall within the '40-49' age range?"",
+        ""query"": ""result = df[df['age'] == '40-49'].shape[0]"",
+    },
+    {
+        ""question"": ""Which age group has the least occurrences in the dataset?"",
+        ""query"": ""result = df['age'].value_counts().idxmin()"",
+    },
+    {
+        ""question"": ""Can we figure out the proportion of individuals with a tumor size of '30-34'?"",
+        ""query"": ""result = df[df['tumor-size'] == '30-34'].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""What is the median malignancy degree observed in the data?"",
+        ""query"": ""result = df['deg-malig'].median()"",
+    },
+    {
+        ""question"": ""How many individuals have 'no' in the node-caps column?"",
+        ""query"": ""result = df[df['node-caps'] == 'no'].shape[0]"",
+    },
+    {
+        ""question"": ""Is there a dominant side (left or right) when it comes to the affected breast?"",
+        ""query"": ""result = df['breast'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""Can we find out the average age of individuals who have experienced recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['age'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""What is the count of individuals who underwent irradiation treatment?"",
+        ""query"": ""result = df[df['irradiat'] == 'yes'].shape[0]"",
+    },
+    {
+        ""question"": ""Could you determine how many different tumor sizes are represented in the data?"",
+        ""query"": ""result = df['tumor-size'].nunique()"",
+    },
+    {
+        ""question"": ""What is the distribution of individuals based on their menopause status?"",
+        ""query"": ""result = df['menopause'].value_counts(normalize=True)"",
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Breast Cancer
+- Description of dataframe: This is one of three domains provided by the Oncology Institute that has repeatedly appeared in the machine learning literature. (See also lymphography and primary-tumor.)
+
+This data set includes 201 instances of one class and 85 instances of another class.  The instances are described by 9 attributes, some of which are linear and some are nominal.
+
+- Column information of dataframe:
+#   Column       Dtype 
+--- ------       ----- 
+0   age          str   
+1   menopause    str   
+2   tumor-size   str   
+3   inv-nodes    str   
+4   node-caps    str   
+5   deg-malig    int   
+6   breast       str   
+7   breast-quad  str   
+8   irradiat     str   
+9   Class        str   
+
+- Sample rows of dataframe in CSV format:
+age,menopause,tumor-size,inv-nodes,node-caps,deg-malig,breast,breast-quad,irradiat,Class
+30-39,premeno,14-Oct,0-2,no,2,left,right_low,no,no-recurrence-events
+50-59,ge40,25-29,0-2,no,2,left,left_low,no,no-recurrence-events
+50-59,ge40,20-24,0-2,no,3,right,left_up,no,no-recurrence-events
+50-59,premeno,25-29,5-Mar,yes,2,left,left_low,yes,no-recurrence-events
+60-69,ge40,30-34,0-2,no,3,right,left_up,yes,recurrence-events
+70-79,ge40,0-4,0-2,no,1,left,right_low,no,no-recurrence-events
+60-69,ge40,50-54,0-2,no,2,right,left_up,yes,no-recurrence-events
+50-59,ge40,14-Oct,0-2,no,1,left,left_low,no,no-recurrence-events
+30-39,premeno,15-19,0-2,no,1,right,left_low,no,recurrence-events
+60-69,ge40,15-19,0-2,no,2,left,left_low,no,no-recurrence-events
+60-69,ge40,14-Oct,0-2,no,1,left,left_up,no,no-recurrence-events
+30-39,premeno,30-34,0-2,no,2,left,left_up,no,no-recurrence-events
+40-49,premeno,30-34,5-Mar,no,2,right,left_up,no,recurrence-events
+30-39,premeno,40-44,0-2,no,2,right,right_up,no,no-recurrence-events
+40-49,ge40,30-34,0-2,no,2,left,left_up,yes,no-recurrence-events
+30-39,premeno,25-29,8-Jun,yes,2,right,left_up,yes,no-recurrence-events
+60-69,ge40,20-24,24-26,yes,3,left,left_low,yes,recurrence-events
+50-59,ge40,30-34,0-2,no,3,left,,no,recurrence-events
+30-39,premeno,25-29,8-Jun,yes,3,left,right_low,yes,recurrence-events
+40-49,premeno,35-39,0-2,no,1,left,left_low,no,no-recurrence-events
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average degree of malignancy (deg-malig) across all cases in the dataset?"",
+        ""query"": ""result = df['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""How many cases are there in each breast quadrant?"",
+        ""query"": ""result = df['breast-quad'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the proportion of recurrence events in the dataset?"",
+        ""query"": ""result = df['Class'].value_counts(normalize=True)['recurrence-events']"",
+    },
+    {
+        ""question"": ""What is the age distribution for cases with recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['age'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the count of cases for each menopause category?"",
+        ""query"": ""result = df['menopause'].value_counts()"",
+    },
+    {
+        ""question"": ""Which tumor size range is most common among all cases?"",
+        ""query"": ""result = df['tumor-size'].mode()[0]"",
+    },
+    {
+        ""question"": ""How many cases have irradiation treatment?"",
+        ""query"": ""result = df[df['irradiat'] == 'yes'].shape[0]"",
+    },
+    {
+        ""question"": ""What is the relationship between menopause status and recurrence events?"",
+        ""query"": ""result = pd.crosstab(df['menopause'], df['Class'])"",
+    },
+    {
+        ""question"": ""Which age group has the highest degree of malignancy on average?"",
+        ""query"": ""result = df.groupby('age')['deg-malig'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""How does the left versus right breast cancer occurrence compare?"",
+        ""query"": ""result = df['breast'].value_counts()"",
+    }
+]","[
+    {
+        ""question"": ""How many cases have node-caps present?"",
+        ""query"": ""result = df[df['node-caps'] == 'yes'].shape[0]"",
+    },
+    {
+        ""question"": ""Can you show the average degree of malignancy for each breast quadrant?"",
+        ""query"": ""result = df.groupby('breast-quad')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""What is the frequency of tumor sizes in the age group 50-59?"",
+        ""query"": ""result = df[df['age'] == '50-59']['tumor-size'].value_counts()"",
+    },
+    {
+        ""question"": ""How does the degree of malignancy vary with menopause status?"",
+        ""query"": ""result = df.groupby('menopause')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""What percentage of cases in each age group have recurrence events?"",
+        ""query"": ""result = df.groupby('age')['Class'].apply(lambda x: (x == 'recurrence-events').mean())"",
+    },
+    {
+        ""question"": ""Can you determine the most common tumor size for non-recurrent cases?"",
+        ""query"": ""result = df[df['Class'] == 'no-recurrence-events']['tumor-size'].mode()[0]"",
+    },
+    {
+        ""question"": ""How many cases are there with the highest degree of malignancy (deg-malig of 3)?"",
+        ""query"": ""result = df[df['deg-malig'] == 3].shape[0]"",
+    },
+    {
+        ""question"": ""What is the distribution of breast cancer cases by age and breast quadrant?"",
+        ""query"": ""result = pd.crosstab(df['age'], df['breast-quad'])"",
+    },
+    {
+        ""question"": ""Is there a correlation between the number of involved nodes and the degree of malignancy?"",
+        ""query"": ""result = df[['inv-nodes', 'deg-malig']].corr()"",
+    },
+    {
+        ""question"": ""What are the top three age groups with the highest number of recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['age'].value_counts().head(3)"",
+    }
+]","[
+    {
+        ""question"": ""What is the average degree of malignancy (deg-malig) across all cases in the dataset?"",
+        ""query"": ""result = df['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""How many cases are there in each breast quadrant?"",
+        ""query"": ""result = df['breast-quad'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the proportion of recurrence events in the dataset?"",
+        ""query"": ""result = df['Class'].value_counts(normalize=True)['recurrence-events']"",
+    },
+    {
+        ""question"": ""What is the age distribution for cases with recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['age'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the count of cases for each menopause category?"",
+        ""query"": ""result = df['menopause'].value_counts()"",
+    },
+    {
+        ""question"": ""Which tumor size range is most common among all cases?"",
+        ""query"": ""result = df['tumor-size'].mode()[0]"",
+    },
+    {
+        ""question"": ""How many cases have irradiation treatment?"",
+        ""query"": ""result = df[df['irradiat'] == 'yes'].shape[0]"",
+    },
+    {
+        ""question"": ""What is the relationship between menopause status and recurrence events?"",
+        ""query"": ""result = pd.crosstab(df['menopause'], df['Class'])"",
+    },
+    {
+        ""question"": ""Which age group has the highest degree of malignancy on average?"",
+        ""query"": ""result = df.groupby('age')['deg-malig'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""How does the left versus right breast cancer occurrence compare?"",
+        ""query"": ""result = df['breast'].value_counts()"",
+    },
+    {
+        ""question"": ""How many cases have node-caps present?"",
+        ""query"": ""result = df[df['node-caps'] == 'yes'].shape[0]"",
+    },
+    {
+        ""question"": ""Can you show the average degree of malignancy for each breast quadrant?"",
+        ""query"": ""result = df.groupby('breast-quad')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""What is the frequency of tumor sizes in the age group 50-59?"",
+        ""query"": ""result = df[df['age'] == '50-59']['tumor-size'].value_counts()"",
+    },
+    {
+        ""question"": ""How does the degree of malignancy vary with menopause status?"",
+        ""query"": ""result = df.groupby('menopause')['deg-malig'].mean()"",
+    },
+    {
+        ""question"": ""What percentage of cases in each age group have recurrence events?"",
+        ""query"": ""result = df.groupby('age')['Class'].apply(lambda x: (x == 'recurrence-events').mean())"",
+    },
+    {
+        ""question"": ""Can you determine the most common tumor size for non-recurrent cases?"",
+        ""query"": ""result = df[df['Class'] == 'no-recurrence-events']['tumor-size'].mode()[0]"",
+    },
+    {
+        ""question"": ""How many cases are there with the highest degree of malignancy (deg-malig of 3)?"",
+        ""query"": ""result = df[df['deg-malig'] == 3].shape[0]"",
+    },
+    {
+        ""question"": ""What is the distribution of breast cancer cases by age and breast quadrant?"",
+        ""query"": ""result = pd.crosstab(df['age'], df['breast-quad'])"",
+    },
+    {
+        ""question"": ""Is there a correlation between the number of involved nodes and the degree of malignancy?"",
+        ""query"": ""result = df[['inv-nodes', 'deg-malig']].corr()"",
+    },
+    {
+        ""question"": ""What are the top three age groups with the highest number of recurrence events?"",
+        ""query"": ""result = df[df['Class'] == 'recurrence-events']['age'].value_counts().head(3)"",
+    }
+]"

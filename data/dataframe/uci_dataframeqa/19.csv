@@ -1,0 +1,751 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Car Evaluation
+- Description of dataframe: Car Evaluation Database was derived from a simple hierarchical decision model originally developed for the demonstration of DEX, M. Bohanec, V. Rajkovic: Expert system for decision making. Sistemica 1(1), pp. 145-157, 1990.). The model evaluates cars according to the following concept structure:
+
+CAR                      car acceptability
+. PRICE                  overall price
+. . buying               buying price
+. . maint                price of the maintenance
+. TECH                   technical characteristics
+. . COMFORT              comfort
+. . . doors              number of doors
+. . . persons            capacity in terms of persons to carry
+. . . lug_boot           the size of luggage boot
+. . safety               estimated safety of the car
+
+Input attributes are printed in lowercase. Besides the target concept (CAR), the model includes three intermediate concepts: PRICE, TECH, COMFORT. Every concept is in the original model related to its lower level descendants by a set of examples (for these examples sets see http://www-ai.ijs.si/BlazZupan/car.html).
+
+The Car Evaluation Database contains examples with the structural information removed, i.e., directly relates CAR to the six input attributes: buying, maint, doors, persons, lug_boot, safety.
+
+Because of known underlying concept structure, this database may be particularly useful for testing constructive induction and structure discovery methods.
+
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   buying    str   
+1   maint     str   
+2   doors     str   
+3   persons   str   
+4   lug_boot  str   
+5   safety    str   
+6   class     str   
+
+- Sample rows of dataframe in CSV format:
+buying,maint,doors,persons,lug_boot,safety,class
+med,high,3,more,small,high,acc
+high,vhigh,2,more,big,high,unacc
+high,low,2,2,big,low,unacc
+med,med,5more,2,med,med,unacc
+med,med,3,more,small,high,acc
+med,high,2,more,small,low,unacc
+high,vhigh,5more,2,small,med,unacc
+med,vhigh,2,2,small,high,unacc
+low,high,5more,4,big,med,acc
+high,low,3,more,med,med,acc
+high,low,2,2,med,high,unacc
+vhigh,high,4,more,small,high,unacc
+vhigh,high,3,more,med,low,unacc
+high,high,3,4,big,med,acc
+vhigh,low,4,more,small,med,unacc
+low,high,3,more,small,high,acc
+low,med,5more,more,small,low,unacc
+high,med,2,2,small,high,unacc
+low,vhigh,3,more,big,low,unacc
+low,vhigh,2,more,med,high,acc
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the distribution of car acceptability classes (unacc, acc, etc.) for each combination of safety rating and luggage boot size?"",
+        ""query"": ""result = df.groupby(['safety', 'lug_boot'])['class'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""Can you calculate the average number of doors for cars in each class, assuming '5more' is treated as 5?"",
+        ""query"": ""result = df.replace({'doors': {'5more': 5}}).groupby('class')['doors'].apply(lambda x: pd.to_numeric(x).mean())""
+    },
+    {
+        ""question"": ""What is the proportion of cars that have more than 2 doors and are considered safe ('safety' rating high), across each maintenance cost category?"",
+        ""query"": ""result = df[(df['doors'] != '2') & (df['safety'] == 'high')].groupby('maint').size() / df.groupby('maint').size()""
+    },
+    {
+        ""question"": ""How does the average number of doors vary between cars with high and low safety ratings?"",
+        ""query"": ""result = df.replace({'doors': {'5more': 5}}).groupby('safety')['doors'].apply(lambda x: pd.to_numeric(x).mean())""
+    },
+    {
+        ""question"": ""Can you identify the buying price category (low, med, high, vhigh) with the highest frequency of cars deemed unacceptable (class 'unacc')?"",
+        ""query"": ""result = df[df['class'] == 'unacc']['buying'].value_counts().idxmax()""
+    },
+    {
+        ""question"": ""What is the correlation matrix between the categorical variables represented as numerical (buying price, maintenance cost, number of doors, number of persons, luggage boot size, safety rating)?"",
+        ""query"": ""result = df.apply(lambda x: pd.factorize(x)[0]).corr()""
+    },
+    {
+        ""question"": ""For cars with a 'high' safety rating, what is the distribution of car acceptability classes in relation to the number of doors?"",
+        ""query"": ""result = df[df['safety'] == 'high'].groupby(['doors'])['class'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""Can you create a pivot table that shows the median number of doors for each combination of luggage boot size and car acceptability class, treating '5more' as 5?"",
+        ""query"": ""result = df.replace({'doors': {'5more': 5}}).pivot_table(index='lug_boot', columns='class', values='doors', aggfunc='median')""
+    },
+    {
+        ""question"": ""How many cars have a maintenance cost lower than their buying price?"",
+        ""query"": ""result = df.apply(lambda x: pd.factorize(x)[0]).query('maint < buying').shape[0]""
+    },
+    {
+        ""question"": ""What is the most common number of doors among cars with a large luggage boot and a high safety rating?"",
+        ""query"": ""result = df[(df['lug_boot'] == 'big') & (df['safety'] == 'high')]['doors'].mode()[0]""
+    }
+]","[
+    {
+        ""question"": ""What is the frequency of each buying price category within each car acceptability class?"",
+        ""query"": ""result = df.groupby('class')['buying'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""How many cars have the highest safety rating ('high') but the lowest luggage boot size ('small')?"",
+        ""query"": ""result = df[(df['safety'] == 'high') & (df['lug_boot'] == 'small')].shape[0]""
+    },
+    {
+        ""question"": ""Can you identify the most common maintenance cost category for each combination of number of doors and number of persons?"",
+        ""query"": ""result = df.groupby(['doors', 'persons'])['maint'].agg(lambda x: x.mode()[0])""
+    },
+    {
+        ""question"": ""What proportion of cars have the same rating for buying price and maintenance cost?"",
+        ""query"": ""result = (df['buying'] == df['maint']).mean()""
+    },
+    {
+        ""question"": ""For each luggage boot size, what is the average number of persons carried in cars, assuming 'more' is treated as 5?"",
+        ""query"": ""result = df.replace({'persons': {'more': 5}}).groupby('lug_boot')['persons'].apply(lambda x: pd.to_numeric(x).mean())""
+    },
+    {
+        ""question"": ""Can you display a breakdown of car acceptability classes for each combination of safety rating and number of doors?"",
+        ""query"": ""result = df.groupby(['safety', 'doors'])['class'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""What is the distribution of car acceptability classes for each maintenance cost category, considering only cars with 4 or more doors?"",
+        ""query"": ""result = df[df['doors'].isin(['4', '5more'])].groupby('maint')['class'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""How does the distribution of buying prices vary between cars classified as acceptable ('acc') and unacceptable ('unacc')?"",
+        ""query"": ""result = df.groupby('class')['buying'].value_counts().unstack().loc[['acc', 'unacc']]""
+    },
+    {
+        ""question"": ""Can you find the buying price category with the least number of cars with a 'low' safety rating?"",
+        ""query"": ""result = df[df['safety'] == 'low']['buying'].value_counts().idxmin()""
+    },
+    {
+        ""question"": ""What is the ratio of cars with more capacity in terms of persons to carry ('more') to those with less capacity ('2') across each buying price category?"",
+        ""query"": ""result = df[df['persons'] == 'more'].groupby('buying').size() / df[df['persons'] == '2'].groupby('buying').size()""
+    }
+]","[
+    {
+        ""question"": ""What is the distribution of car acceptability classes (unacc, acc, etc.) for each combination of safety rating and luggage boot size?"",
+        ""query"": ""result = df.groupby(['safety', 'lug_boot'])['class'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""Can you calculate the average number of doors for cars in each class, assuming '5more' is treated as 5?"",
+        ""query"": ""result = df.replace({'doors': {'5more': 5}}).groupby('class')['doors'].apply(lambda x: pd.to_numeric(x).mean())""
+    },
+    {
+        ""question"": ""What is the proportion of cars that have more than 2 doors and are considered safe ('safety' rating high), across each maintenance cost category?"",
+        ""query"": ""result = df[(df['doors'] != '2') & (df['safety'] == 'high')].groupby('maint').size() / df.groupby('maint').size()""
+    },
+    {
+        ""question"": ""How does the average number of doors vary between cars with high and low safety ratings?"",
+        ""query"": ""result = df.replace({'doors': {'5more': 5}}).groupby('safety')['doors'].apply(lambda x: pd.to_numeric(x).mean())""
+    },
+    {
+        ""question"": ""Can you identify the buying price category (low, med, high, vhigh) with the highest frequency of cars deemed unacceptable (class 'unacc')?"",
+        ""query"": ""result = df[df['class'] == 'unacc']['buying'].value_counts().idxmax()""
+    },
+    {
+        ""question"": ""What is the correlation matrix between the categorical variables represented as numerical (buying price, maintenance cost, number of doors, number of persons, luggage boot size, safety rating)?"",
+        ""query"": ""result = df.apply(lambda x: pd.factorize(x)[0]).corr()""
+    },
+    {
+        ""question"": ""For cars with a 'high' safety rating, what is the distribution of car acceptability classes in relation to the number of doors?"",
+        ""query"": ""result = df[df['safety'] == 'high'].groupby(['doors'])['class'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""Can you create a pivot table that shows the median number of doors for each combination of luggage boot size and car acceptability class, treating '5more' as 5?"",
+        ""query"": ""result = df.replace({'doors': {'5more': 5}}).pivot_table(index='lug_boot', columns='class', values='doors', aggfunc='median')""
+    },
+    {
+        ""question"": ""How many cars have a maintenance cost lower than their buying price?"",
+        ""query"": ""result = df.apply(lambda x: pd.factorize(x)[0]).query('maint < buying').shape[0]""
+    },
+    {
+        ""question"": ""What is the most common number of doors among cars with a large luggage boot and a high safety rating?"",
+        ""query"": ""result = df[(df['lug_boot'] == 'big') & (df['safety'] == 'high')]['doors'].mode()[0]""
+    },
+    {
+        ""question"": ""What is the frequency of each buying price category within each car acceptability class?"",
+        ""query"": ""result = df.groupby('class')['buying'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""How many cars have the highest safety rating ('high') but the lowest luggage boot size ('small')?"",
+        ""query"": ""result = df[(df['safety'] == 'high') & (df['lug_boot'] == 'small')].shape[0]""
+    },
+    {
+        ""question"": ""Can you identify the most common maintenance cost category for each combination of number of doors and number of persons?"",
+        ""query"": ""result = df.groupby(['doors', 'persons'])['maint'].agg(lambda x: x.mode()[0])""
+    },
+    {
+        ""question"": ""What proportion of cars have the same rating for buying price and maintenance cost?"",
+        ""query"": ""result = (df['buying'] == df['maint']).mean()""
+    },
+    {
+        ""question"": ""For each luggage boot size, what is the average number of persons carried in cars, assuming 'more' is treated as 5?"",
+        ""query"": ""result = df.replace({'persons': {'more': 5}}).groupby('lug_boot')['persons'].apply(lambda x: pd.to_numeric(x).mean())""
+    },
+    {
+        ""question"": ""Can you display a breakdown of car acceptability classes for each combination of safety rating and number of doors?"",
+        ""query"": ""result = df.groupby(['safety', 'doors'])['class'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""What is the distribution of car acceptability classes for each maintenance cost category, considering only cars with 4 or more doors?"",
+        ""query"": ""result = df[df['doors'].isin(['4', '5more'])].groupby('maint')['class'].value_counts().unstack()""
+    },
+    {
+        ""question"": ""How does the distribution of buying prices vary between cars classified as acceptable ('acc') and unacceptable ('unacc')?"",
+        ""query"": ""result = df.groupby('class')['buying'].value_counts().unstack().loc[['acc', 'unacc']]""
+    },
+    {
+        ""question"": ""Can you find the buying price category with the least number of cars with a 'low' safety rating?"",
+        ""query"": ""result = df[df['safety'] == 'low']['buying'].value_counts().idxmin()""
+    },
+    {
+        ""question"": ""What is the ratio of cars with more capacity in terms of persons to carry ('more') to those with less capacity ('2') across each buying price category?"",
+        ""query"": ""result = df[df['persons'] == 'more'].groupby('buying').size() / df[df['persons'] == '2'].groupby('buying').size()""
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Car Evaluation
+- Description of dataframe: Car Evaluation Database was derived from a simple hierarchical decision model originally developed for the demonstration of DEX, M. Bohanec, V. Rajkovic: Expert system for decision making. Sistemica 1(1), pp. 145-157, 1990.). The model evaluates cars according to the following concept structure:
+
+CAR                      car acceptability
+. PRICE                  overall price
+. . buying               buying price
+. . maint                price of the maintenance
+. TECH                   technical characteristics
+. . COMFORT              comfort
+. . . doors              number of doors
+. . . persons            capacity in terms of persons to carry
+. . . lug_boot           the size of luggage boot
+. . safety               estimated safety of the car
+
+Input attributes are printed in lowercase. Besides the target concept (CAR), the model includes three intermediate concepts: PRICE, TECH, COMFORT. Every concept is in the original model related to its lower level descendants by a set of examples (for these examples sets see http://www-ai.ijs.si/BlazZupan/car.html).
+
+The Car Evaluation Database contains examples with the structural information removed, i.e., directly relates CAR to the six input attributes: buying, maint, doors, persons, lug_boot, safety.
+
+Because of known underlying concept structure, this database may be particularly useful for testing constructive induction and structure discovery methods.
+
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   buying    str   
+1   maint     str   
+2   doors     str   
+3   persons   str   
+4   lug_boot  str   
+5   safety    str   
+6   class     str   
+
+- Sample rows of dataframe in CSV format:
+buying,maint,doors,persons,lug_boot,safety,class
+med,low,2,more,big,low,unacc
+med,vhigh,2,more,big,med,acc
+high,vhigh,4,4,med,high,unacc
+vhigh,high,2,4,med,low,unacc
+high,high,2,4,med,med,unacc
+vhigh,low,2,2,med,low,unacc
+vhigh,med,4,2,med,high,unacc
+low,low,5more,2,small,high,unacc
+low,high,3,4,big,low,unacc
+high,med,5more,4,small,med,unacc
+high,vhigh,4,2,big,high,unacc
+med,vhigh,3,4,big,med,acc
+low,high,5more,more,big,med,acc
+med,vhigh,4,more,med,low,unacc
+med,med,2,4,small,low,unacc
+low,med,4,2,med,low,unacc
+med,vhigh,2,4,med,high,acc
+med,med,4,4,med,med,acc
+low,high,2,2,small,high,unacc
+vhigh,high,3,more,med,low,unacc
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""Which cars are considered unsafe regardless of their price and maintenance cost?"",
+        ""query"": ""result = df[df['safety'] == 'low']"",
+    },
+    {
+        ""question"": ""I'm looking for a family car. Can you find options with more than 4 seats and a large luggage boot?"",
+        ""query"": ""result = df[(df['persons'] == 'more') & (df['lug_boot'] == 'big')]"",
+    },
+    {
+        ""question"": ""I want a list of cars that are both economical to buy and maintain. Could you help with that?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['maint'] == 'low')]"",
+    },
+    {
+        ""question"": ""What are my options for cars with the highest safety rating?"",
+        ""query"": ""result = df[df['safety'] == 'high']"",
+    },
+    {
+        ""question"": ""I'm interested in cars that are cheap to buy but have a high maintenance cost. What are my choices?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['maint'] == 'high')]"",
+    },
+    {
+        ""question"": ""Can you show me all the cars that have 2 doors but can carry more than 2 persons?"",
+        ""query"": ""result = df[(df['doors'] == '2') & (df['persons'] != '2')]"",
+    },
+    {
+        ""question"": ""I need a car with a small luggage boot, irrespective of other features. What are my options?"",
+        ""query"": ""result = df[df['lug_boot'] == 'small']"",
+    },
+    {
+        ""question"": ""What cars are available that are low in buying price but have a medium-sized luggage boot?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['lug_boot'] == 'med')]"",
+    },
+    {
+        ""question"": ""I'm curious to know, which cars have the lowest safety rating and also have the smallest luggage boot?"",
+        ""query"": ""result = df[(df['safety'] == 'low') & (df['lug_boot'] == 'small')]"",
+    },
+    {
+        ""question"": ""Can you provide a list of cars that are expensive to buy and maintain?"",
+        ""query"": ""result = df[(df['buying'] == 'vhigh') & (df['maint'] == 'vhigh')]"",
+    }
+]","[
+    {
+        ""question"": ""What are the car options for someone looking for a vehicle with a medium or big luggage boot and high safety standards?"",
+        ""query"": ""result = df[(df['lug_boot'].isin(['med', 'big'])) & (df['safety'] == 'high')]"",
+    },
+    {
+        ""question"": ""Can you identify cars that are inexpensive to buy but have high maintenance costs?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['maint'] == 'high')]"",
+    },
+    {
+        ""question"": ""I need a car that can carry more than two people but doesn't necessarily have to have a lot of doors. What are my options?"",
+        ""query"": ""result = df[df['persons'] != '2']"",
+    },
+    {
+        ""question"": ""Which cars are most budget-friendly in terms of both buying and maintenance price?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['maint'] == 'low')]"",
+    },
+    {
+        ""question"": ""For cars with a large luggage capacity, what are the available safety ratings?"",
+        ""query"": ""result = df[df['lug_boot'] == 'big']['safety'].unique()"",
+    },
+    {
+        ""question"": ""I'm interested in finding out which cars have 4 doors but are not designed to carry more than 2 people. Can you list them?"",
+        ""query"": ""result = df[(df['doors'] == '4') & (df['persons'] == '2')]"",
+    },
+    {
+        ""question"": ""What are the options for cars with the smallest luggage boot, irrespective of their safety ratings?"",
+        ""query"": ""result = df[df['lug_boot'] == 'small']"",
+    },
+    {
+        ""question"": ""I would like to know which cars are considered most acceptable in terms of their overall attributes?"",
+        ""query"": ""result = df[df['class'] == 'acc']"",
+    },
+    {
+        ""question"": ""What cars are available that have the highest buying price but medium maintenance cost?"",
+        ""query"": ""result = df[(df['buying'] == 'vhigh') & (df['maint'] == 'med')]"",
+    },
+    {
+        ""question"": ""Can you show me a list of cars that have only two doors and are rated as highly acceptable?"",
+        ""query"": ""result = df[(df['doors'] == '2') & (df['class'] == 'acc')]"",
+    }
+]","[
+    {
+        ""question"": ""Which cars are considered unsafe regardless of their price and maintenance cost?"",
+        ""query"": ""result = df[df['safety'] == 'low']"",
+    },
+    {
+        ""question"": ""I'm looking for a family car. Can you find options with more than 4 seats and a large luggage boot?"",
+        ""query"": ""result = df[(df['persons'] == 'more') & (df['lug_boot'] == 'big')]"",
+    },
+    {
+        ""question"": ""I want a list of cars that are both economical to buy and maintain. Could you help with that?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['maint'] == 'low')]"",
+    },
+    {
+        ""question"": ""What are my options for cars with the highest safety rating?"",
+        ""query"": ""result = df[df['safety'] == 'high']"",
+    },
+    {
+        ""question"": ""I'm interested in cars that are cheap to buy but have a high maintenance cost. What are my choices?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['maint'] == 'high')]"",
+    },
+    {
+        ""question"": ""Can you show me all the cars that have 2 doors but can carry more than 2 persons?"",
+        ""query"": ""result = df[(df['doors'] == '2') & (df['persons'] != '2')]"",
+    },
+    {
+        ""question"": ""I need a car with a small luggage boot, irrespective of other features. What are my options?"",
+        ""query"": ""result = df[df['lug_boot'] == 'small']"",
+    },
+    {
+        ""question"": ""What cars are available that are low in buying price but have a medium-sized luggage boot?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['lug_boot'] == 'med')]"",
+    },
+    {
+        ""question"": ""I'm curious to know, which cars have the lowest safety rating and also have the smallest luggage boot?"",
+        ""query"": ""result = df[(df['safety'] == 'low') & (df['lug_boot'] == 'small')]"",
+    },
+    {
+        ""question"": ""Can you provide a list of cars that are expensive to buy and maintain?"",
+        ""query"": ""result = df[(df['buying'] == 'vhigh') & (df['maint'] == 'vhigh')]"",
+    },
+    {
+        ""question"": ""What are the car options for someone looking for a vehicle with a medium or big luggage boot and high safety standards?"",
+        ""query"": ""result = df[(df['lug_boot'].isin(['med', 'big'])) & (df['safety'] == 'high')]"",
+    },
+    {
+        ""question"": ""Can you identify cars that are inexpensive to buy but have high maintenance costs?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['maint'] == 'high')]"",
+    },
+    {
+        ""question"": ""I need a car that can carry more than two people but doesn't necessarily have to have a lot of doors. What are my options?"",
+        ""query"": ""result = df[df['persons'] != '2']"",
+    },
+    {
+        ""question"": ""Which cars are most budget-friendly in terms of both buying and maintenance price?"",
+        ""query"": ""result = df[(df['buying'] == 'low') & (df['maint'] == 'low')]"",
+    },
+    {
+        ""question"": ""For cars with a large luggage capacity, what are the available safety ratings?"",
+        ""query"": ""result = df[df['lug_boot'] == 'big']['safety'].unique()"",
+    },
+    {
+        ""question"": ""I'm interested in finding out which cars have 4 doors but are not designed to carry more than 2 people. Can you list them?"",
+        ""query"": ""result = df[(df['doors'] == '4') & (df['persons'] == '2')]"",
+    },
+    {
+        ""question"": ""What are the options for cars with the smallest luggage boot, irrespective of their safety ratings?"",
+        ""query"": ""result = df[df['lug_boot'] == 'small']"",
+    },
+    {
+        ""question"": ""I would like to know which cars are considered most acceptable in terms of their overall attributes?"",
+        ""query"": ""result = df[df['class'] == 'acc']"",
+    },
+    {
+        ""question"": ""What cars are available that have the highest buying price but medium maintenance cost?"",
+        ""query"": ""result = df[(df['buying'] == 'vhigh') & (df['maint'] == 'med')]"",
+    },
+    {
+        ""question"": ""Can you show me a list of cars that have only two doors and are rated as highly acceptable?"",
+        ""query"": ""result = df[(df['doors'] == '2') & (df['class'] == 'acc')]"",
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Car Evaluation
+- Description of dataframe: Car Evaluation Database was derived from a simple hierarchical decision model originally developed for the demonstration of DEX, M. Bohanec, V. Rajkovic: Expert system for decision making. Sistemica 1(1), pp. 145-157, 1990.). The model evaluates cars according to the following concept structure:
+
+CAR                      car acceptability
+. PRICE                  overall price
+. . buying               buying price
+. . maint                price of the maintenance
+. TECH                   technical characteristics
+. . COMFORT              comfort
+. . . doors              number of doors
+. . . persons            capacity in terms of persons to carry
+. . . lug_boot           the size of luggage boot
+. . safety               estimated safety of the car
+
+Input attributes are printed in lowercase. Besides the target concept (CAR), the model includes three intermediate concepts: PRICE, TECH, COMFORT. Every concept is in the original model related to its lower level descendants by a set of examples (for these examples sets see http://www-ai.ijs.si/BlazZupan/car.html).
+
+The Car Evaluation Database contains examples with the structural information removed, i.e., directly relates CAR to the six input attributes: buying, maint, doors, persons, lug_boot, safety.
+
+Because of known underlying concept structure, this database may be particularly useful for testing constructive induction and structure discovery methods.
+
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   buying    str   
+1   maint     str   
+2   doors     str   
+3   persons   str   
+4   lug_boot  str   
+5   safety    str   
+6   class     str   
+
+- Sample rows of dataframe in CSV format:
+buying,maint,doors,persons,lug_boot,safety,class
+high,low,5more,4,big,med,acc
+vhigh,vhigh,5more,more,big,high,unacc
+vhigh,high,4,2,med,med,unacc
+med,high,3,2,small,med,unacc
+high,med,5more,2,big,med,unacc
+low,high,4,4,small,high,acc
+vhigh,vhigh,5more,4,small,med,unacc
+vhigh,med,4,2,small,high,unacc
+low,high,5more,2,med,med,unacc
+low,low,2,2,med,low,unacc
+vhigh,low,3,2,small,high,unacc
+vhigh,low,2,4,big,low,unacc
+med,vhigh,2,2,small,med,unacc
+low,vhigh,3,2,med,med,unacc
+med,high,5more,4,med,high,acc
+high,vhigh,5more,2,small,med,unacc
+low,med,4,4,big,low,unacc
+med,vhigh,2,4,big,low,unacc
+med,high,4,4,big,med,acc
+vhigh,med,2,4,big,high,acc
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What are the top three most common combinations of buying price and maintenance price in our car catalog?"",
+        ""query"": ""result = df.groupby(['buying', 'maint']).size().nlargest(3)"",
+    },
+    {
+        ""question"": ""How many cars in our catalog are classified as acceptable ('acc') or highly acceptable ('vgood') with a high safety rating?"",
+        ""query"": ""result = df[(df['class'].isin(['acc', 'vgood'])) & (df['safety'] == 'high')].shape[0]"",
+    },
+    {
+        ""question"": ""What percentage of our cars have a capacity of more than 4 persons and are categorized as 'unacc' (unacceptable)?"",
+        ""query"": ""result = (df[(df['persons'] == 'more') & (df['class'] == 'unacc')].shape[0] / df.shape[0]) * 100"",
+    },
+    {
+        ""question"": ""Can we identify a trend in acceptability based on the luggage boot size? Show the number of cars in each class category for each luggage boot size."",
+        ""query"": ""result = df.groupby(['lug_boot', 'class']).size().unstack().fillna(0)"",
+    },
+    {
+        ""question"": ""What is the distribution of safety ratings among cars with a low buying price?"",
+        ""query"": ""result = df[df['buying'] == 'low']['safety'].value_counts()"",
+    },
+    {
+        ""question"": ""How many cars have a combination of low maintenance cost and high safety rating?"",
+        ""query"": ""result = df[(df['maint'] == 'low') & (df['safety'] == 'high')].shape[0]"",
+    },
+    {
+        ""question"": ""For each type of buying price, what is the average number of doors across all cars?"",
+        ""query"": ""result = df.replace({'doors': {'5more': 5}}).groupby('buying')['doors'].mean()"",
+    },
+    {
+        ""question"": ""Which maintenance cost category has the highest number of cars with a 'big' luggage boot size?"",
+        ""query"": ""result = df[df['lug_boot'] == 'big']['maint'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""Can we assess if there's a preference for a specific number of doors among highly acceptable cars?"",
+        ""query"": ""result = df[df['class'] == 'vgood']['doors'].value_counts()"",
+    },
+    {
+        ""question"": ""Identify the most common safety rating in cars with the highest acceptability class."",
+        ""query"": ""result = df[df['class'] == 'vgood']['safety'].mode()[0]"",
+    }
+]","[
+    {
+        ""question"": ""What is the breakdown of car acceptability classes for cars with 'high' buying prices?"",
+        ""query"": ""result = df[df['buying'] == 'high']['class'].value_counts()"",
+    },
+    {
+        ""question"": ""How does the frequency of different safety ratings vary across cars with different maintenance costs?"",
+        ""query"": ""result = df.groupby('maint')['safety'].value_counts().unstack()"",
+    },
+    {
+        ""question"": ""What are the most common combinations of luggage boot size and number of doors in the 'unacceptable' class of cars?"",
+        ""query"": ""result = df[df['class'] == 'unacc'].groupby(['lug_boot', 'doors']).size().nlargest(3)"",
+    },
+    {
+        ""question"": ""Determine the proportion of cars in each acceptability class for each buying price category."",
+        ""query"": ""result = df.groupby('buying')['class'].value_counts(normalize=True).unstack().fillna(0)"",
+    },
+    {
+        ""question"": ""Which lug_boot size is most prevalent among cars with 'vhigh' maintenance cost?"",
+        ""query"": ""result = df[df['maint'] == 'vhigh']['lug_boot'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""Identify the buying price categories that have no cars with 'small' lug_boot and 'low' safety."",
+        ""query"": ""result = df[(df['lug_boot'] == 'small') & (df['safety'] == 'low')]['buying'].unique()"",
+    },
+    {
+        ""question"": ""What is the distribution of number of doors in cars classified as highly acceptable ('vgood')?"",
+        ""query"": ""result = df[df['class'] == 'vgood']['doors'].value_counts()"",
+    },
+    {
+        ""question"": ""For cars with more than 4 persons capacity, how does the safety rating distribution vary?"",
+        ""query"": ""result = df[df['persons'] == 'more']['safety'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the ratio of cars with 'high' buying prices to those with 'low' buying prices?"",
+        ""query"": ""result = df[df['buying'] == 'high'].shape[0] / df[df['buying'] == 'low'].shape[0]"",
+    },
+    {
+        ""question"": ""How many cars have a 'big' lug_boot size and are rated as 'med' in safety?"",
+        ""query"": ""result = df[(df['lug_boot'] == 'big') & (df['safety'] == 'med')].shape[0]"",
+    }
+]","[
+    {
+        ""question"": ""What are the top three most common combinations of buying price and maintenance price in our car catalog?"",
+        ""query"": ""result = df.groupby(['buying', 'maint']).size().nlargest(3)"",
+    },
+    {
+        ""question"": ""How many cars in our catalog are classified as acceptable ('acc') or highly acceptable ('vgood') with a high safety rating?"",
+        ""query"": ""result = df[(df['class'].isin(['acc', 'vgood'])) & (df['safety'] == 'high')].shape[0]"",
+    },
+    {
+        ""question"": ""What percentage of our cars have a capacity of more than 4 persons and are categorized as 'unacc' (unacceptable)?"",
+        ""query"": ""result = (df[(df['persons'] == 'more') & (df['class'] == 'unacc')].shape[0] / df.shape[0]) * 100"",
+    },
+    {
+        ""question"": ""Can we identify a trend in acceptability based on the luggage boot size? Show the number of cars in each class category for each luggage boot size."",
+        ""query"": ""result = df.groupby(['lug_boot', 'class']).size().unstack().fillna(0)"",
+    },
+    {
+        ""question"": ""What is the distribution of safety ratings among cars with a low buying price?"",
+        ""query"": ""result = df[df['buying'] == 'low']['safety'].value_counts()"",
+    },
+    {
+        ""question"": ""How many cars have a combination of low maintenance cost and high safety rating?"",
+        ""query"": ""result = df[(df['maint'] == 'low') & (df['safety'] == 'high')].shape[0]"",
+    },
+    {
+        ""question"": ""For each type of buying price, what is the average number of doors across all cars?"",
+        ""query"": ""result = df.replace({'doors': {'5more': 5}}).groupby('buying')['doors'].mean()"",
+    },
+    {
+        ""question"": ""Which maintenance cost category has the highest number of cars with a 'big' luggage boot size?"",
+        ""query"": ""result = df[df['lug_boot'] == 'big']['maint'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""Can we assess if there's a preference for a specific number of doors among highly acceptable cars?"",
+        ""query"": ""result = df[df['class'] == 'vgood']['doors'].value_counts()"",
+    },
+    {
+        ""question"": ""Identify the most common safety rating in cars with the highest acceptability class."",
+        ""query"": ""result = df[df['class'] == 'vgood']['safety'].mode()[0]"",
+    },
+    {
+        ""question"": ""What is the breakdown of car acceptability classes for cars with 'high' buying prices?"",
+        ""query"": ""result = df[df['buying'] == 'high']['class'].value_counts()"",
+    },
+    {
+        ""question"": ""How does the frequency of different safety ratings vary across cars with different maintenance costs?"",
+        ""query"": ""result = df.groupby('maint')['safety'].value_counts().unstack()"",
+    },
+    {
+        ""question"": ""What are the most common combinations of luggage boot size and number of doors in the 'unacceptable' class of cars?"",
+        ""query"": ""result = df[df['class'] == 'unacc'].groupby(['lug_boot', 'doors']).size().nlargest(3)"",
+    },
+    {
+        ""question"": ""Determine the proportion of cars in each acceptability class for each buying price category."",
+        ""query"": ""result = df.groupby('buying')['class'].value_counts(normalize=True).unstack().fillna(0)"",
+    },
+    {
+        ""question"": ""Which lug_boot size is most prevalent among cars with 'vhigh' maintenance cost?"",
+        ""query"": ""result = df[df['maint'] == 'vhigh']['lug_boot'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""Identify the buying price categories that have no cars with 'small' lug_boot and 'low' safety."",
+        ""query"": ""result = df[(df['lug_boot'] == 'small') & (df['safety'] == 'low')]['buying'].unique()"",
+    },
+    {
+        ""question"": ""What is the distribution of number of doors in cars classified as highly acceptable ('vgood')?"",
+        ""query"": ""result = df[df['class'] == 'vgood']['doors'].value_counts()"",
+    },
+    {
+        ""question"": ""For cars with more than 4 persons capacity, how does the safety rating distribution vary?"",
+        ""query"": ""result = df[df['persons'] == 'more']['safety'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the ratio of cars with 'high' buying prices to those with 'low' buying prices?"",
+        ""query"": ""result = df[df['buying'] == 'high'].shape[0] / df[df['buying'] == 'low'].shape[0]"",
+    },
+    {
+        ""question"": ""How many cars have a 'big' lug_boot size and are rated as 'med' in safety?"",
+        ""query"": ""result = df[(df['lug_boot'] == 'big') & (df['safety'] == 'med')].shape[0]"",
+    }
+]"

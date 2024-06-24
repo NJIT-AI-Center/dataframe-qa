@@ -1,0 +1,706 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Computer Hardware
+- Description of dataframe: The estimated relative performance values were estimated by the authors using a linear regression method.  See their article (pp 308-313) for more details on how the relative performance values were set.
+- Column information of dataframe:
+#   Column      Dtype 
+--- ------      ----- 
+0   VendorName  str   
+1   ModelName   str   
+2   MYCT        int   
+3   MMIN        int   
+4   MMAX        int   
+5   CACH        int   
+6   CHMIN       int   
+7   CHMAX       int   
+8   PRP         int   
+9   ERP         int   
+
+- Sample rows of dataframe in CSV format:
+VendorName,ModelName,MYCT,MMIN,MMAX,CACH,CHMIN,CHMAX,PRP,ERP
+ipl,4443,50,2000,8000,8,3,6,45,44
+cdc,omega:480-i,50,500,2000,8,1,4,20,23
+apollo,dn420,400,512,3500,4,1,6,40,24
+basf,7/65,60,2000,8000,65,1,8,92,70
+ibm,4341-12,185,2000,16000,16,1,6,76,76
+ibm,370/125-2,480,96,512,0,1,1,6,15
+siemens,7.541,105,2000,6000,16,6,16,33,41
+dec,decsys:20:2060,133,1000,8000,9,3,12,72,41
+c.r.d,universe:68,320,256,6000,0,1,6,33,28
+cdc,cyber:170/835,56,5240,20970,30,12,24,106,138
+gould,concept:32/8780,75,2000,16000,128,1,38,259,157
+burroughs,b4955,110,5000,5000,142,8,64,120,124
+ibm,3083:e,26,8000,16000,0,8,16,185,113
+nixdorf,8890/70,200,2000,8000,64,1,5,41,67
+hp,3000/30,90,256,1000,0,3,10,17,18
+ibm,3033:u,57,4000,24000,64,12,16,237,171
+honeywell,dps:6/92,300,1000,4000,8,3,64,38,30
+nas,as/5000,92,2000,8000,32,1,6,62,53
+siemens,7.870-2,59,4000,12000,32,6,12,113,81
+dg,eclipse:mv/4000,200,1000,8000,0,1,2,36,36
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the correlation matrix for the numerical columns in the dataframe?"",
+        ""query"": ""result = df.corr()"",
+    },
+    {
+        ""question"": ""Perform a linear regression analysis between 'MMIN' (as independent variable) and 'ERP' (as dependent variable)."",
+        ""query"": ""import statsmodels.api as sm\nresult = sm.OLS(df['ERP'], sm.add_constant(df['MMIN'])).fit().summary()"",
+    },
+    {
+        ""question"": ""What are the average 'PRP' values for each unique 'VendorName', and how do they compare against the overall average 'PRP'?"",
+        ""query"": ""result = df.groupby('VendorName')['PRP'].mean().reset_index().assign(Overall_Avg_PRP=df['PRP'].mean())"",
+    },
+    {
+        ""question"": ""Identify and list the outliers in the 'CACH' column using the IQR method."",
+        ""query"": ""Q1 = df['CACH'].quantile(0.25)\nQ3 = df['CACH'].quantile(0.75)\nIQR = Q3 - Q1\nresult = df[(df['CACH'] < (Q1 - 1.5 * IQR)) | (df['CACH'] > (Q3 + 1.5 * IQR))]"",
+    },
+    {
+        ""question"": ""Create a new column 'Performance_Class' that categorizes computers into 'High', 'Medium', and 'Low' performance based on 'ERP' percentiles (High: >75th percentile, Medium: 25th-75th percentile, Low: <25th percentile)."",
+        ""query"": ""percentiles = df['ERP'].quantile([0.25, 0.75])\nresult = df.assign(Performance_Class=pd.cut(df['ERP'], bins=[0, percentiles[0.25], percentiles[0.75], df['ERP'].max()], labels=['Low', 'Medium', 'High']))"",
+    },
+    {
+        ""question"": ""What is the maximum 'MMAX' value for each 'Performance_Class' category defined in the previous question?"",
+        ""query"": ""result = df.groupby('Performance_Class')['MMAX'].max()"",
+    },
+    {
+        ""question"": ""For each 'VendorName', find the model with the highest 'ERP' and list these models along with their 'ERP' values."",
+        ""query"": ""result = df.sort_values('ERP', ascending=False).drop_duplicates('VendorName')[['VendorName', 'ModelName', 'ERP']]"",
+    },
+    {
+        ""question"": ""Calculate the mean and standard deviation of 'MYCT' for each combination of 'CHMIN' and 'CHMAX'."",
+        ""query"": ""result = df.groupby(['CHMIN', 'CHMAX'])['MYCT'].agg(['mean', 'std'])"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the average 'PRP' for each 'VendorName' across different ranges of 'MMIN' (0-2000, 2001-4000, 4001+)."",
+        ""query"": ""result = df.assign(MMIN_Range=pd.cut(df['MMIN'], bins=[0, 2000, 4000, df['MMIN'].max()])).pivot_table(index='VendorName', columns='MMIN_Range', values='PRP', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Identify the 'ModelName' with the highest 'ERP' for each 'VendorName' and calculate the percentage difference of its 'ERP' from the average 'ERP' for that vendor."",
+        ""query"": ""avg_erp_per_vendor = df.groupby('VendorName')['ERP'].mean()\nmax_erp_per_model = df.loc[df.groupby('VendorName')['ERP'].idxmax()][['VendorName', 'ModelName', 'ERP']]\nresult = max_erp_per_model.set_index('VendorName').join(avg_erp_per_vendor, rsuffix='_avg').assign(Percent_Diff=lambda x: ((x['ERP'] - x['ERP_avg']) / x['ERP_avg']) * 100)""
+    }
+]","[
+    {
+        ""question"": ""How many unique vendor and model combinations are there in the dataset?"",
+        ""query"": ""result = df.groupby(['VendorName', 'ModelName']).ngroups"",
+    },
+    {
+        ""question"": ""What is the distribution of 'MMAX' values across different 'VendorName' groups?"",
+        ""query"": ""result = df.groupby('VendorName')['MMAX'].describe()"",
+    },
+    {
+        ""question"": ""Which 'ModelName' has the highest 'ERP' value, and what is the corresponding 'VendorName'?"",
+        ""query"": ""result = df.loc[df['ERP'].idxmax(), ['VendorName', 'ModelName']]"",
+    },
+    {
+        ""question"": ""Create a scatter plot of 'MMIN' versus 'MMAX', colored by 'CACH' levels."",
+        ""query"": ""import matplotlib.pyplot as plt\nresult = plt.scatter(df['MMIN'], df['MMAX'], c=df['CACH'])\nplt.xlabel('MMIN')\nplt.ylabel('MMAX')\nplt.colorbar(label='CACH')"",
+    },
+    {
+        ""question"": ""Which 'VendorName' has the most consistent performance in terms of 'PRP', as indicated by the smallest standard deviation?"",
+        ""query"": ""result = df.groupby('VendorName')['PRP'].std().idxmin()"",
+    },
+    {
+        ""question"": ""Calculate the Pearson correlation coefficient between 'CHMIN' and 'CHMAX'."",
+        ""query"": ""result = df['CHMIN'].corr(df['CHMAX'])"",
+    },
+    {
+        ""question"": ""Generate a histogram of 'ERP' values, segmented into 10 equal bins."",
+        ""query"": ""result = df['ERP'].hist(bins=10)"",
+    },
+    {
+        ""question"": ""Find the average 'MYCT' for computers with 'MMAX' greater than 10000."",
+        ""query"": ""result = df[df['MMAX'] > 10000]['MYCT'].mean()"",
+    },
+    {
+        ""question"": ""Create a new column 'Memory_Ratio' as the ratio of 'MMAX' to 'MMIN', and find the model with the highest ratio."",
+        ""query"": ""result = df.assign(Memory_Ratio=df['MMAX'] / df['MMIN']).nlargest(1, 'Memory_Ratio', keep='all')[['VendorName', 'ModelName', 'Memory_Ratio']]"",
+    },
+    {
+        ""question"": ""What percentage of computers have a 'CACH' value above the median of the 'CACH' column?"",
+        ""query"": ""median_cach = df['CACH'].median()\nresult = (df[df['CACH'] > median_cach].shape[0] / df.shape[0]) * 100"",
+    }
+]","[
+    {
+        ""question"": ""What is the correlation matrix for the numerical columns in the dataframe?"",
+        ""query"": ""result = df.corr()"",
+    },
+    {
+        ""question"": ""Perform a linear regression analysis between 'MMIN' (as independent variable) and 'ERP' (as dependent variable)."",
+        ""query"": ""import statsmodels.api as sm\nresult = sm.OLS(df['ERP'], sm.add_constant(df['MMIN'])).fit().summary()"",
+    },
+    {
+        ""question"": ""What are the average 'PRP' values for each unique 'VendorName', and how do they compare against the overall average 'PRP'?"",
+        ""query"": ""result = df.groupby('VendorName')['PRP'].mean().reset_index().assign(Overall_Avg_PRP=df['PRP'].mean())"",
+    },
+    {
+        ""question"": ""Identify and list the outliers in the 'CACH' column using the IQR method."",
+        ""query"": ""Q1 = df['CACH'].quantile(0.25)\nQ3 = df['CACH'].quantile(0.75)\nIQR = Q3 - Q1\nresult = df[(df['CACH'] < (Q1 - 1.5 * IQR)) | (df['CACH'] > (Q3 + 1.5 * IQR))]"",
+    },
+    {
+        ""question"": ""Create a new column 'Performance_Class' that categorizes computers into 'High', 'Medium', and 'Low' performance based on 'ERP' percentiles (High: >75th percentile, Medium: 25th-75th percentile, Low: <25th percentile)."",
+        ""query"": ""percentiles = df['ERP'].quantile([0.25, 0.75])\nresult = df.assign(Performance_Class=pd.cut(df['ERP'], bins=[0, percentiles[0.25], percentiles[0.75], df['ERP'].max()], labels=['Low', 'Medium', 'High']))"",
+    },
+    {
+        ""question"": ""What is the maximum 'MMAX' value for each 'Performance_Class' category defined in the previous question?"",
+        ""query"": ""result = df.groupby('Performance_Class')['MMAX'].max()"",
+    },
+    {
+        ""question"": ""For each 'VendorName', find the model with the highest 'ERP' and list these models along with their 'ERP' values."",
+        ""query"": ""result = df.sort_values('ERP', ascending=False).drop_duplicates('VendorName')[['VendorName', 'ModelName', 'ERP']]"",
+    },
+    {
+        ""question"": ""Calculate the mean and standard deviation of 'MYCT' for each combination of 'CHMIN' and 'CHMAX'."",
+        ""query"": ""result = df.groupby(['CHMIN', 'CHMAX'])['MYCT'].agg(['mean', 'std'])"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the average 'PRP' for each 'VendorName' across different ranges of 'MMIN' (0-2000, 2001-4000, 4001+)."",
+        ""query"": ""result = df.assign(MMIN_Range=pd.cut(df['MMIN'], bins=[0, 2000, 4000, df['MMIN'].max()])).pivot_table(index='VendorName', columns='MMIN_Range', values='PRP', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Identify the 'ModelName' with the highest 'ERP' for each 'VendorName' and calculate the percentage difference of its 'ERP' from the average 'ERP' for that vendor."",
+        ""query"": ""avg_erp_per_vendor = df.groupby('VendorName')['ERP'].mean()\nmax_erp_per_model = df.loc[df.groupby('VendorName')['ERP'].idxmax()][['VendorName', 'ModelName', 'ERP']]\nresult = max_erp_per_model.set_index('VendorName').join(avg_erp_per_vendor, rsuffix='_avg').assign(Percent_Diff=lambda x: ((x['ERP'] - x['ERP_avg']) / x['ERP_avg']) * 100)""
+    },
+    {
+        ""question"": ""How many unique vendor and model combinations are there in the dataset?"",
+        ""query"": ""result = df.groupby(['VendorName', 'ModelName']).ngroups"",
+    },
+    {
+        ""question"": ""What is the distribution of 'MMAX' values across different 'VendorName' groups?"",
+        ""query"": ""result = df.groupby('VendorName')['MMAX'].describe()"",
+    },
+    {
+        ""question"": ""Which 'ModelName' has the highest 'ERP' value, and what is the corresponding 'VendorName'?"",
+        ""query"": ""result = df.loc[df['ERP'].idxmax(), ['VendorName', 'ModelName']]"",
+    },
+    {
+        ""question"": ""Create a scatter plot of 'MMIN' versus 'MMAX', colored by 'CACH' levels."",
+        ""query"": ""import matplotlib.pyplot as plt\nresult = plt.scatter(df['MMIN'], df['MMAX'], c=df['CACH'])\nplt.xlabel('MMIN')\nplt.ylabel('MMAX')\nplt.colorbar(label='CACH')"",
+    },
+    {
+        ""question"": ""Which 'VendorName' has the most consistent performance in terms of 'PRP', as indicated by the smallest standard deviation?"",
+        ""query"": ""result = df.groupby('VendorName')['PRP'].std().idxmin()"",
+    },
+    {
+        ""question"": ""Calculate the Pearson correlation coefficient between 'CHMIN' and 'CHMAX'."",
+        ""query"": ""result = df['CHMIN'].corr(df['CHMAX'])"",
+    },
+    {
+        ""question"": ""Generate a histogram of 'ERP' values, segmented into 10 equal bins."",
+        ""query"": ""result = df['ERP'].hist(bins=10)"",
+    },
+    {
+        ""question"": ""Find the average 'MYCT' for computers with 'MMAX' greater than 10000."",
+        ""query"": ""result = df[df['MMAX'] > 10000]['MYCT'].mean()"",
+    },
+    {
+        ""question"": ""Create a new column 'Memory_Ratio' as the ratio of 'MMAX' to 'MMIN', and find the model with the highest ratio."",
+        ""query"": ""result = df.assign(Memory_Ratio=df['MMAX'] / df['MMIN']).nlargest(1, 'Memory_Ratio', keep='all')[['VendorName', 'ModelName', 'Memory_Ratio']]"",
+    },
+    {
+        ""question"": ""What percentage of computers have a 'CACH' value above the median of the 'CACH' column?"",
+        ""query"": ""median_cach = df['CACH'].median()\nresult = (df[df['CACH'] > median_cach].shape[0] / df.shape[0]) * 100"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Computer Hardware
+- Description of dataframe: The estimated relative performance values were estimated by the authors using a linear regression method.  See their article (pp 308-313) for more details on how the relative performance values were set.
+- Column information of dataframe:
+#   Column      Dtype 
+--- ------      ----- 
+0   VendorName  str   
+1   ModelName   str   
+2   MYCT        int   
+3   MMIN        int   
+4   MMAX        int   
+5   CACH        int   
+6   CHMIN       int   
+7   CHMAX       int   
+8   PRP         int   
+9   ERP         int   
+
+- Sample rows of dataframe in CSV format:
+VendorName,ModelName,MYCT,MMIN,MMAX,CACH,CHMIN,CHMAX,PRP,ERP
+amdahl,580-5880,23,32000,64000,128,32,64,1144,1238
+ibm,4331-1,900,512,1000,0,1,2,11,17
+gould,concept:32/8750,75,2000,16000,64,1,38,144,113
+dg,eclipse:mv/8000-ii,220,1000,8000,16,1,2,71,42
+gould,concept:32/8705,75,2000,8000,64,1,38,144,75
+dec,vax:11/750,320,512,8000,4,1,5,40,36
+nas,as/6150,60,4000,16000,32,1,6,86,95
+cdc,cyber:170/835,56,5240,20970,30,12,24,106,138
+honeywell,dps:6/96,300,1000,16000,8,2,112,38,73
+ibm,4331-2,900,1000,4000,8,1,2,22,28
+nas,as/6630,60,4000,16000,64,5,8,93,117
+nas,as/6620,60,2000,16000,64,5,8,74,107
+ibm,4361-5,25,2000,12000,16,3,5,66,65
+ibm,4341-10,225,2000,4000,8,3,6,34,31
+sperry,90/80-model-3,98,1000,8000,32,2,8,46,50
+honeywell,dps:8/49,140,2000,32000,32,1,20,134,175
+c.r.d,universe:68/37,320,256,5000,4,1,6,27,27
+honeywell,dps:8/20,140,2000,4000,8,1,20,22,32
+ibm,3083:b,26,8000,32000,0,8,24,277,220
+amdahl,470v/7c,29,8000,16000,32,8,16,132,132
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""Which computer models have the highest estimated relative performance?"",
+        ""query"": ""result = df.sort_values(by='ERP', ascending=False).head()""
+    },
+    {
+        ""question"": ""Can you show me a list of different vendors along with the number of models they have?"",
+        ""query"": ""result = df['VendorName'].value_counts()""
+    },
+    {
+        ""question"": ""I'm interested in models with a minimum memory of at least 4000. Which ones are available?"",
+        ""query"": ""result = df[df['MMIN'] >= 4000]""
+    },
+    {
+        ""question"": ""What are the average maximum and minimum memory across all computer models?"",
+        ""query"": ""result = df[['MMIN', 'MMAX']].mean()""
+    },
+    {
+        ""question"": ""Which models have a maximum channel configuration greater than 50?"",
+        ""query"": ""result = df[df['CHMAX'] > 50]""
+    },
+    {
+        ""question"": ""Can you find the models that have the least and the most cache memory?"",
+        ""query"": ""result = df[df['CACH'] == df['CACH'].min()], df[df['CACH'] == df['CACH'].max()]""
+    },
+    {
+        ""question"": ""I'd like to know how many models have a machine cycle time (MYCT) less than 100."",
+        ""query"": ""result = df[df['MYCT'] < 100].shape[0]""
+    },
+    {
+        ""question"": ""Is there a correlation between machine cycle time (MYCT) and estimated relative performance (ERP)?"",
+        ""query"": ""result = df[['MYCT', 'ERP']].corr()""
+    },
+    {
+        ""question"": ""What are the top 5 models with the highest cache memory?"",
+        ""query"": ""result = df.sort_values(by='CACH', ascending=False).head(5)""
+    },
+    {
+        ""question"": ""Can you group the models by vendor and show the average estimated relative performance for each vendor?"",
+        ""query"": ""result = df.groupby('VendorName')['ERP'].mean()""
+    }
+]","[
+    {
+        ""question"": ""Which computer models are the most efficient in terms of performance to machine cycle time ratio?"",
+        ""query"": ""result = df.assign(EfficiencyRatio=df['PRP'] / df['MYCT']).sort_values(by='EfficiencyRatio', ascending=False).head()""
+    },
+    {
+        ""question"": ""Can we see a breakdown of the number of computer models by their minimum memory (MMIN) ranges?"",
+        ""query"": ""result = pd.cut(df['MMIN'], bins=[0, 1000, 4000, 8000, 16000, 32000]).value_counts()""
+    },
+    {
+        ""question"": ""I'm curious, are there any models that have exactly the same minimum and maximum memory?"",
+        ""query"": ""result = df[df['MMIN'] == df['MMAX']]""
+    },
+    {
+        ""question"": ""What's the median value of cache memory across all models?"",
+        ""query"": ""result = df['CACH'].median()""
+    },
+    {
+        ""question"": ""Which vendor offers the widest range of channel configurations (difference between CHMIN and CHMAX)?"",
+        ""query"": ""result = df.assign(ChannelRange=df['CHMAX'] - df['CHMIN']).groupby('VendorName')['ChannelRange'].max().idxmax()""
+    },
+    {
+        ""question"": ""How many models have a higher estimated relative performance (ERP) than the average ERP?"",
+        ""query"": ""result = df[df['ERP'] > df['ERP'].mean()].shape[0]""
+    },
+    {
+        ""question"": ""What is the average machine cycle time (MYCT) among the top 10 highest performing models?"",
+        ""query"": ""result = df.nlargest(10, 'PRP')['MYCT'].mean()""
+    },
+    {
+        ""question"": ""Can you list the models which have a cache memory of 0?"",
+        ""query"": ""result = df[df['CACH'] == 0]""
+    },
+    {
+        ""question"": ""What is the total number of models provided by each vendor?"",
+        ""query"": ""result = df.groupby('VendorName').size()""
+    },
+    {
+        ""question"": ""Which model names are the most common across different vendors?"",
+        ""query"": ""result = df['ModelName'].value_counts().head()""
+    }
+]","[
+    {
+        ""question"": ""Which computer models have the highest estimated relative performance?"",
+        ""query"": ""result = df.sort_values(by='ERP', ascending=False).head()""
+    },
+    {
+        ""question"": ""Can you show me a list of different vendors along with the number of models they have?"",
+        ""query"": ""result = df['VendorName'].value_counts()""
+    },
+    {
+        ""question"": ""I'm interested in models with a minimum memory of at least 4000. Which ones are available?"",
+        ""query"": ""result = df[df['MMIN'] >= 4000]""
+    },
+    {
+        ""question"": ""What are the average maximum and minimum memory across all computer models?"",
+        ""query"": ""result = df[['MMIN', 'MMAX']].mean()""
+    },
+    {
+        ""question"": ""Which models have a maximum channel configuration greater than 50?"",
+        ""query"": ""result = df[df['CHMAX'] > 50]""
+    },
+    {
+        ""question"": ""Can you find the models that have the least and the most cache memory?"",
+        ""query"": ""result = df[df['CACH'] == df['CACH'].min()], df[df['CACH'] == df['CACH'].max()]""
+    },
+    {
+        ""question"": ""I'd like to know how many models have a machine cycle time (MYCT) less than 100."",
+        ""query"": ""result = df[df['MYCT'] < 100].shape[0]""
+    },
+    {
+        ""question"": ""Is there a correlation between machine cycle time (MYCT) and estimated relative performance (ERP)?"",
+        ""query"": ""result = df[['MYCT', 'ERP']].corr()""
+    },
+    {
+        ""question"": ""What are the top 5 models with the highest cache memory?"",
+        ""query"": ""result = df.sort_values(by='CACH', ascending=False).head(5)""
+    },
+    {
+        ""question"": ""Can you group the models by vendor and show the average estimated relative performance for each vendor?"",
+        ""query"": ""result = df.groupby('VendorName')['ERP'].mean()""
+    },
+    {
+        ""question"": ""Which computer models are the most efficient in terms of performance to machine cycle time ratio?"",
+        ""query"": ""result = df.assign(EfficiencyRatio=df['PRP'] / df['MYCT']).sort_values(by='EfficiencyRatio', ascending=False).head()""
+    },
+    {
+        ""question"": ""Can we see a breakdown of the number of computer models by their minimum memory (MMIN) ranges?"",
+        ""query"": ""result = pd.cut(df['MMIN'], bins=[0, 1000, 4000, 8000, 16000, 32000]).value_counts()""
+    },
+    {
+        ""question"": ""I'm curious, are there any models that have exactly the same minimum and maximum memory?"",
+        ""query"": ""result = df[df['MMIN'] == df['MMAX']]""
+    },
+    {
+        ""question"": ""What's the median value of cache memory across all models?"",
+        ""query"": ""result = df['CACH'].median()""
+    },
+    {
+        ""question"": ""Which vendor offers the widest range of channel configurations (difference between CHMIN and CHMAX)?"",
+        ""query"": ""result = df.assign(ChannelRange=df['CHMAX'] - df['CHMIN']).groupby('VendorName')['ChannelRange'].max().idxmax()""
+    },
+    {
+        ""question"": ""How many models have a higher estimated relative performance (ERP) than the average ERP?"",
+        ""query"": ""result = df[df['ERP'] > df['ERP'].mean()].shape[0]""
+    },
+    {
+        ""question"": ""What is the average machine cycle time (MYCT) among the top 10 highest performing models?"",
+        ""query"": ""result = df.nlargest(10, 'PRP')['MYCT'].mean()""
+    },
+    {
+        ""question"": ""Can you list the models which have a cache memory of 0?"",
+        ""query"": ""result = df[df['CACH'] == 0]""
+    },
+    {
+        ""question"": ""What is the total number of models provided by each vendor?"",
+        ""query"": ""result = df.groupby('VendorName').size()""
+    },
+    {
+        ""question"": ""Which model names are the most common across different vendors?"",
+        ""query"": ""result = df['ModelName'].value_counts().head()""
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Computer Hardware
+- Description of dataframe: The estimated relative performance values were estimated by the authors using a linear regression method.  See their article (pp 308-313) for more details on how the relative performance values were set.
+- Column information of dataframe:
+#   Column      Dtype 
+--- ------      ----- 
+0   VendorName  str   
+1   ModelName   str   
+2   MYCT        int   
+3   MMIN        int   
+4   MMAX        int   
+5   CACH        int   
+6   CHMIN       int   
+7   CHMAX       int   
+8   PRP         int   
+9   ERP         int   
+
+- Sample rows of dataframe in CSV format:
+VendorName,ModelName,MYCT,MMIN,MMAX,CACH,CHMIN,CHMAX,PRP,ERP
+ncr,v8655,38,8000,16000,64,4,8,100,142
+ibm,370/125-2,480,96,512,0,1,1,6,15
+gould,concept:32/8750,75,2000,16000,64,1,38,144,113
+wang,vs-100,480,512,8000,32,0,0,67,47
+sperry,1100/83,50,2000,32000,112,52,104,307,341
+cdc,omega:480-iii,50,2000,8000,8,1,5,71,44
+honeywell,dps:8/52,140,2000,32000,32,1,54,141,181
+dec,vax:11/730,810,1000,5000,0,1,1,20,28
+honeywell,dps:7/65,140,2000,4000,0,4,8,40,29
+prime,50-2250,160,512,4000,2,1,5,30,25
+ibm,3083:b,26,8000,32000,0,8,24,277,220
+ibm,370/158-3,115,512,6000,16,1,6,45,35
+c.r.d,universe:68/137,320,512,5000,4,1,5,77,28
+amdahl,580-5880,23,32000,64000,128,32,64,1144,1238
+ibm,4361-5,25,2000,12000,16,3,5,66,65
+siemens,7.865-2,70,4000,12000,8,6,8,75,67
+ncr,v8575:ii,56,4000,8000,0,1,8,34,47
+cambex,1651-1,50,2000,16000,8,3,6,60,74
+cdc,cyber:170/835,56,5240,20970,30,12,24,106,138
+nas,as/6130,75,4000,16000,16,1,6,66,86
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What are the top 5 performing models in terms of Estimated Relative Performance (ERP)?"",
+        ""query"": ""result = df.sort_values(by='ERP', ascending=False).head(5)"",
+    },
+    {
+        ""question"": ""Which vendor has the most models in our database?"",
+        ""query"": ""result = df['VendorName'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""What is the average Machine Cycle Time (MYCT) across all models?"",
+        ""query"": ""result = df['MYCT'].mean()"",
+    },
+    {
+        ""question"": ""How many models have a Maximum Main Memory (MMAX) greater than 16000?"",
+        ""query"": ""result = df[df['MMAX'] > 16000].shape[0]"",
+    },
+    {
+        ""question"": ""Can we get a breakdown of the number of models per vendor?"",
+        ""query"": ""result = df['VendorName'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the correlation between Cache Memory (CACH) and Estimated Relative Performance (ERP)?"",
+        ""query"": ""result = df[['CACH', 'ERP']].corr()"",
+    },
+    {
+        ""question"": ""Which model has the lowest Machine Cycle Time (MYCT) and how low is it?"",
+        ""query"": ""result = df.loc[df['MYCT'].idxmin(), ['ModelName', 'MYCT']]"",
+    },
+    {
+        ""question"": ""Can we see the average Estimated Relative Performance (ERP) for each vendor?"",
+        ""query"": ""result = df.groupby('VendorName')['ERP'].mean()"",
+    },
+    {
+        ""question"": ""What is the maximum Channel Maximum (CHMAX) value across all models?"",
+        ""query"": ""result = df['CHMAX'].max()"",
+    },
+    {
+        ""question"": ""Which models have a Cache Memory (CACH) greater than 50 and an ERP above 100?"",
+        ""query"": ""result = df[(df['CACH'] > 50) & (df['ERP'] > 100)]"",
+    }
+]","[
+    {
+        ""question"": ""What is the distribution of models based on their Minimum Main Memory (MMIN)?"",
+        ""query"": ""result = df['MMIN'].value_counts()"",
+    },
+    {
+        ""question"": ""Can we identify the most common range of Maximum Main Memory (MMAX) across our models?"",
+        ""query"": ""result = pd.cut(df['MMAX'], bins=[0, 4000, 8000, 16000, 32000, 64000]).value_counts()"",
+    },
+    {
+        ""question"": ""How does the Average Channel Maximum (CHMAX) compare across different vendors?"",
+        ""query"": ""result = df.groupby('VendorName')['CHMAX'].mean()"",
+    },
+    {
+        ""question"": ""What are the minimum, maximum, and average values for Estimated Relative Performance (ERP)?"",
+        ""query"": ""result = df['ERP'].agg(['min', 'max', 'mean'])"",
+    },
+    {
+        ""question"": ""Which models have a Cache Memory (CACH) of zero?"",
+        ""query"": ""result = df[df['CACH'] == 0]"",
+    },
+    {
+        ""question"": ""Can we group the models based on their Machine Cycle Time (MYCT) into 'Low', 'Medium', and 'High' categories?"",
+        ""query"": ""result = pd.qcut(df['MYCT'], q=3, labels=['Low', 'Medium', 'High']).value_counts()"",
+    },
+    {
+        ""question"": ""What is the total number of models provided by each vendor?"",
+        ""query"": ""result = df.groupby('VendorName').size()"",
+    },
+    {
+        ""question"": ""Which model has the highest Channel Minimum (CHMIN) and what is its value?"",
+        ""query"": ""result = df.loc[df['CHMIN'].idxmax(), ['ModelName', 'CHMIN']]"",
+    },
+    {
+        ""question"": ""Can we find the average Machine Cycle Time (MYCT) for models with more than 100 Estimated Relative Performance (ERP)?"",
+        ""query"": ""result = df[df['ERP'] > 100]['MYCT'].mean()"",
+    },
+    {
+        ""question"": ""How many unique vendors are represented in our dataset?"",
+        ""query"": ""result = df['VendorName'].nunique()"",
+    }
+]","[
+    {
+        ""question"": ""What are the top 5 performing models in terms of Estimated Relative Performance (ERP)?"",
+        ""query"": ""result = df.sort_values(by='ERP', ascending=False).head(5)"",
+    },
+    {
+        ""question"": ""Which vendor has the most models in our database?"",
+        ""query"": ""result = df['VendorName'].value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""What is the average Machine Cycle Time (MYCT) across all models?"",
+        ""query"": ""result = df['MYCT'].mean()"",
+    },
+    {
+        ""question"": ""How many models have a Maximum Main Memory (MMAX) greater than 16000?"",
+        ""query"": ""result = df[df['MMAX'] > 16000].shape[0]"",
+    },
+    {
+        ""question"": ""Can we get a breakdown of the number of models per vendor?"",
+        ""query"": ""result = df['VendorName'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the correlation between Cache Memory (CACH) and Estimated Relative Performance (ERP)?"",
+        ""query"": ""result = df[['CACH', 'ERP']].corr()"",
+    },
+    {
+        ""question"": ""Which model has the lowest Machine Cycle Time (MYCT) and how low is it?"",
+        ""query"": ""result = df.loc[df['MYCT'].idxmin(), ['ModelName', 'MYCT']]"",
+    },
+    {
+        ""question"": ""Can we see the average Estimated Relative Performance (ERP) for each vendor?"",
+        ""query"": ""result = df.groupby('VendorName')['ERP'].mean()"",
+    },
+    {
+        ""question"": ""What is the maximum Channel Maximum (CHMAX) value across all models?"",
+        ""query"": ""result = df['CHMAX'].max()"",
+    },
+    {
+        ""question"": ""Which models have a Cache Memory (CACH) greater than 50 and an ERP above 100?"",
+        ""query"": ""result = df[(df['CACH'] > 50) & (df['ERP'] > 100)]"",
+    },
+    {
+        ""question"": ""What is the distribution of models based on their Minimum Main Memory (MMIN)?"",
+        ""query"": ""result = df['MMIN'].value_counts()"",
+    },
+    {
+        ""question"": ""Can we identify the most common range of Maximum Main Memory (MMAX) across our models?"",
+        ""query"": ""result = pd.cut(df['MMAX'], bins=[0, 4000, 8000, 16000, 32000, 64000]).value_counts()"",
+    },
+    {
+        ""question"": ""How does the Average Channel Maximum (CHMAX) compare across different vendors?"",
+        ""query"": ""result = df.groupby('VendorName')['CHMAX'].mean()"",
+    },
+    {
+        ""question"": ""What are the minimum, maximum, and average values for Estimated Relative Performance (ERP)?"",
+        ""query"": ""result = df['ERP'].agg(['min', 'max', 'mean'])"",
+    },
+    {
+        ""question"": ""Which models have a Cache Memory (CACH) of zero?"",
+        ""query"": ""result = df[df['CACH'] == 0]"",
+    },
+    {
+        ""question"": ""Can we group the models based on their Machine Cycle Time (MYCT) into 'Low', 'Medium', and 'High' categories?"",
+        ""query"": ""result = pd.qcut(df['MYCT'], q=3, labels=['Low', 'Medium', 'High']).value_counts()"",
+    },
+    {
+        ""question"": ""What is the total number of models provided by each vendor?"",
+        ""query"": ""result = df.groupby('VendorName').size()"",
+    },
+    {
+        ""question"": ""Which model has the highest Channel Minimum (CHMIN) and what is its value?"",
+        ""query"": ""result = df.loc[df['CHMIN'].idxmax(), ['ModelName', 'CHMIN']]"",
+    },
+    {
+        ""question"": ""Can we find the average Machine Cycle Time (MYCT) for models with more than 100 Estimated Relative Performance (ERP)?"",
+        ""query"": ""result = df[df['ERP'] > 100]['MYCT'].mean()"",
+    },
+    {
+        ""question"": ""How many unique vendors are represented in our dataset?"",
+        ""query"": ""result = df['VendorName'].nunique()"",
+    }
+]"

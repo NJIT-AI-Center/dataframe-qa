@@ -1,0 +1,257 @@
+Rnd.,Pick #,NFL team,Pos.,College,Conf.
+1.0,1,San Francisco 49ers,QB,Utah,MWC
+1.0,2,Miami Dolphins,RB,Auburn,SEC
+1.0,3,Cleveland Browns,WR,Michigan,Big Ten
+1.0,4,Chicago Bears,RB,Texas,Big 12
+1.0,5,Tampa Bay Buccaneers,RB,Auburn,SEC
+1.0,6,Tennessee Titans,CB,West Virginia,Big East
+1.0,7,Minnesota Vikings,WR,South Carolina,SEC
+1.0,8,Arizona Cardinals,CB,Miami (FL),ACC
+1.0,9,Washington Redskins,CB,Auburn,SEC
+1.0,10,Detroit Lions,WR,USC,Pac-10
+1.0,11,Dallas Cowboys,LB,Troy,Sun Belt
+1.0,12,San Diego Chargers,LB,Maryland,ACC
+1.0,13,New Orleans Saints,OT,Oklahoma,Big 12
+1.0,14,Carolina Panthers,LB,Georgia,SEC
+1.0,15,Kansas City Chiefs,LB,Texas,Big 12
+1.0,16,Houston Texans,DT,Florida State,ACC
+1.0,17,Cincinnati Bengals,LB,Georgia,SEC
+1.0,18,Minnesota Vikings,DE,Wisconsin,Big Ten
+1.0,19,St. Louis Rams,OT,Florida State,ACC
+1.0,20,Dallas Cowboys,DE,LSU,SEC
+1.0,21,Jacksonville Jaguars,WR,Arkansas,SEC
+1.0,22,Baltimore Ravens,WR,Oklahoma,Big 12
+1.0,23,Oakland Raiders,CB,Nebraska,Big 12
+1.0,24,Green Bay Packers,QB,California,Pac-10
+1.0,25,Washington Redskins,QB,Auburn,SEC
+1.0,26,Seattle Seahawks,C,Ole Miss,SEC
+1.0,27,Atlanta Falcons,WR,UAB,C-USA
+1.0,28,San Diego Chargers,DT,Northwestern,Big Ten
+1.0,29,Indianapolis Colts,CB,Michigan,Big Ten
+1.0,30,Pittsburgh Steelers,TE,Virginia,ACC
+1.0,31,Philadelphia Eagles,DT,USC,Pac-10
+1.0,32,New England Patriots,G,Fresno State,WAC
+2.0,33,San Francisco 49ers,C,Michigan,Big Ten
+2.0,34,Cleveland Browns,S,Oklahoma,Big 12
+2.0,35,Philadelphia Eagles,WR,Georgia,SEC
+2.0,36,Tampa Bay Buccaneers,LB,Nebraska,Big 12
+2.0,37,Detroit Lions,DT,USC,Pac-10
+2.0,38,Oakland Raiders,CB,Houston,C-USA
+2.0,39,Chicago Bears,WR,Oklahoma,Big 12
+2.0,40,New Orleans Saints,S,Nebraska,Big 12
+2.0,41,Tennessee Titans,OT,Eastern Washington,Big Sky
+2.0,42,Dallas Cowboys,LB,Tennessee,SEC
+2.0,43,New York Giants,CB,LSU,SEC
+2.0,44,Arizona Cardinals,RB,California,Pac-10
+2.0,45,Seattle Seahawks,LB,USC,Pac-10
+2.0,46,Miami Dolphins,DE,Iowa,Big Ten
+2.0,47,New York Jets,K,Ohio State,Big Ten
+2.0,48,Cincinnati Bengals,LB,Georgia,SEC
+2.0,49,Minnesota Vikings,OT,Ole Miss,SEC
+2.0,50,St. Louis Rams,CB,Howard,MEAC
+2.0,51,Green Bay Packers,S,Bethune-Cookman,MEAC
+2.0,52,Jacksonville Jaguars,OT,Washington,Pac-10
+2.0,53,Baltimore Ravens,DE,Oklahoma,Big 12
+2.0,54,Carolina Panthers,RB,Louisville,C-USA
+2.0,55,Buffalo Bills,WR,Miami (FL),ACC
+2.0,56,Denver Broncos,CB,Oklahoma State,Big 12
+2.0,57,New York Jets,CB,Clemson,ACC
+2.0,58,Green Bay Packers,WR,Texas A&M,Big 12
+2.0,59,Atlanta Falcons,DT,Iowa,Big Ten
+2.0,60,Indianapolis Colts,CB,Illinois,Big Ten
+2.0,61,San Diego Chargers,WR,Northern Colorado,Great West
+2.0,62,Pittsburgh Steelers,CB,Florida State,ACC
+2.0,63,Philadelphia Eagles,LB,San Diego State,MWC
+2.0,64,Baltimore Ravens,OT,Syracuse,Big East
+3.0,65,San Francisco 49ers,RB,Miami (FL),ACC
+3.0,66,St. Louis Rams,S,Stanford,Pac-10
+3.0,67,Cleveland Browns,QB,Akron,MAC
+3.0,68,Tennessee Titans,WR,Indiana,Big Ten
+3.0,69,Oakland Raiders,QB,Arizona State,Pac-10
+3.0,70,Miami Dolphins,LB,Florida,SEC
+3.0,71,Tampa Bay Buccaneers,TE,Stanford,Pac-10
+3.0,72,Detroit Lions,CB,Stanford,Pac-10
+3.0,73,Houston Texans,RB,Oklahoma State,Big 12
+3.0,74,New York Giants,DE,Notre Dame,Ind.
+3.0,75,Arizona Cardinals,CB,Virginia Tech,ACC
+3.0,76,Denver Broncos,CB,Washington State,Pac-10
+3.0,77,Philadelphia Eagles,RB,Louisiana Tech,WAC
+3.0,78,Oakland Raiders,LB,San Diego State,MWC
+3.0,79,Carolina Panthers,G,Alabama,SEC
+3.0,80,Minnesota Vikings,CB,Ohio State,Big Ten
+3.0,81,St. Louis Rams,C,Nebraska,Big 12
+3.0,82,New Orleans Saints,LB,Connecticut,Big East
+3.0,83,Cincinnati Bengals,WR,West Virginia,Big East
+3.0,84,New England Patriots,CB,Iowa State,Big 12
+3.0,85,Seattle Seahawks,QB,Georgia,SEC
+3.0,86,Buffalo Bills,TE,Miami (FL),ACC
+3.0,87,Jacksonville Jaguars,CB,Wisconsin,Big Ten
+3.0,88,New York Jets,DT,Utah,MWC
+3.0,89,Carolina Panthers,DT,Missouri,Big 12
+3.0,–,Denver Broncos,selection forfeited due to salary-cap violations.,selection forfeited due to salary-cap violations.,selection forfeited due to salary-cap violations.
+3.0,90,Atlanta Falcons,LB,Cal Poly,Great West
+3.0,91,Tampa Bay Buccaneers,OT,NC State,ACC
+3.0,92,Indianapolis Colts,DE,Kentucky,SEC
+3.0,93,Pittsburgh Steelers,G,Northwestern,Big Ten
+3.0,94,San Francisco 49ers,G,Oregon,Pac-10
+3.0,95,Arizona Cardinals,LB,Virginia,ACC
+3.0,96,Tennessee Titans,WR,Oklahoma,Big 12
+3.0,97,Denver Broncos,CB,Maryland,ACC
+3.0,98,Seattle Seahawks,LB,Clemson,ACC
+3.0,99,Kansas City Chiefs,P,Tennessee,SEC
+3.0,100,New England Patriots,G,Toledo,MAC
+3.0,101,Denver Broncos,RB,Ohio State,Big Ten
+4.0,102,Philadelphia Eagles,S,Iowa,Big Ten
+4.0,103,Cleveland Browns,CB,Oklahoma,Big 12
+4.0,104,Miami Dolphins,CB,LSU,SEC
+4.0,105,Seattle Seahawks,OT,Florida State,ACC
+4.0,106,Chicago Bears,QB,Purdue,Big Ten
+4.0,107,Tampa Bay Buccaneers,G,Wisconsin,Big Ten
+4.0,108,Tennessee Titans,S,Virginia Tech,ACC
+4.0,109,Dallas Cowboys,RB,Minnesota,Big Ten
+4.0,110,New York Giants,RB,Southern Illinois,Gateway
+4.0,111,Arizona Cardinals,G,Virginia,ACC
+4.0,112,Minnesota Vikings,RB,Florida,SEC
+4.0,113,Tennessee Titans,OT,Mississippi State,SEC
+4.0,114,Houston Texans,WR,Hampton,MEAC
+4.0,115,Green Bay Packers,S,San Diego State,MWC
+4.0,116,Kansas City Chiefs,WR,Florida State,ACC
+4.0,117,St. Louis Rams,S,Florida State,ACC
+4.0,118,New Orleans Saints,WR,California,Pac-10
+4.0,119,Cincinnati Bengals,C,Central Michigan,MAC
+4.0,120,Washington Redskins,FB,UCLA,Pac-10
+4.0,121,Carolina Panthers,QB,Louisville,C-USA
+4.0,122,Buffalo Bills,C,Illinois,Big Ten
+4.0,123,New York Jets,S,Louisville,C-USA
+4.0,124,Baltimore Ravens,C,North Carolina,ACC
+4.0,125,Green Bay Packers,LB,BYU,MWC
+4.0,126,Philadelphia Eagles,OT,Saginaw Valley State,GLIAC
+4.0,127,Jacksonville Jaguars,RB,Virginia,ACC
+4.0,128,Atlanta Falcons,DE,Florida State,ACC
+4.0,129,Indianapolis Colts,G,Texas Tech,Big 12
+4.0,130,San Diego Chargers,RB,Kansas State,Big 12
+4.0,131,Pittsburgh Steelers,WR,Georgia,SEC
+4.0,132,Dallas Cowboys,DE,Virginia,ACC
+4.0,133,New England Patriots,S,Fresno State,WAC
+4.0,134,St. Louis Rams,G,New Mexico,MWC
+4.0,135,Indianapolis Colts,S,California,Pac-10
+4.0,136,Tennessee Titans,WR,Tulane,C-USA
+5.0,137,San Francisco 49ers,DT,Mississippi State,SEC
+5.0,138,Kansas City Chiefs,LB,Illinois State,Gateway
+5.0,139,Cleveland Browns,DE,Kansas,Big 12
+5.0,140,Chicago Bears,WR,Clemson,ACC
+5.0,141,Tampa Bay Buccaneers,S,Oklahoma,Big 12
+5.0,142,Tennessee Titans,RB,Missouri,Big 12
+5.0,143,Green Bay Packers,C,North Carolina A&T,MEAC
+5.0,144,St. Louis Rams,TE,Notre Dame,Ind.
+5.0,145,Detroit Lions,QB,Connecticut,Big East
+5.0,146,Philadelphia Eagles,DE,Cincinnati,C-USA
+5.0,147,Kansas City Chiefs,CB,Miami (OH),MAC
+5.0,148,Indianapolis Colts,DE,Wisconsin,Big Ten
+5.0,149,Carolina Panthers,LB,UNLV,MWC
+5.0,150,Tennessee Titans,OT,Texas Tech,Big 12
+5.0,151,Houston Texans,C,Arizona State,Pac-10
+5.0,152,New Orleans Saints,QB,Florida State,ACC
+5.0,153,Cincinnati Bengals,OT,Central Michigan,MAC
+5.0,154,Washington Redskins,LB,Louisville,C-USA
+5.0,155,Tampa Bay Buccaneers,WR,Pearl River CC,MACJC
+5.0,156,Buffalo Bills,CB,Wake Forest,ACC
+5.0,157,Jacksonville Jaguars,S,North Carolina,ACC
+5.0,158,Baltimore Ravens,FB,Montana,Big Sky
+5.0,159,Seattle Seahawks,DE,Arkansas,SEC
+5.0,160,Atlanta Falcons,LB,Southern Miss,C-USA
+5.0,161,New York Jets,S,NC State,ACC
+5.0,162,Miami Dolphins,OT,TCU,C-USA
+5.0,163,Atlanta Falcons,OT,Tennessee Tech,OVC
+5.0,164,San Diego Chargers,OT,Alabama,SEC
+5.0,165,Indianapolis Colts,C,North Dakota State,Great West
+5.0,166,Pittsburgh Steelers,LB,Temple,Big East
+5.0,167,Green Bay Packers,CB,Oklahoma,Big 12
+5.0,168,Arizona Cardinals,LB,Oklahoma,Big 12
+5.0,169,Carolina Panthers,C,Texas A&M,Big 12
+5.0,170,New England Patriots,LB,UNLV,MWC
+5.0,171,Carolina Panthers,S,UCLA,Pac-10
+5.0,172,Philadelphia Eagles,OT,BYU,MWC
+5.0,173,Indianapolis Colts,LB,Cincinnati,C-USA
+5.0,174,San Francisco 49ers,WR,West Virginia,Big East
+6.0,175,Oakland Raiders,DT,Wisconsin,Big Ten
+6.0,176,Cleveland Browns,LB,New Mexico,MWC
+6.0,177,San Diego Chargers,OT,Oklahoma,Big 12
+6.0,178,Tampa Bay Buccaneers,DT,Alabama,SEC
+6.0,179,Tennessee Titans,TE,Texas,Big 12
+6.0,180,Green Bay Packers,DE,Texas A&M,Big 12
+6.0,181,Chicago Bears,S,Louisiana-Monroe,Sun Belt
+6.0,182,New York Jets,RB,Tennessee,SEC
+6.0,183,Washington Redskins,LB,Stanford,Pac-10
+6.0,184,Detroit Lions,DE,Oregon State,Pac-10
+6.0,185,Jacksonville Jaguars,WR,Hawai ʻ i,WAC
+6.0,186,New York Giants,DE,Florida State,ACC
+6.0,187,Kansas City Chiefs,G,Stanford,Pac-10
+6.0,188,Houston Texans,S,Louisiana–Lafayette,Sun Belt
+6.0,189,Carolina Panthers,DE,Vanderbilt,SEC
+6.0,190,Cincinnati Bengals,WR,UCLA,Pac-10
+6.0,191,Minnesota Vikings,DT,Missouri,Big 12
+6.0,192,St. Louis Rams,WR,Ball State,MAC
+6.0,193,New Orleans Saints,DT,Wisconsin,Big Ten
+6.0,194,Jacksonville Jaguars,LB,NC State,ACC
+6.0,195,Green Bay Packers,WR,UCLA,Pac-10
+6.0,196,Seattle Seahawks,TE,Iowa,Big Ten
+6.0,197,Buffalo Bills,G,Vanderbilt,SEC
+6.0,198,New York Jets,TE,Colorado State,MWC
+6.0,199,Kansas City Chiefs,DE,Baylor,Big 12
+6.0,200,Denver Broncos,G,Miami (FL),ACC
+6.0,201,Atlanta Falcons,RB,Michigan State,Big Ten
+6.0,202,Indianapolis Colts,K,Michigan State,Big Ten
+6.0,203,Cleveland Browns,DT,Virginia,ACC
+6.0,204,Pittsburgh Steelers,G,Utah,MWC
+6.0,205,San Francisco 49ers,CB,Washington,Pac-10
+6.0,206,Detroit Lions,LB,Marshall,MAC
+6.0,207,Carolina Panthers,G,Michigan Tech,GLIAC
+6.0,208,Dallas Cowboys,S,Ball State,MAC
+6.0,209,Dallas Cowboys,OT,Pittsburgh,Big East
+6.0,210,St. Louis Rams,P,Ball State,MAC
+6.0,211,Philadelphia Eagles,OT,Washington State,Pac-10
+6.0,212,Oakland Raiders,DE,California,Pac-10
+6.0,213,Baltimore Ravens,QB,Oregon State,Pac-10
+6.0,214,Oakland Raiders,OT,Iowa,Big Ten
+7.0,215,San Francisco 49ers,CB,Cincinnati,C-USA
+7.0,216,Miami Dolphins,DT,Michigan State,Big Ten
+7.0,217,Cleveland Browns,OT,Virginia Tech,ACC
+7.0,218,Tennessee Titans,CB,Florida,SEC
+7.0,219,Minnesota Vikings,CB,UTEP,WAC
+7.0,220,Chicago Bears,LB,South Carolina,SEC
+7.0,221,Tampa Bay Buccaneers,FB,Ole Miss,SEC
+7.0,222,Washington Redskins,FB,The Citadel,SoCon
+7.0,223,San Francisco 49ers,WR,Oregon,Pac-10
+7.0,224,Dallas Cowboys,DT,Auburn,SEC
+7.0,225,Tampa Bay Buccaneers,WR,Utah,MWC
+7.0,226,Arizona Cardinals,WR,Indiana (PA),PSAC
+7.0,227,Houston Texans,LB,Grambling State,SWAC
+7.0,228,Pittsburgh Steelers,DE,BYU,MWC
+7.0,229,Kansas City Chiefs,QB,Tulsa,WAC
+7.0,230,New England Patriots,QB,USC,Pac-10
+7.0,231,Tampa Bay Buccaneers,S,Washington State,Pac-10
+7.0,232,New Orleans Saints,DE,Arizona State,Pac-10
+7.0,233,Cincinnati Bengals,DE,Utah,MWC
+7.0,234,Baltimore Ravens,LB,Texas Tech,Big 12
+7.0,235,Seattle Seahawks,LB,Alabama,SEC
+7.0,236,Buffalo Bills,RB,Louisville,C-USA
+7.0,237,Jacksonville Jaguars,CB,Eastern Michigan,MAC
+7.0,238,Kansas City Chiefs,OT,Southern Miss,C-USA
+7.0,239,Denver Broncos,K,Northern Arizona,Big Sky
+7.0,240,New York Jets,WR,Tuskegee,SIAC
+7.0,241,Atlanta Falcons,DT,South Carolina,SEC
+7.0,242,San Diego Chargers,C,Bowling Green,MAC
+7.0,243,Indianapolis Colts,RB,Wisconsin,Big Ten
+7.0,244,Pittsburgh Steelers,RB,Northwestern,Big Ten
+7.0,245,Green Bay Packers,S,Albany,NEC
+7.0,246,Green Bay Packers,G,Michigan State,Big Ten
+7.0,247,Philadelphia Eagles,DT,Grand Valley State,GLIAC
+7.0,248,San Francisco 49ers,TE,Virginia,ACC
+7.0,249,San Francisco 49ers,TE,Oklahoma State,Big 12
+7.0,250,St. Louis Rams,QB,Harvard,Ivy
+7.0,251,St. Louis Rams,FB,North Carolina,ACC
+7.0,252,Philadelphia Eagles,LB,Stanford,Pac-10
+7.0,253,Tampa Bay Buccaneers,WR,Louisville,C-USA
+7.0,254,Seattle Seahawks,OT,Oregon State,Pac-10
+7.0,255,New England Patriots,TE,William Penn,MSFA

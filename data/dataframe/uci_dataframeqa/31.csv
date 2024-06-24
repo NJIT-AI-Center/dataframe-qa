@@ -1,0 +1,856 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Covertype
+- Description of dataframe: Predicting forest cover type from cartographic variables only (no remotely sensed data).  The actual forest cover type for a given observation (30 x 30 meter cell) was determined from US Forest Service (USFS) Region 2 Resource Information System (RIS) data.  Independent variables were derived from data originally obtained from US Geological Survey (USGS) and USFS data.  Data is in raw form (not scaled) and contains binary (0 or 1) columns of data for qualitative independent variables (wilderness areas and soil types).
+
+This study area includes four wilderness areas located in the Roosevelt National Forest of northern Colorado.  These areas represent forests with minimal human-caused disturbances, so that existing forest cover types are more a result of ecological processes rather than forest management practices.
+
+Some background information for these four wilderness areas: Neota (area 2) probably has the highest mean elevational value of the 4 wilderness areas. Rawah (area 1) and Comanche Peak (area 3) would have a lower mean elevational value, while Cache la Poudre (area 4) would have the lowest mean elevational value. 
+
+As for primary major tree species in these areas, Neota would have spruce/fir (type 1), while Rawah and Comanche Peak would probably have lodgepole pine (type 2) as their primary species, followed by spruce/fir and aspen (type 5). Cache la Poudre would tend to have Ponderosa pine (type 3), Douglas-fir (type 6), and cottonwood/willow (type 4).  
+
+The Rawah and Comanche Peak areas would tend to be more typical of the overall dataset than either the Neota or Cache la Poudre, due to their assortment of tree species and range of predictive variable values (elevation, etc.)  Cache la Poudre would probably  be more unique than the others, due to its relatively low  elevation range and species composition. 
+- Column information of dataframe:
+#   Column                              Dtype 
+--- ------                              ----- 
+0   Elevation                           int   
+1   Aspect                              int   
+2   Slope                               int   
+3   Horizontal_Distance_To_Hydrology    int   
+4   Vertical_Distance_To_Hydrology      int   
+5   Horizontal_Distance_To_Roadways     int   
+6   Hillshade_9am                       int   
+7   Hillshade_Noon                      int   
+8   Hillshade_3pm                       int   
+9   Horizontal_Distance_To_Fire_Points  int   
+10  Wilderness_Area                     int   
+11  Soil_Type1                          int   
+12  Soil_Type2                          int   
+13  Soil_Type3                          int   
+14  Soil_Type4                          int   
+15  Soil_Type5                          int   
+16  Soil_Type6                          int   
+17  Soil_Type7                          int   
+18  Soil_Type8                          int   
+19  Soil_Type9                          int   
+20  Soil_Type10                         int   
+21  Soil_Type11                         int   
+22  Soil_Type12                         int   
+23  Soil_Type13                         int   
+24  Soil_Type14                         int   
+25  Soil_Type15                         int   
+26  Soil_Type16                         int   
+27  Soil_Type17                         int   
+28  Soil_Type18                         int   
+29  Soil_Type19                         int   
+30  Soil_Type20                         int   
+31  Soil_Type21                         int   
+32  Soil_Type22                         int   
+33  Soil_Type23                         int   
+34  Soil_Type24                         int   
+35  Soil_Type25                         int   
+36  Soil_Type26                         int   
+37  Soil_Type27                         int   
+38  Soil_Type28                         int   
+39  Soil_Type29                         int   
+40  Soil_Type30                         int   
+41  Soil_Type31                         int   
+42  Soil_Type32                         int   
+43  Soil_Type33                         int   
+44  Soil_Type34                         int   
+45  Soil_Type35                         int   
+46  Soil_Type36                         int   
+47  Soil_Type37                         int   
+48  Soil_Type38                         int   
+49  Soil_Type39                         int   
+50  Soil_Type40                         int   
+51  Cover_Type                          int   
+
+- Sample rows of dataframe in CSV format:
+Elevation,Aspect,Slope,Horizontal_Distance_To_Hydrology,Vertical_Distance_To_Hydrology,Horizontal_Distance_To_Roadways,Hillshade_9am,Hillshade_Noon,Hillshade_3pm,Horizontal_Distance_To_Fire_Points,Wilderness_Area,Soil_Type1,Soil_Type2,Soil_Type3,Soil_Type4,Soil_Type5,Soil_Type6,Soil_Type7,Soil_Type8,Soil_Type9,Soil_Type10,Soil_Type11,Soil_Type12,Soil_Type13,Soil_Type14,Soil_Type15,Soil_Type16,Soil_Type17,Soil_Type18,Soil_Type19,Soil_Type20,Soil_Type21,Soil_Type22,Soil_Type23,Soil_Type24,Soil_Type25,Soil_Type26,Soil_Type27,Soil_Type28,Soil_Type29,Soil_Type30,Soil_Type31,Soil_Type32,Soil_Type33,Soil_Type34,Soil_Type35,Soil_Type36,Soil_Type37,Soil_Type38,Soil_Type39,Soil_Type40,Cover_Type
+30,-5,1387,212,217,140,2630,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+390,57,3017,214,239,163,983,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+150,25,153,199,250,187,2806,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+95,15,2151,208,242,172,1360,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
+30,1,4045,215,236,159,1100,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+534,222,4347,192,198,139,3703,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,7
+300,89,976,212,209,132,1950,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+361,169,366,232,166,44,1477,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,5
+127,33,2040,188,195,140,806,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+395,4,2610,199,247,187,2070,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+532,126,618,232,193,85,1530,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+120,50,1107,236,195,82,1719,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+228,31,2133,230,231,135,2555,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2
+571,15,2365,192,220,166,878,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+134,29,1622,233,238,120,2120,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+382,2,1888,187,215,166,2943,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+228,-1,1019,246,207,81,2245,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2
+150,95,5198,131,234,234,4830,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+426,65,2991,213,225,149,1300,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+420,27,603,198,235,177,1064,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the correlation matrix of the continuous variables (Elevation, Aspect, Slope, etc.) in the dataframe?"",
+        ""query"": ""result = df[['Elevation', 'Aspect', 'Slope', 'Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology', 'Horizontal_Distance_To_Roadways', 'Hillshade_9am', 'Hillshade_Noon', 'Hillshade_3pm', 'Horizontal_Distance_To_Fire_Points']].corr()"",
+    },
+    {
+        ""question"": ""How many unique combinations of soil types and wilderness areas exist in the dataset?"",
+        ""query"": ""result = df[['Wilderness_Area'] + [f'Soil_Type{i}' for i in range(1, 41)]].drop_duplicates().shape[0]"",
+    },
+    {
+        ""question"": ""Perform a principal component analysis (PCA) on the dataset, retaining enough components to explain at least 95% of the variance. How many components are used?"",
+        ""query"": ""from sklearn.decomposition import PCA\npca = PCA(n_components=0.95)\npca.fit(df.drop('Cover_Type', axis=1))\nresult = pca.n_components_"",
+    },
+    {
+        ""question"": ""What is the average elevation for each type of cover type, and how does it compare to the overall average elevation?"",
+        ""query"": ""overall_avg = df['Elevation'].mean()\nresult = df.groupby('Cover_Type')['Elevation'].mean() - overall_avg"",
+    },
+    {
+        ""question"": ""Create a new column 'Hydrology_Distance' as the Euclidean distance from water sources and calculate the mean for each wilderness area."",
+        ""query"": ""df['Hydrology_Distance'] = (df['Horizontal_Distance_To_Hydrology']**2 + df['Vertical_Distance_To_Hydrology']**2)**0.5\nresult = df.groupby('Wilderness_Area')['Hydrology_Distance'].mean()"",
+    },
+    {
+        ""question"": ""Which top 5 soil types are most prevalent in areas with the highest elevations (top 10%)?"",
+        ""query"": ""top_elevation = df['Elevation'].quantile(0.9)\ntop_elevation_df = df[df['Elevation'] >= top_elevation]\nresult = top_elevation_df[[f'Soil_Type{i}' for i in range(1, 41)]].sum().nlargest(5)"",
+    },
+    {
+        ""question"": ""Identify the cover type that has the highest average Hillshade_3pm value. What is the average aspect for this cover type?"",
+        ""query"": ""highest_hillshade_cover = df.groupby('Cover_Type')['Hillshade_3pm'].mean().idxmax()\nresult = df[df['Cover_Type'] == highest_hillshade_cover]['Aspect'].mean()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in the mean slope between areas with and without Soil_Type10? Use a t-test to determine this."",
+        ""query"": ""from scipy.stats import ttest_ind\nsoil_10 = df[df['Soil_Type10'] == 1]['Slope']\nno_soil_10 = df[df['Soil_Type10'] == 0]['Slope']\nresult = ttest_ind(soil_10, no_soil_10).pvalue"",
+    },
+    {
+        ""question"": ""Construct a pivot table showing the mean elevation for each combination of cover type and wilderness area."",
+        ""query"": ""result = df.pivot_table(values='Elevation', index='Cover_Type', columns='Wilderness_Area', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Calculate the skewness for all the continuous variables in the dataset."",
+        ""query"": ""result = df[['Elevation', 'Aspect', 'Slope', 'Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology', 'Horizontal_Distance_To_Roadways', 'Hillshade_9am', 'Hillshade_Noon', 'Hillshade_3pm', 'Horizontal_Distance_To_Fire_Points']].skew()"",
+    }
+]","[
+    {
+        ""question"": ""What are the top 3 cover types with the highest average horizontal distance to hydrology?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Horizontal_Distance_To_Hydrology'].mean().nlargest(3)"",
+    },
+    {
+        ""question"": ""Generate a histogram data for 'Elevation' column, using 50 bins, and identify the bin with the highest frequency."",
+        ""query"": ""hist_data = df['Elevation'].hist(bins=50)\nresult = hist_data.idxmax()"",
+    },
+    {
+        ""question"": ""For each cover type, calculate the variance in slope and sort the results in descending order."",
+        ""query"": ""result = df.groupby('Cover_Type')['Slope'].var().sort_values(ascending=False)"",
+    },
+    {
+        ""question"": ""Which combination of soil types (considering any two at a time) appears most frequently together in the dataset?"",
+        ""query"": ""soil_combinations = df[[f'Soil_Type{i}' for i in range(1, 41)]].dot(df.columns[11:51] + ',').str[:-1]\nresult = soil_combinations.value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""Create a new column 'Total_Hillshade' as the sum of 'Hillshade_9am', 'Hillshade_Noon', and 'Hillshade_3pm', and find the wilderness area with the lowest mean total hillshade."",
+        ""query"": ""df['Total_Hillshade'] = df['Hillshade_9am'] + df['Hillshade_Noon'] + df['Hillshade_3pm']\nresult = df.groupby('Wilderness_Area')['Total_Hillshade'].mean().idxmin()"",
+    },
+    {
+        ""question"": ""Is there a significant correlation between 'Aspect' and 'Hillshade_Noon'? Compute the Pearson correlation coefficient."",
+        ""query"": ""result = df[['Aspect', 'Hillshade_Noon']].corr(method='pearson').iloc[0, 1]"",
+    },
+    {
+        ""question"": ""Determine the average vertical distance to hydrology for each cover type, and rank these averages from lowest to highest."",
+        ""query"": ""result = df.groupby('Cover_Type')['Vertical_Distance_To_Hydrology'].mean().sort_values()"",
+    },
+    {
+        ""question"": ""How many observations have a 'Slope' greater than the 75th percentile of the 'Slope' column?"",
+        ""query"": ""slope_75th_percentile = df['Slope'].quantile(0.75)\nresult = df[df['Slope'] > slope_75th_percentile].shape[0]"",
+    },
+    {
+        ""question"": ""Identify the soil type (among Soil_Type1 to Soil_Type40) that has the least occurrence in areas with elevation higher than the median elevation."",
+        ""query"": ""median_elevation = df['Elevation'].median()\nresult = df[df['Elevation'] > median_elevation][[f'Soil_Type{i}' for i in range(1, 41)]].sum().idxmin()"",
+    },
+    {
+        ""question"": ""Create a scatter plot data for 'Elevation' versus 'Horizontal_Distance_To_Roadways', color-coded by 'Cover_Type'. What are the mean values of 'Elevation' and 'Horizontal_Distance_To_Roadways' for each cover type?"",
+        ""query"": ""scatter_plot_data = df.plot.scatter(x='Elevation', y='Horizontal_Distance_To_Roadways', c='Cover_Type')\nresult = df.groupby('Cover_Type')[['Elevation', 'Horizontal_Distance_To_Roadways']].mean()"",
+    }
+]","[
+    {
+        ""question"": ""What is the correlation matrix of the continuous variables (Elevation, Aspect, Slope, etc.) in the dataframe?"",
+        ""query"": ""result = df[['Elevation', 'Aspect', 'Slope', 'Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology', 'Horizontal_Distance_To_Roadways', 'Hillshade_9am', 'Hillshade_Noon', 'Hillshade_3pm', 'Horizontal_Distance_To_Fire_Points']].corr()"",
+    },
+    {
+        ""question"": ""How many unique combinations of soil types and wilderness areas exist in the dataset?"",
+        ""query"": ""result = df[['Wilderness_Area'] + [f'Soil_Type{i}' for i in range(1, 41)]].drop_duplicates().shape[0]"",
+    },
+    {
+        ""question"": ""Perform a principal component analysis (PCA) on the dataset, retaining enough components to explain at least 95% of the variance. How many components are used?"",
+        ""query"": ""from sklearn.decomposition import PCA\npca = PCA(n_components=0.95)\npca.fit(df.drop('Cover_Type', axis=1))\nresult = pca.n_components_"",
+    },
+    {
+        ""question"": ""What is the average elevation for each type of cover type, and how does it compare to the overall average elevation?"",
+        ""query"": ""overall_avg = df['Elevation'].mean()\nresult = df.groupby('Cover_Type')['Elevation'].mean() - overall_avg"",
+    },
+    {
+        ""question"": ""Create a new column 'Hydrology_Distance' as the Euclidean distance from water sources and calculate the mean for each wilderness area."",
+        ""query"": ""df['Hydrology_Distance'] = (df['Horizontal_Distance_To_Hydrology']**2 + df['Vertical_Distance_To_Hydrology']**2)**0.5\nresult = df.groupby('Wilderness_Area')['Hydrology_Distance'].mean()"",
+    },
+    {
+        ""question"": ""Which top 5 soil types are most prevalent in areas with the highest elevations (top 10%)?"",
+        ""query"": ""top_elevation = df['Elevation'].quantile(0.9)\ntop_elevation_df = df[df['Elevation'] >= top_elevation]\nresult = top_elevation_df[[f'Soil_Type{i}' for i in range(1, 41)]].sum().nlargest(5)"",
+    },
+    {
+        ""question"": ""Identify the cover type that has the highest average Hillshade_3pm value. What is the average aspect for this cover type?"",
+        ""query"": ""highest_hillshade_cover = df.groupby('Cover_Type')['Hillshade_3pm'].mean().idxmax()\nresult = df[df['Cover_Type'] == highest_hillshade_cover]['Aspect'].mean()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in the mean slope between areas with and without Soil_Type10? Use a t-test to determine this."",
+        ""query"": ""from scipy.stats import ttest_ind\nsoil_10 = df[df['Soil_Type10'] == 1]['Slope']\nno_soil_10 = df[df['Soil_Type10'] == 0]['Slope']\nresult = ttest_ind(soil_10, no_soil_10).pvalue"",
+    },
+    {
+        ""question"": ""Construct a pivot table showing the mean elevation for each combination of cover type and wilderness area."",
+        ""query"": ""result = df.pivot_table(values='Elevation', index='Cover_Type', columns='Wilderness_Area', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Calculate the skewness for all the continuous variables in the dataset."",
+        ""query"": ""result = df[['Elevation', 'Aspect', 'Slope', 'Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology', 'Horizontal_Distance_To_Roadways', 'Hillshade_9am', 'Hillshade_Noon', 'Hillshade_3pm', 'Horizontal_Distance_To_Fire_Points']].skew()"",
+    }?
+    {
+        ""question"": ""What are the top 3 cover types with the highest average horizontal distance to hydrology?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Horizontal_Distance_To_Hydrology'].mean().nlargest(3)"",
+    },
+    {
+        ""question"": ""Generate a histogram data for 'Elevation' column, using 50 bins, and identify the bin with the highest frequency."",
+        ""query"": ""hist_data = df['Elevation'].hist(bins=50)\nresult = hist_data.idxmax()"",
+    },
+    {
+        ""question"": ""For each cover type, calculate the variance in slope and sort the results in descending order."",
+        ""query"": ""result = df.groupby('Cover_Type')['Slope'].var().sort_values(ascending=False)"",
+    },
+    {
+        ""question"": ""Which combination of soil types (considering any two at a time) appears most frequently together in the dataset?"",
+        ""query"": ""soil_combinations = df[[f'Soil_Type{i}' for i in range(1, 41)]].dot(df.columns[11:51] + ',').str[:-1]\nresult = soil_combinations.value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""Create a new column 'Total_Hillshade' as the sum of 'Hillshade_9am', 'Hillshade_Noon', and 'Hillshade_3pm', and find the wilderness area with the lowest mean total hillshade."",
+        ""query"": ""df['Total_Hillshade'] = df['Hillshade_9am'] + df['Hillshade_Noon'] + df['Hillshade_3pm']\nresult = df.groupby('Wilderness_Area')['Total_Hillshade'].mean().idxmin()"",
+    },
+    {
+        ""question"": ""Is there a significant correlation between 'Aspect' and 'Hillshade_Noon'? Compute the Pearson correlation coefficient."",
+        ""query"": ""result = df[['Aspect', 'Hillshade_Noon']].corr(method='pearson').iloc[0, 1]"",
+    },
+    {
+        ""question"": ""Determine the average vertical distance to hydrology for each cover type, and rank these averages from lowest to highest."",
+        ""query"": ""result = df.groupby('Cover_Type')['Vertical_Distance_To_Hydrology'].mean().sort_values()"",
+    },
+    {
+        ""question"": ""How many observations have a 'Slope' greater than the 75th percentile of the 'Slope' column?"",
+        ""query"": ""slope_75th_percentile = df['Slope'].quantile(0.75)\nresult = df[df['Slope'] > slope_75th_percentile].shape[0]"",
+    },
+    {
+        ""question"": ""Identify the soil type (among Soil_Type1 to Soil_Type40) that has the least occurrence in areas with elevation higher than the median elevation."",
+        ""query"": ""median_elevation = df['Elevation'].median()\nresult = df[df['Elevation'] > median_elevation][[f'Soil_Type{i}' for i in range(1, 41)]].sum().idxmin()"",
+    },
+    {
+        ""question"": ""Create a scatter plot data for 'Elevation' versus 'Horizontal_Distance_To_Roadways', color-coded by 'Cover_Type'. What are the mean values of 'Elevation' and 'Horizontal_Distance_To_Roadways' for each cover type?"",
+        ""query"": ""scatter_plot_data = df.plot.scatter(x='Elevation', y='Horizontal_Distance_To_Roadways', c='Cover_Type')\nresult = df.groupby('Cover_Type')[['Elevation', 'Horizontal_Distance_To_Roadways']].mean()"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Covertype
+- Description of dataframe: Predicting forest cover type from cartographic variables only (no remotely sensed data).  The actual forest cover type for a given observation (30 x 30 meter cell) was determined from US Forest Service (USFS) Region 2 Resource Information System (RIS) data.  Independent variables were derived from data originally obtained from US Geological Survey (USGS) and USFS data.  Data is in raw form (not scaled) and contains binary (0 or 1) columns of data for qualitative independent variables (wilderness areas and soil types).
+
+This study area includes four wilderness areas located in the Roosevelt National Forest of northern Colorado.  These areas represent forests with minimal human-caused disturbances, so that existing forest cover types are more a result of ecological processes rather than forest management practices.
+
+Some background information for these four wilderness areas: Neota (area 2) probably has the highest mean elevational value of the 4 wilderness areas. Rawah (area 1) and Comanche Peak (area 3) would have a lower mean elevational value, while Cache la Poudre (area 4) would have the lowest mean elevational value. 
+
+As for primary major tree species in these areas, Neota would have spruce/fir (type 1), while Rawah and Comanche Peak would probably have lodgepole pine (type 2) as their primary species, followed by spruce/fir and aspen (type 5). Cache la Poudre would tend to have Ponderosa pine (type 3), Douglas-fir (type 6), and cottonwood/willow (type 4).  
+
+The Rawah and Comanche Peak areas would tend to be more typical of the overall dataset than either the Neota or Cache la Poudre, due to their assortment of tree species and range of predictive variable values (elevation, etc.)  Cache la Poudre would probably  be more unique than the others, due to its relatively low  elevation range and species composition. 
+- Column information of dataframe:
+#   Column                              Dtype 
+--- ------                              ----- 
+0   Elevation                           int   
+1   Aspect                              int   
+2   Slope                               int   
+3   Horizontal_Distance_To_Hydrology    int   
+4   Vertical_Distance_To_Hydrology      int   
+5   Horizontal_Distance_To_Roadways     int   
+6   Hillshade_9am                       int   
+7   Hillshade_Noon                      int   
+8   Hillshade_3pm                       int   
+9   Horizontal_Distance_To_Fire_Points  int   
+10  Wilderness_Area                     int   
+11  Soil_Type1                          int   
+12  Soil_Type2                          int   
+13  Soil_Type3                          int   
+14  Soil_Type4                          int   
+15  Soil_Type5                          int   
+16  Soil_Type6                          int   
+17  Soil_Type7                          int   
+18  Soil_Type8                          int   
+19  Soil_Type9                          int   
+20  Soil_Type10                         int   
+21  Soil_Type11                         int   
+22  Soil_Type12                         int   
+23  Soil_Type13                         int   
+24  Soil_Type14                         int   
+25  Soil_Type15                         int   
+26  Soil_Type16                         int   
+27  Soil_Type17                         int   
+28  Soil_Type18                         int   
+29  Soil_Type19                         int   
+30  Soil_Type20                         int   
+31  Soil_Type21                         int   
+32  Soil_Type22                         int   
+33  Soil_Type23                         int   
+34  Soil_Type24                         int   
+35  Soil_Type25                         int   
+36  Soil_Type26                         int   
+37  Soil_Type27                         int   
+38  Soil_Type28                         int   
+39  Soil_Type29                         int   
+40  Soil_Type30                         int   
+41  Soil_Type31                         int   
+42  Soil_Type32                         int   
+43  Soil_Type33                         int   
+44  Soil_Type34                         int   
+45  Soil_Type35                         int   
+46  Soil_Type36                         int   
+47  Soil_Type37                         int   
+48  Soil_Type38                         int   
+49  Soil_Type39                         int   
+50  Soil_Type40                         int   
+51  Cover_Type                          int   
+
+- Sample rows of dataframe in CSV format:
+Elevation,Aspect,Slope,Horizontal_Distance_To_Hydrology,Vertical_Distance_To_Hydrology,Horizontal_Distance_To_Roadways,Hillshade_9am,Hillshade_Noon,Hillshade_3pm,Horizontal_Distance_To_Fire_Points,Wilderness_Area,Soil_Type1,Soil_Type2,Soil_Type3,Soil_Type4,Soil_Type5,Soil_Type6,Soil_Type7,Soil_Type8,Soil_Type9,Soil_Type10,Soil_Type11,Soil_Type12,Soil_Type13,Soil_Type14,Soil_Type15,Soil_Type16,Soil_Type17,Soil_Type18,Soil_Type19,Soil_Type20,Soil_Type21,Soil_Type22,Soil_Type23,Soil_Type24,Soil_Type25,Soil_Type26,Soil_Type27,Soil_Type28,Soil_Type29,Soil_Type30,Soil_Type31,Soil_Type32,Soil_Type33,Soil_Type34,Soil_Type35,Soil_Type36,Soil_Type37,Soil_Type38,Soil_Type39,Soil_Type40,Cover_Type
+618,82,2773,200,248,186,1082,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+268,178,1443,230,222,90,732,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,7
+201,51,1650,213,216,138,342,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1
+0,0,726,168,238,209,1602,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+872,66,3211,234,241,136,2678,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+120,20,4344,205,220,152,1213,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+90,16,2349,204,223,156,6407,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2
+331,101,1958,206,203,130,711,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6
+384,115,532,161,235,212,582,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+108,13,6129,226,226,134,3266,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2
+124,27,1731,247,227,98,765,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+256,30,1095,238,227,118,2547,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+256,34,870,246,220,98,1825,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+698,97,3073,219,218,133,1570,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+201,22,433,181,194,146,450,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+85,10,3217,202,236,174,5036,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+335,2,1639,203,241,178,451,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+150,10,3637,220,227,143,3947,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+30,9,742,184,225,180,2103,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+242,59,960,222,241,155,175,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What are the average elevations for each type of forest cover?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Elevation'].mean()"",
+    },
+    {
+        ""question"": ""How many unique elevation levels are there in the dataset?"",
+        ""query"": ""result = df['Elevation'].nunique()"",
+    },
+    {
+        ""question"": ""Can we find out which wilderness areas have the most variation in slope?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Slope'].std().sort_values(ascending=False)"",
+    },
+    {
+        ""question"": ""What is the maximum horizontal distance to hydrology across all observations?"",
+        ""query"": ""result = df['Horizontal_Distance_To_Hydrology'].max()"",
+    },
+    {
+        ""question"": ""How does the average hillshade at noon compare across different forest cover types?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Hillshade_Noon'].mean()"",
+    },
+    {
+        ""question"": ""Can we identify the top three soil types that are most frequent in the dataset?"",
+        ""query"": ""result = df[['Soil_Type'+str(i) for i in range(1, 41)]].sum().nlargest(3)"",
+    },
+    {
+        ""question"": ""What is the average distance to the nearest roadway for each type of forest cover?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Horizontal_Distance_To_Roadways'].mean()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in elevation between wilderness areas 1 and 4?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Elevation'].mean().loc[[1, 4]]"",
+    },
+    {
+        ""question"": ""What proportion of the dataset represents areas with a slope greater than 30 degrees?"",
+        ""query"": ""result = (df['Slope'] > 30).mean()"",
+    },
+    {
+        ""question"": ""Can we determine the least common forest cover type in the dataset?"",
+        ""query"": ""result = df['Cover_Type'].value_counts().idxmin()"",
+    }
+]","[
+    {
+        ""question"": ""Which wilderness area contains the highest average elevation?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Elevation'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What is the average slope for areas where the primary tree species is lodgepole pine (type 2)?"",
+        ""query"": ""result = df[df['Cover_Type'] == 2]['Slope'].mean()"",
+    },
+    {
+        ""question"": ""Can we identify the range of elevations present in the dataset?"",
+        ""query"": ""result = df['Elevation'].min(), df['Elevation'].max()"",
+    },
+    {
+        ""question"": ""How does the average distance to fire points vary across different soil types?"",
+        ""query"": ""result = df.groupby('Soil_Type1').mean()['Horizontal_Distance_To_Fire_Points']"",
+    },
+    {
+        ""question"": ""What are the least common soil types found in the dataset?"",
+        ""query"": ""result = df[['Soil_Type'+str(i) for i in range(1, 41)]].sum().nsmallest(3)"",
+    },
+    {
+        ""question"": ""Which forest cover type has the lowest average hillshade at 9am?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Hillshade_9am'].mean().idxmin()"",
+    },
+    {
+        ""question"": ""Can we find the average vertical distance to hydrology for each wilderness area?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Vertical_Distance_To_Hydrology'].mean()"",
+    },
+    {
+        ""question"": ""What is the most common aspect (orientation) in areas with Ponderosa pine (type 3)?"",
+        ""query"": ""result = df[df['Cover_Type'] == 3]['Aspect'].mode()"",
+    },
+    {
+        ""question"": ""How does the average elevation compare between areas with primarily spruce/fir (type 1) and those with Douglas-fir (type 6)?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Elevation'].mean().loc[[1, 6]]"",
+    },
+    {
+        ""question"": ""What is the total number of observations with a slope greater than 45 degrees?"",
+        ""query"": ""result = (df['Slope'] > 45).sum()"",
+    }
+]","[
+    {
+        ""question"": ""What are the average elevations for each type of forest cover?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Elevation'].mean()"",
+    },
+    {
+        ""question"": ""How many unique elevation levels are there in the dataset?"",
+        ""query"": ""result = df['Elevation'].nunique()"",
+    },
+    {
+        ""question"": ""Can we find out which wilderness areas have the most variation in slope?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Slope'].std().sort_values(ascending=False)"",
+    },
+    {
+        ""question"": ""What is the maximum horizontal distance to hydrology across all observations?"",
+        ""query"": ""result = df['Horizontal_Distance_To_Hydrology'].max()"",
+    },
+    {
+        ""question"": ""How does the average hillshade at noon compare across different forest cover types?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Hillshade_Noon'].mean()"",
+    },
+    {
+        ""question"": ""Can we identify the top three soil types that are most frequent in the dataset?"",
+        ""query"": ""result = df[['Soil_Type'+str(i) for i in range(1, 41)]].sum().nlargest(3)"",
+    },
+    {
+        ""question"": ""What is the average distance to the nearest roadway for each type of forest cover?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Horizontal_Distance_To_Roadways'].mean()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in elevation between wilderness areas 1 and 4?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Elevation'].mean().loc[[1, 4]]"",
+    },
+    {
+        ""question"": ""What proportion of the dataset represents areas with a slope greater than 30 degrees?"",
+        ""query"": ""result = (df['Slope'] > 30).mean()"",
+    },
+    {
+        ""question"": ""Can we determine the least common forest cover type in the dataset?"",
+        ""query"": ""result = df['Cover_Type'].value_counts().idxmin()"",
+    },
+    {
+        ""question"": ""Which wilderness area contains the highest average elevation?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Elevation'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What is the average slope for areas where the primary tree species is lodgepole pine (type 2)?"",
+        ""query"": ""result = df[df['Cover_Type'] == 2]['Slope'].mean()"",
+    },
+    {
+        ""question"": ""Can we identify the range of elevations present in the dataset?"",
+        ""query"": ""result = df['Elevation'].min(), df['Elevation'].max()"",
+    },
+    {
+        ""question"": ""How does the average distance to fire points vary across different soil types?"",
+        ""query"": ""result = df.groupby('Soil_Type1').mean()['Horizontal_Distance_To_Fire_Points']"",
+    },
+    {
+        ""question"": ""What are the least common soil types found in the dataset?"",
+        ""query"": ""result = df[['Soil_Type'+str(i) for i in range(1, 41)]].sum().nsmallest(3)"",
+    },
+    {
+        ""question"": ""Which forest cover type has the lowest average hillshade at 9am?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Hillshade_9am'].mean().idxmin()"",
+    },
+    {
+        ""question"": ""Can we find the average vertical distance to hydrology for each wilderness area?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Vertical_Distance_To_Hydrology'].mean()"",
+    },
+    {
+        ""question"": ""What is the most common aspect (orientation) in areas with Ponderosa pine (type 3)?"",
+        ""query"": ""result = df[df['Cover_Type'] == 3]['Aspect'].mode()"",
+    },
+    {
+        ""question"": ""How does the average elevation compare between areas with primarily spruce/fir (type 1) and those with Douglas-fir (type 6)?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Elevation'].mean().loc[[1, 6]]"",
+    },
+    {
+        ""question"": ""What is the total number of observations with a slope greater than 45 degrees?"",
+        ""query"": ""result = (df['Slope'] > 45).sum()"",
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Covertype
+- Description of dataframe: Predicting forest cover type from cartographic variables only (no remotely sensed data).  The actual forest cover type for a given observation (30 x 30 meter cell) was determined from US Forest Service (USFS) Region 2 Resource Information System (RIS) data.  Independent variables were derived from data originally obtained from US Geological Survey (USGS) and USFS data.  Data is in raw form (not scaled) and contains binary (0 or 1) columns of data for qualitative independent variables (wilderness areas and soil types).
+
+This study area includes four wilderness areas located in the Roosevelt National Forest of northern Colorado.  These areas represent forests with minimal human-caused disturbances, so that existing forest cover types are more a result of ecological processes rather than forest management practices.
+
+Some background information for these four wilderness areas: Neota (area 2) probably has the highest mean elevational value of the 4 wilderness areas. Rawah (area 1) and Comanche Peak (area 3) would have a lower mean elevational value, while Cache la Poudre (area 4) would have the lowest mean elevational value. 
+
+As for primary major tree species in these areas, Neota would have spruce/fir (type 1), while Rawah and Comanche Peak would probably have lodgepole pine (type 2) as their primary species, followed by spruce/fir and aspen (type 5). Cache la Poudre would tend to have Ponderosa pine (type 3), Douglas-fir (type 6), and cottonwood/willow (type 4).  
+
+The Rawah and Comanche Peak areas would tend to be more typical of the overall dataset than either the Neota or Cache la Poudre, due to their assortment of tree species and range of predictive variable values (elevation, etc.)  Cache la Poudre would probably  be more unique than the others, due to its relatively low  elevation range and species composition. 
+- Column information of dataframe:
+#   Column                              Dtype 
+--- ------                              ----- 
+0   Elevation                           int   
+1   Aspect                              int   
+2   Slope                               int   
+3   Horizontal_Distance_To_Hydrology    int   
+4   Vertical_Distance_To_Hydrology      int   
+5   Horizontal_Distance_To_Roadways     int   
+6   Hillshade_9am                       int   
+7   Hillshade_Noon                      int   
+8   Hillshade_3pm                       int   
+9   Horizontal_Distance_To_Fire_Points  int   
+10  Wilderness_Area                     int   
+11  Soil_Type1                          int   
+12  Soil_Type2                          int   
+13  Soil_Type3                          int   
+14  Soil_Type4                          int   
+15  Soil_Type5                          int   
+16  Soil_Type6                          int   
+17  Soil_Type7                          int   
+18  Soil_Type8                          int   
+19  Soil_Type9                          int   
+20  Soil_Type10                         int   
+21  Soil_Type11                         int   
+22  Soil_Type12                         int   
+23  Soil_Type13                         int   
+24  Soil_Type14                         int   
+25  Soil_Type15                         int   
+26  Soil_Type16                         int   
+27  Soil_Type17                         int   
+28  Soil_Type18                         int   
+29  Soil_Type19                         int   
+30  Soil_Type20                         int   
+31  Soil_Type21                         int   
+32  Soil_Type22                         int   
+33  Soil_Type23                         int   
+34  Soil_Type24                         int   
+35  Soil_Type25                         int   
+36  Soil_Type26                         int   
+37  Soil_Type27                         int   
+38  Soil_Type28                         int   
+39  Soil_Type29                         int   
+40  Soil_Type30                         int   
+41  Soil_Type31                         int   
+42  Soil_Type32                         int   
+43  Soil_Type33                         int   
+44  Soil_Type34                         int   
+45  Soil_Type35                         int   
+46  Soil_Type36                         int   
+47  Soil_Type37                         int   
+48  Soil_Type38                         int   
+49  Soil_Type39                         int   
+50  Soil_Type40                         int   
+51  Cover_Type                          int   
+
+- Sample rows of dataframe in CSV format:
+Elevation,Aspect,Slope,Horizontal_Distance_To_Hydrology,Vertical_Distance_To_Hydrology,Horizontal_Distance_To_Roadways,Hillshade_9am,Hillshade_Noon,Hillshade_3pm,Horizontal_Distance_To_Fire_Points,Wilderness_Area,Soil_Type1,Soil_Type2,Soil_Type3,Soil_Type4,Soil_Type5,Soil_Type6,Soil_Type7,Soil_Type8,Soil_Type9,Soil_Type10,Soil_Type11,Soil_Type12,Soil_Type13,Soil_Type14,Soil_Type15,Soil_Type16,Soil_Type17,Soil_Type18,Soil_Type19,Soil_Type20,Soil_Type21,Soil_Type22,Soil_Type23,Soil_Type24,Soil_Type25,Soil_Type26,Soil_Type27,Soil_Type28,Soil_Type29,Soil_Type30,Soil_Type31,Soil_Type32,Soil_Type33,Soil_Type34,Soil_Type35,Soil_Type36,Soil_Type37,Soil_Type38,Soil_Type39,Soil_Type40,Cover_Type
+400,98,277,239,226,117,916,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+42,0,726,156,226,208,1130,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+646,91,2640,225,238,148,1489,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+153,19,60,210,244,172,1114,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+127,6,4188,222,225,138,3002,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+268,23,4366,186,235,189,573,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+150,6,3558,232,232,133,6389,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+30,1,1878,227,229,136,2320,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+134,23,4084,200,231,171,2240,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2
+108,65,120,242,177,46,1421,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,5
+212,16,2952,225,226,135,5262,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+162,6,4886,196,232,175,1434,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+162,66,426,196,187,120,646,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6
+600,27,1825,230,208,108,2577,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+547,131,1482,246,214,91,2514,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+95,23,1180,149,227,216,1050,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+192,18,4709,216,241,162,633,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+633,44,2301,216,251,162,1144,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+362,17,1129,223,225,137,4080,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+492,66,1057,222,215,127,824,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average elevation across all wilderness areas, and how does it relate to our business plans for new forest activities?"",
+        ""query"": ""result = df['Elevation'].mean()"",
+    },
+    {
+        ""question"": ""Which wilderness area has the highest frequency of the most common soil type, and how can this influence our forest management strategies?"",
+        ""query"": ""result = df.iloc[:, 11:52].sum().idxmax()"",
+    },
+    {
+        ""question"": ""Can we identify the top three soil types associated with the highest elevations, to inform our conservation efforts in those regions?"",
+        ""query"": ""result = df.groupby('Elevation').mean().iloc[:, 10:51].sum().nlargest(3)"",
+    },
+    {
+        ""question"": ""How does the distribution of tree cover types vary across different soil types, and what does this imply for biodiversity in our forests?"",
+        ""query"": ""result = df.groupby('Cover_Type').mean().iloc[:, 10:51]"",
+    },
+    {
+        ""question"": ""What is the average distance to water sources (hydrology) in each wilderness area, and how does this impact our resource planning?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology'].mean()"",
+    },
+    {
+        ""question"": ""Which wilderness area has the lowest average hillshade at noon, and how can this information guide our visitor activities planning?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Hillshade_Noon'].mean().idxmin()"",
+    },
+    {
+        ""question"": ""Can we determine the correlation between slope and elevation, and how might this affect safety measures for our hiking trails?"",
+        ""query"": ""result = df[['Slope', 'Elevation']].corr()"",
+    },
+    {
+        ""question"": ""What is the average distance to roadways in areas with Ponderosa Pine (Cover Type 3), and how can we use this data for improving access?"",
+        ""query"": ""result = df[df['Cover_Type'] == 3]['Horizontal_Distance_To_Roadways'].mean()"",
+    },
+    {
+        ""question"": ""How does the distribution of aspect values vary among the different cover types, and what insights does this offer for sunlight exposure in forested areas?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Aspect'].describe()"",
+    },
+    {
+        ""question"": ""Which cover type has the highest average elevation, and how might this information influence our altitude-specific forest management practices?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Elevation'].mean().idxmax()"",
+    }
+]","[
+    {
+        ""question"": ""What is the total horizontal distance to hydrology for each soil type, and how might this impact our water conservation strategies?"",
+        ""query"": ""result = df.groupby('Soil_Type')['Horizontal_Distance_To_Hydrology'].sum()"",
+    },
+    {
+        ""question"": ""Can we compare the average slope in each wilderness area to assess the feasibility of new construction projects?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Slope'].mean()"",
+    },
+    {
+        ""question"": ""What are the top three cover types in terms of average elevation, and how does this align with our strategic planning for forest preservation?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Elevation'].mean().nlargest(3)"",
+    },
+    {
+        ""question"": ""How does the average hillshade at 9am vary across different soil types, and what implications does this have for forest health?"",
+        ""query"": ""result = df.groupby('Soil_Type')['Hillshade_9am'].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of tree cover types in the wilderness area with the lowest average elevation?"",
+        ""query"": ""result = df[df['Wilderness_Area'] == df.groupby('Wilderness_Area')['Elevation'].mean().idxmin()]['Cover_Type'].value_counts()"",
+    },
+    {
+        ""question"": ""Can we determine the average distance to fire points for each cover type, to prioritize areas for fire prevention measures?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Horizontal_Distance_To_Fire_Points'].mean()"",
+    },
+    {
+        ""question"": ""What are the common statistical measures (mean, median, standard deviation) of aspect for each wilderness area?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Aspect'].agg(['mean', 'median', 'std'])"",
+    },
+    {
+        ""question"": ""How does the average vertical distance to hydrology differ among various cover types, and what does this tell us about water accessibility in these areas?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Vertical_Distance_To_Hydrology'].mean()"",
+    },
+    {
+        ""question"": ""What is the total area (sum of the 30x30 meter cells) for each cover type, and how can this inform our land use planning?"",
+        ""query"": ""result = df['Cover_Type'].value_counts() * 900"",
+    },
+    {
+        ""question"": ""Can we analyze the relationship between elevation and distance to roadways to improve accessibility for emergency services?"",
+        ""query"": ""result = df[['Elevation', 'Horizontal_Distance_To_Roadways']].corr()"",
+    }
+]","[
+    {
+        ""question"": ""What is the average elevation across all wilderness areas, and how does it relate to our business plans for new forest activities?"",
+        ""query"": ""result = df['Elevation'].mean()"",
+    },
+    {
+        ""question"": ""Which wilderness area has the highest frequency of the most common soil type, and how can this influence our forest management strategies?"",
+        ""query"": ""result = df.iloc[:, 11:52].sum().idxmax()"",
+    },
+    {
+        ""question"": ""Can we identify the top three soil types associated with the highest elevations, to inform our conservation efforts in those regions?"",
+        ""query"": ""result = df.groupby('Elevation').mean().iloc[:, 10:51].sum().nlargest(3)"",
+    },
+    {
+        ""question"": ""How does the distribution of tree cover types vary across different soil types, and what does this imply for biodiversity in our forests?"",
+        ""query"": ""result = df.groupby('Cover_Type').mean().iloc[:, 10:51]"",
+    },
+    {
+        ""question"": ""What is the average distance to water sources (hydrology) in each wilderness area, and how does this impact our resource planning?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology'].mean()"",
+    },
+    {
+        ""question"": ""Which wilderness area has the lowest average hillshade at noon, and how can this information guide our visitor activities planning?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Hillshade_Noon'].mean().idxmin()"",
+    },
+    {
+        ""question"": ""Can we determine the correlation between slope and elevation, and how might this affect safety measures for our hiking trails?"",
+        ""query"": ""result = df[['Slope', 'Elevation']].corr()"",
+    },
+    {
+        ""question"": ""What is the average distance to roadways in areas with Ponderosa Pine (Cover Type 3), and how can we use this data for improving access?"",
+        ""query"": ""result = df[df['Cover_Type'] == 3]['Horizontal_Distance_To_Roadways'].mean()"",
+    },
+    {
+        ""question"": ""How does the distribution of aspect values vary among the different cover types, and what insights does this offer for sunlight exposure in forested areas?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Aspect'].describe()"",
+    },
+    {
+        ""question"": ""Which cover type has the highest average elevation, and how might this information influence our altitude-specific forest management practices?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Elevation'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What is the total horizontal distance to hydrology for each soil type, and how might this impact our water conservation strategies?"",
+        ""query"": ""result = df.groupby('Soil_Type')['Horizontal_Distance_To_Hydrology'].sum()"",
+    },
+    {
+        ""question"": ""Can we compare the average slope in each wilderness area to assess the feasibility of new construction projects?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Slope'].mean()"",
+    },
+    {
+        ""question"": ""What are the top three cover types in terms of average elevation, and how does this align with our strategic planning for forest preservation?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Elevation'].mean().nlargest(3)"",
+    },
+    {
+        ""question"": ""How does the average hillshade at 9am vary across different soil types, and what implications does this have for forest health?"",
+        ""query"": ""result = df.groupby('Soil_Type')['Hillshade_9am'].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of tree cover types in the wilderness area with the lowest average elevation?"",
+        ""query"": ""result = df[df['Wilderness_Area'] == df.groupby('Wilderness_Area')['Elevation'].mean().idxmin()]['Cover_Type'].value_counts()"",
+    },
+    {
+        ""question"": ""Can we determine the average distance to fire points for each cover type, to prioritize areas for fire prevention measures?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Horizontal_Distance_To_Fire_Points'].mean()"",
+    },
+    {
+        ""question"": ""What are the common statistical measures (mean, median, standard deviation) of aspect for each wilderness area?"",
+        ""query"": ""result = df.groupby('Wilderness_Area')['Aspect'].agg(['mean', 'median', 'std'])"",
+    },
+    {
+        ""question"": ""How does the average vertical distance to hydrology differ among various cover types, and what does this tell us about water accessibility in these areas?"",
+        ""query"": ""result = df.groupby('Cover_Type')['Vertical_Distance_To_Hydrology'].mean()"",
+    },
+    {
+        ""question"": ""What is the total area (sum of the 30x30 meter cells) for each cover type, and how can this inform our land use planning?"",
+        ""query"": ""result = df['Cover_Type'].value_counts() * 900"",
+    },
+    {
+        ""question"": ""Can we analyze the relationship between elevation and distance to roadways to improve accessibility for emergency services?"",
+        ""query"": ""result = df[['Elevation', 'Horizontal_Distance_To_Roadways']].corr()"",
+    }
+]"

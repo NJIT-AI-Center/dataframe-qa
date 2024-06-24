@@ -1,0 +1,50 @@
+Code,Type,Name,Area (km 2 ),Population,Regional County Municipality,Region
+91005.0,M,Lac-Bouchette,919.99,1297.0,Le Domaine-du-Roy,2.0
+91010.0,VL,Saint-André-du-Lac-Saint-Jean,157.75,523.0,Le Domaine-du-Roy,2.0
+91015.0,M,Saint-François-de-Sales,200.56,702.0,Le Domaine-du-Roy,2.0
+91020.0,M,Chambord,157.03,1722.0,Le Domaine-du-Roy,2.0
+91025.0,V,Roberval,168.27,10744.0,Le Domaine-du-Roy,2.0
+91030.0,M,Sainte-Hedwidge,469.07,787.0,Le Domaine-du-Roy,2.0
+91035.0,M,Saint-Prime,147.43,2743.0,Le Domaine-du-Roy,2.0
+91042.0,V,Saint-Félicien,359.69,10486.0,Le Domaine-du-Roy,2.0
+91050.0,P,La Doré,280.83,1486.0,Le Domaine-du-Roy,2.0
+92005.0,P,Saint-Augustin,103.96,413.0,Maria-Chapdelaine,2.0
+92010.0,M,Péribonka,113.46,538.0,Maria-Chapdelaine,2.0
+92015.0,VL,Sainte-Jeanne-d'Arc,270.88,1103.0,Maria-Chapdelaine,2.0
+92022.0,V,Dolbeau-Mistassini,296.57,14713.0,Maria-Chapdelaine,2.0
+92030.0,M,Albanel,195.69,2402.0,Maria-Chapdelaine,2.0
+92040.0,V,Normandin,211.96,3363.0,Maria-Chapdelaine,2.0
+92045.0,M,Saint-Thomas-Didyme,325.36,772.0,Maria-Chapdelaine,2.0
+92050.0,M,Saint-Edmond-les-Plaines,87.15,476.0,Maria-Chapdelaine,2.0
+92055.0,M,Girardville,125.8,1213.0,Maria-Chapdelaine,2.0
+92060.0,M,Notre-Dame-de-Lorette,225.32,203.0,Maria-Chapdelaine,2.0
+92065.0,M,Saint-Eugène-d'Argentenay,83.37,573.0,Maria-Chapdelaine,2.0
+92070.0,M,Saint-Stanislas,159.45,312.0,Maria-Chapdelaine,2.0
+93005.0,V,Desbiens,10.35,1064.0,Lac-Saint-Jean-Est,2.0
+93012.0,V,Métabetchouan–Lac-à-la-Croix,185.86,4243.0,Lac-Saint-Jean-Est,2.0
+93020.0,M,Hébertville,263.88,2390.0,Lac-Saint-Jean-Est,2.0
+93025.0,VL,Hébertville-Station,33.28,1276.0,Lac-Saint-Jean-Est,2.0
+93030.0,M,Saint-Bruno,77.88,2324.0,Lac-Saint-Jean-Est,2.0
+93035.0,M,Saint-Gédéon,64.17,2011.0,Lac-Saint-Jean-Est,2.0
+93042.0,V,Alma,202.1,30407.0,Lac-Saint-Jean-Est,2.0
+93045.0,M,Saint-Nazaire,147.78,1958.0,Lac-Saint-Jean-Est,2.0
+93055.0,M,Labrecque,147.37,1248.0,Lac-Saint-Jean-Est,2.0
+93060.0,M,Lamarche,94.79,527.0,Lac-Saint-Jean-Est,2.0
+93065.0,P,L'Ascension-de-Notre-Seigneur,131.83,1926.0,Lac-Saint-Jean-Est,2.0
+93070.0,M,Saint-Henri-de-Taillon,62.95,771.0,Lac-Saint-Jean-Est,2.0
+93075.0,M,Sainte-Monique,155.15,898.0,Lac-Saint-Jean-Est,2.0
+93080.0,M,Saint-Ludger-de-Milot,106.81,764.0,Lac-Saint-Jean-Est,2.0
+94068.0,V,Saguenay,1166.0,145129.0,Not part of a RCM,2.0
+94205.0,M,Petit-Saguenay,328.72,828.0,Le Fjord-du-Saguenay,2.0
+94210.0,M,L'Anse-Saint-Jean,527.06,1143.0,Le Fjord-du-Saguenay,2.0
+94215.0,M,Rivière-Éternité,496.88,565.0,Le Fjord-du-Saguenay,2.0
+94220.0,M,Ferland-et-Boilleau,418.85,606.0,Le Fjord-du-Saguenay,2.0
+94225.0,M,Saint-Félix-d'Otis,235.94,851.0,Le Fjord-du-Saguenay,2.0
+94230.0,P,Sainte-Rose-du-Nord,119.03,403.0,Le Fjord-du-Saguenay,2.0
+94235.0,M,Saint-Fulgence,354.68,1959.0,Le Fjord-du-Saguenay,2.0
+94240.0,M,Saint-Honoré,189.82,4797.0,Le Fjord-du-Saguenay,2.0
+94245.0,M,Saint-David-de-Falardeau,379.23,2453.0,Le Fjord-du-Saguenay,2.0
+94250.0,M,Bégin,191.81,885.0,Le Fjord-du-Saguenay,2.0
+94255.0,M,Saint-Ambroise,148.61,3553.0,Le Fjord-du-Saguenay,2.0
+94260.0,M,Saint-Charles-de-Bourget,62.31,664.0,Le Fjord-du-Saguenay,2.0
+94265.0,M,Larouche,88.0,1066.0,Le Fjord-du-Saguenay,2.0

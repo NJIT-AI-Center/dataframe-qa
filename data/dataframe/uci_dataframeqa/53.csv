@@ -1,0 +1,709 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Iris
+- Description of dataframe: This is one of the earliest datasets used in the literature on classification methods and widely used in statistics and machine learning.  The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant.  One class is linearly separable from the other 2; the latter are not linearly separable from each other.
+
+Predicted attribute: class of iris plant.
+
+This is an exceedingly simple domain.
+
+This data differs from the data presented in Fishers article (identified by Steve Chadwick,  spchadwick@espeedaz.net ).  The 35th sample should be: 4.9,3.1,1.5,0.2,""Iris-setosa"" where the error is in the fourth feature. The 38th sample: 4.9,3.6,1.4,0.1,""Iris-setosa"" where the errors are in the second and third features.  
+- Column information of dataframe:
+#   Column        Dtype 
+--- ------        ----- 
+0   sepal length  float 
+1   sepal width   float 
+2   petal length  float 
+3   petal width   float 
+4   class         str   
+
+- Sample rows of dataframe in CSV format:
+sepal length,sepal width,petal length,petal width,class
+6.7,3.3,5.7,2.1,Iris-virginica
+5.1,3.5,1.4,0.2,Iris-setosa
+5.7,2.8,4.5,1.3,Iris-versicolor
+5.6,2.5,3.9,1.1,Iris-versicolor
+6.9,3.1,5.1,2.3,Iris-virginica
+6.3,2.3,4.4,1.3,Iris-versicolor
+6.1,2.6,5.6,1.4,Iris-virginica
+5.8,2.7,5.1,1.9,Iris-virginica
+5.6,2.7,4.2,1.3,Iris-versicolor
+5.5,2.5,4.0,1.3,Iris-versicolor
+6.3,2.9,5.6,1.8,Iris-virginica
+6.0,2.2,4.0,1.0,Iris-versicolor
+6.8,3.0,5.5,2.1,Iris-virginica
+5.2,2.7,3.9,1.4,Iris-versicolor
+6.8,3.2,5.9,2.3,Iris-virginica
+7.2,3.2,6.0,1.8,Iris-virginica
+5.5,4.2,1.4,0.2,Iris-setosa
+5.1,3.3,1.7,0.5,Iris-setosa
+5.1,3.8,1.5,0.3,Iris-setosa
+5.3,3.7,1.5,0.2,Iris-setosa
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""How does the average sepal width vary among the different classes of iris plants?"",
+        ""query"": ""result = df.groupby('class')['sepal width'].mean()"",
+    },
+    {
+        ""question"": ""What is the correlation matrix between all numerical features for each class of iris plant?"",
+        ""query"": ""result = df.groupby('class').apply(lambda x: x.corr())"",
+    },
+    {
+        ""question"": ""Identify the iris class that has the highest average petal length to sepal length ratio."",
+        ""query"": ""result = df.assign(ratio = df['petal length'] / df['sepal length']).groupby('class')['ratio'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the mean petal width for each combination of sepal length (binned into 3 equal-width bins) and iris class."",
+        ""query"": ""result = df.pivot_table(values='petal width', index=pd.cut(df['sepal length'], 3), columns='class', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Determine the class of iris plant that has the most variability in sepal width."",
+        ""query"": ""result = df.groupby('class')['sepal width'].std().idxmax()"",
+    },
+    {
+        ""question"": ""Find out if there is any iris plant sample with a petal width more than two standard deviations away from the mean petal width for its class."",
+        ""query"": ""result = df[df.groupby('class')['petal width'].apply(lambda x: (x - x.mean()).abs() > 2 * x.std())]"",
+    },
+    {
+        ""question"": ""Calculate the skewness for each numerical feature grouped by the class of the iris plant."",
+        ""query"": ""result = df.groupby('class').skew()"",
+    },
+    {
+        ""question"": ""Identify which class of iris plant has the smallest difference between its maximum and minimum petal length."",
+        ""query"": ""result = df.groupby('class')['petal length'].apply(lambda x: x.max() - x.min()).idxmin()"",
+    },
+    {
+        ""question"": ""Generate a list of iris plant classes ordered by descending mean sepal length."",
+        ""query"": ""result = df.groupby('class')['sepal length'].mean().sort_values(ascending=False).index.tolist()"",
+    },
+    {
+        ""question"": ""Compute the percentage of iris plants in each class having a sepal width greater than the overall median sepal width."",
+        ""query"": ""result = df[df['sepal width'] > df['sepal width'].median()].groupby('class').size() / df.groupby('class').size() * 100"",
+    }
+]","[
+    {
+        ""question"": ""What is the range of petal lengths for each iris class?"",
+        ""query"": ""result = df.groupby('class')['petal length'].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""Calculate the interquartile range for sepal width for each class of iris plant."",
+        ""query"": ""result = df.groupby('class')['sepal width'].apply(lambda x: x.quantile(0.75) - x.quantile(0.25))"",
+    },
+    {
+        ""question"": ""Which iris class has the highest mean petal width to sepal width ratio?"",
+        ""query"": ""result = df.assign(ratio = df['petal width'] / df['sepal width']).groupby('class')['ratio'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""Find the standard deviation of the mean petal lengths for each class."",
+        ""query"": ""result = df.groupby('class')['petal length'].mean().std()"",
+    },
+    {
+        ""question"": ""Create a summary statistic table that shows the mean, median, and standard deviation for sepal length and petal length, grouped by iris class."",
+        ""query"": ""result = df.groupby('class')[['sepal length', 'petal length']].agg(['mean', 'median', 'std'])"",
+    },
+    {
+        ""question"": ""Determine the class with the highest average petal length to petal width ratio."",
+        ""query"": ""result = df.assign(ratio = df['petal length'] / df['petal width']).groupby('class')['ratio'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What percentage of each iris class have a petal length greater than the overall average petal length?"",
+        ""query"": ""result = df[df['petal length'] > df['petal length'].mean()].groupby('class').size() / df.groupby('class').size() * 100"",
+    },
+    {
+        ""question"": ""Identify the class of iris plant that has the least variation in sepal length."",
+        ""query"": ""result = df.groupby('class')['sepal length'].var().idxmin()"",
+    },
+    {
+        ""question"": ""Generate a histogram data for petal width, categorized by class, using 5 bins."",
+        ""query"": ""result = df.groupby('class')['petal width'].apply(lambda x: pd.cut(x, 5).value_counts())"",
+    },
+    {
+        ""question"": ""Calculate the pairwise Pearson correlation coefficient between sepal length and sepal width for each iris class."",
+        ""query"": ""result = df.groupby('class').apply(lambda x: x['sepal length'].corr(x['sepal width']))"",
+    }
+]","[
+    {
+        ""question"": ""How does the average sepal width vary among the different classes of iris plants?"",
+        ""query"": ""result = df.groupby('class')['sepal width'].mean()"",
+    },
+    {
+        ""question"": ""What is the correlation matrix between all numerical features for each class of iris plant?"",
+        ""query"": ""result = df.groupby('class').apply(lambda x: x.corr())"",
+    },
+    {
+        ""question"": ""Identify the iris class that has the highest average petal length to sepal length ratio."",
+        ""query"": ""result = df.assign(ratio = df['petal length'] / df['sepal length']).groupby('class')['ratio'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the mean petal width for each combination of sepal length (binned into 3 equal-width bins) and iris class."",
+        ""query"": ""result = df.pivot_table(values='petal width', index=pd.cut(df['sepal length'], 3), columns='class', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Determine the class of iris plant that has the most variability in sepal width."",
+        ""query"": ""result = df.groupby('class')['sepal width'].std().idxmax()"",
+    },
+    {
+        ""question"": ""Find out if there is any iris plant sample with a petal width more than two standard deviations away from the mean petal width for its class."",
+        ""query"": ""result = df[df.groupby('class')['petal width'].apply(lambda x: (x - x.mean()).abs() > 2 * x.std())]"",
+    },
+    {
+        ""question"": ""Calculate the skewness for each numerical feature grouped by the class of the iris plant."",
+        ""query"": ""result = df.groupby('class').skew()"",
+    },
+    {
+        ""question"": ""Identify which class of iris plant has the smallest difference between its maximum and minimum petal length."",
+        ""query"": ""result = df.groupby('class')['petal length'].apply(lambda x: x.max() - x.min()).idxmin()"",
+    },
+    {
+        ""question"": ""Generate a list of iris plant classes ordered by descending mean sepal length."",
+        ""query"": ""result = df.groupby('class')['sepal length'].mean().sort_values(ascending=False).index.tolist()"",
+    },
+    {
+        ""question"": ""Compute the percentage of iris plants in each class having a sepal width greater than the overall median sepal width."",
+        ""query"": ""result = df[df['sepal width'] > df['sepal width'].median()].groupby('class').size() / df.groupby('class').size() * 100"",
+    },
+    {
+        ""question"": ""What is the range of petal lengths for each iris class?"",
+        ""query"": ""result = df.groupby('class')['petal length'].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""Calculate the interquartile range for sepal width for each class of iris plant."",
+        ""query"": ""result = df.groupby('class')['sepal width'].apply(lambda x: x.quantile(0.75) - x.quantile(0.25))"",
+    },
+    {
+        ""question"": ""Which iris class has the highest mean petal width to sepal width ratio?"",
+        ""query"": ""result = df.assign(ratio = df['petal width'] / df['sepal width']).groupby('class')['ratio'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""Find the standard deviation of the mean petal lengths for each class."",
+        ""query"": ""result = df.groupby('class')['petal length'].mean().std()"",
+    },
+    {
+        ""question"": ""Create a summary statistic table that shows the mean, median, and standard deviation for sepal length and petal length, grouped by iris class."",
+        ""query"": ""result = df.groupby('class')[['sepal length', 'petal length']].agg(['mean', 'median', 'std'])"",
+    },
+    {
+        ""question"": ""Determine the class with the highest average petal length to petal width ratio."",
+        ""query"": ""result = df.assign(ratio = df['petal length'] / df['petal width']).groupby('class')['ratio'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What percentage of each iris class have a petal length greater than the overall average petal length?"",
+        ""query"": ""result = df[df['petal length'] > df['petal length'].mean()].groupby('class').size() / df.groupby('class').size() * 100"",
+    },
+    {
+        ""question"": ""Identify the class of iris plant that has the least variation in sepal length."",
+        ""query"": ""result = df.groupby('class')['sepal length'].var().idxmin()"",
+    },
+    {
+        ""question"": ""Generate a histogram data for petal width, categorized by class, using 5 bins."",
+        ""query"": ""result = df.groupby('class')['petal width'].apply(lambda x: pd.cut(x, 5).value_counts())"",
+    },
+    {
+        ""question"": ""Calculate the pairwise Pearson correlation coefficient between sepal length and sepal width for each iris class."",
+        ""query"": ""result = df.groupby('class').apply(lambda x: x['sepal length'].corr(x['sepal width']))"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Iris
+- Description of dataframe: This is one of the earliest datasets used in the literature on classification methods and widely used in statistics and machine learning.  The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant.  One class is linearly separable from the other 2; the latter are not linearly separable from each other.
+
+Predicted attribute: class of iris plant.
+
+This is an exceedingly simple domain.
+
+This data differs from the data presented in Fishers article (identified by Steve Chadwick,  spchadwick@espeedaz.net ).  The 35th sample should be: 4.9,3.1,1.5,0.2,""Iris-setosa"" where the error is in the fourth feature. The 38th sample: 4.9,3.6,1.4,0.1,""Iris-setosa"" where the errors are in the second and third features.  
+- Column information of dataframe:
+#   Column        Dtype 
+--- ------        ----- 
+0   sepal length  float 
+1   sepal width   float 
+2   petal length  float 
+3   petal width   float 
+4   class         str   
+
+- Sample rows of dataframe in CSV format:
+sepal length,sepal width,petal length,petal width,class
+5.3,3.7,1.5,0.2,Iris-setosa
+4.8,3.4,1.9,0.2,Iris-setosa
+5.1,3.7,1.5,0.4,Iris-setosa
+5.4,3.7,1.5,0.2,Iris-setosa
+4.6,3.4,1.4,0.3,Iris-setosa
+5.0,3.4,1.5,0.2,Iris-setosa
+4.8,3.0,1.4,0.3,Iris-setosa
+5.1,2.5,3.0,1.1,Iris-versicolor
+6.2,2.8,4.8,1.8,Iris-virginica
+5.2,4.1,1.5,0.1,Iris-setosa
+5.7,2.9,4.2,1.3,Iris-versicolor
+5.8,2.7,3.9,1.2,Iris-versicolor
+6.7,3.1,4.7,1.5,Iris-versicolor
+7.1,3.0,5.9,2.1,Iris-virginica
+5.0,3.2,1.2,0.2,Iris-setosa
+4.9,2.4,3.3,1.0,Iris-versicolor
+5.0,3.0,1.6,0.2,Iris-setosa
+4.3,3.0,1.1,0.1,Iris-setosa
+5.0,3.5,1.6,0.6,Iris-setosa
+5.5,4.2,1.4,0.2,Iris-setosa
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""Can you tell me how many different types of iris plants are represented in our data?"",
+        ""query"": ""result = df['class'].nunique()"",
+    },
+    {
+        ""question"": ""I'm curious, what is the average petal length for the iris plants in our collection?"",
+        ""query"": ""result = df['petal length'].mean()"",
+    },
+    {
+        ""question"": ""Could you find out which type of iris plant appears most frequently in our dataset?"",
+        ""query"": ""result = df['class'].mode()[0]"",
+    },
+    {
+        ""question"": ""Is it possible to know the range of sepal widths we have across all iris plants?"",
+        ""query"": ""result = df['sepal width'].max() - df['sepal width'].min()"",
+    },
+    {
+        ""question"": ""Can we identify the iris plants with the longest sepals in our dataset?"",
+        ""query"": ""result = df[df['sepal length'] == df['sepal length'].max()]['class']"",
+    },
+    {
+        ""question"": ""I'd like to understand, on average, how do the petal widths vary among the different types of iris plants?"",
+        ""query"": ""result = df.groupby('class')['petal width'].mean()"",
+    },
+    {
+        ""question"": ""Could you determine the number of iris plants in our data that have a petal length greater than 4.5 cm?"",
+        ""query"": ""result = df[df['petal length'] > 4.5].shape[0]"",
+    },
+    {
+        ""question"": ""What is the median sepal length for the Iris-setosa plants in our collection?"",
+        ""query"": ""result = df[df['class'] == 'Iris-setosa']['sepal length'].median()"",
+    },
+    {
+        ""question"": ""Can we find out if there are any iris plants with a petal width less than 0.3 cm?"",
+        ""query"": ""result = df[df['petal width'] < 0.3].shape[0] > 0"",
+    },
+    {
+        ""question"": ""I'm interested in the variety of our collection. How many iris plants have a sepal width of more than 3.5 cm?"",
+        ""query"": ""result = df[df['sepal width'] > 3.5].shape[0]"",
+    }
+]","[
+    {
+        ""question"": ""What's the smallest petal width we have recorded for any iris plant in our dataset?"",
+        ""query"": ""result = df['petal width'].min()"",
+    },
+    {
+        ""question"": ""How many iris plants do we have with a sepal length of exactly 5.0 cm?"",
+        ""query"": ""result = df[df['sepal length'] == 5.0].shape[0]"",
+    },
+    {
+        ""question"": ""For each type of iris plant, what's the average sepal width we've observed?"",
+        ""query"": ""result = df.groupby('class')['sepal width'].mean()"",
+    },
+    {
+        ""question"": ""Can you show me the details of the iris plant that has the longest petal length in our data?"",
+        ""query"": ""result = df[df['petal length'] == df['petal length'].max()]"",
+    },
+    {
+        ""question"": ""I wonder, how many iris plants in our collection have petal widths narrower than 0.5 cm?"",
+        ""query"": ""result = df[df['petal width'] < 0.5].shape[0]"",
+    },
+    {
+        ""question"": ""Could you tell me what the most common sepal length is among all our iris plants?"",
+        ""query"": ""result = df['sepal length'].mode()[0]"",
+    },
+    {
+        ""question"": ""I'd like to know, for each type of iris, what is the range of petal lengths we have?"",
+        ""query"": ""result = df.groupby('class')['petal length'].agg([min, max])"",
+    },
+    {
+        ""question"": ""Can you find out how many iris plants have a sepal width greater than the average sepal width?"",
+        ""query"": ""result = df[df['sepal width'] > df['sepal width'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""What's the average petal length for the Iris-virginica plants in our collection?"",
+        ""query"": ""result = df[df['class'] == 'Iris-virginica']['petal length'].mean()"",
+    },
+    {
+        ""question"": ""Could we identify any iris plants in our dataset that have an unusually high petal width compared to petal length ratio?"",
+        ""query"": ""result = df[df['petal width'] / df['petal length'] > 0.5]"",
+    }
+]","[
+    {
+        ""question"": ""Can you tell me how many different types of iris plants are represented in our data?"",
+        ""query"": ""result = df['class'].nunique()"",
+    },
+    {
+        ""question"": ""I'm curious, what is the average petal length for the iris plants in our collection?"",
+        ""query"": ""result = df['petal length'].mean()"",
+    },
+    {
+        ""question"": ""Could you find out which type of iris plant appears most frequently in our dataset?"",
+        ""query"": ""result = df['class'].mode()[0]"",
+    },
+    {
+        ""question"": ""Is it possible to know the range of sepal widths we have across all iris plants?"",
+        ""query"": ""result = df['sepal width'].max() - df['sepal width'].min()"",
+    },
+    {
+        ""question"": ""Can we identify the iris plants with the longest sepals in our dataset?"",
+        ""query"": ""result = df[df['sepal length'] == df['sepal length'].max()]['class']"",
+    },
+    {
+        ""question"": ""I'd like to understand, on average, how do the petal widths vary among the different types of iris plants?"",
+        ""query"": ""result = df.groupby('class')['petal width'].mean()"",
+    },
+    {
+        ""question"": ""Could you determine the number of iris plants in our data that have a petal length greater than 4.5 cm?"",
+        ""query"": ""result = df[df['petal length'] > 4.5].shape[0]"",
+    },
+    {
+        ""question"": ""What is the median sepal length for the Iris-setosa plants in our collection?"",
+        ""query"": ""result = df[df['class'] == 'Iris-setosa']['sepal length'].median()"",
+    },
+    {
+        ""question"": ""Can we find out if there are any iris plants with a petal width less than 0.3 cm?"",
+        ""query"": ""result = df[df['petal width'] < 0.3].shape[0] > 0"",
+    },
+    {
+        ""question"": ""I'm interested in the variety of our collection. How many iris plants have a sepal width of more than 3.5 cm?"",
+        ""query"": ""result = df[df['sepal width'] > 3.5].shape[0]"",
+    },
+    {
+        ""question"": ""What's the smallest petal width we have recorded for any iris plant in our dataset?"",
+        ""query"": ""result = df['petal width'].min()"",
+    },
+    {
+        ""question"": ""How many iris plants do we have with a sepal length of exactly 5.0 cm?"",
+        ""query"": ""result = df[df['sepal length'] == 5.0].shape[0]"",
+    },
+    {
+        ""question"": ""For each type of iris plant, what's the average sepal width we've observed?"",
+        ""query"": ""result = df.groupby('class')['sepal width'].mean()"",
+    },
+    {
+        ""question"": ""Can you show me the details of the iris plant that has the longest petal length in our data?"",
+        ""query"": ""result = df[df['petal length'] == df['petal length'].max()]"",
+    },
+    {
+        ""question"": ""I wonder, how many iris plants in our collection have petal widths narrower than 0.5 cm?"",
+        ""query"": ""result = df[df['petal width'] < 0.5].shape[0]"",
+    },
+    {
+        ""question"": ""Could you tell me what the most common sepal length is among all our iris plants?"",
+        ""query"": ""result = df['sepal length'].mode()[0]"",
+    },
+    {
+        ""question"": ""I'd like to know, for each type of iris, what is the range of petal lengths we have?"",
+        ""query"": ""result = df.groupby('class')['petal length'].agg([min, max])"",
+    },
+    {
+        ""question"": ""Can you find out how many iris plants have a sepal width greater than the average sepal width?"",
+        ""query"": ""result = df[df['sepal width'] > df['sepal width'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""What's the average petal length for the Iris-virginica plants in our collection?"",
+        ""query"": ""result = df[df['class'] == 'Iris-virginica']['petal length'].mean()"",
+    },
+    {
+        ""question"": ""Could we identify any iris plants in our dataset that have an unusually high petal width compared to petal length ratio?"",
+        ""query"": ""result = df[df['petal width'] / df['petal length'] > 0.5]"",
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Iris
+- Description of dataframe: This is one of the earliest datasets used in the literature on classification methods and widely used in statistics and machine learning.  The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant.  One class is linearly separable from the other 2; the latter are not linearly separable from each other.
+
+Predicted attribute: class of iris plant.
+
+This is an exceedingly simple domain.
+
+This data differs from the data presented in Fishers article (identified by Steve Chadwick,  spchadwick@espeedaz.net ).  The 35th sample should be: 4.9,3.1,1.5,0.2,""Iris-setosa"" where the error is in the fourth feature. The 38th sample: 4.9,3.6,1.4,0.1,""Iris-setosa"" where the errors are in the second and third features.  
+- Column information of dataframe:
+#   Column        Dtype 
+--- ------        ----- 
+0   sepal length  float 
+1   sepal width   float 
+2   petal length  float 
+3   petal width   float 
+4   class         str   
+
+- Sample rows of dataframe in CSV format:
+sepal length,sepal width,petal length,petal width,class
+6.6,3.0,4.4,1.4,Iris-versicolor
+5.5,2.4,3.7,1.0,Iris-versicolor
+5.4,3.9,1.7,0.4,Iris-setosa
+6.1,2.6,5.6,1.4,Iris-virginica
+5.6,2.5,3.9,1.1,Iris-versicolor
+6.5,2.8,4.6,1.5,Iris-versicolor
+6.3,2.7,4.9,1.8,Iris-virginica
+4.6,3.2,1.4,0.2,Iris-setosa
+6.6,2.9,4.6,1.3,Iris-versicolor
+5.0,3.4,1.6,0.4,Iris-setosa
+5.5,3.5,1.3,0.2,Iris-setosa
+5.5,2.5,4.0,1.3,Iris-versicolor
+7.0,3.2,4.7,1.4,Iris-versicolor
+4.8,3.0,1.4,0.3,Iris-setosa
+6.1,3.0,4.9,1.8,Iris-virginica
+5.0,3.4,1.5,0.2,Iris-setosa
+6.2,3.4,5.4,2.3,Iris-virginica
+5.6,2.9,3.6,1.3,Iris-versicolor
+6.4,2.8,5.6,2.1,Iris-virginica
+6.3,2.5,5.0,1.9,Iris-virginica
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average sepal length across all iris plants in our dataset?"",
+        ""query"": ""result = df['sepal length'].mean()"",
+    },
+    {
+        ""question"": ""How many iris plants of each class do we have in our dataset?"",
+        ""query"": ""result = df['class'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the median petal width for each class of iris plant?"",
+        ""query"": ""result = df.groupby('class')['petal width'].median()"",
+    },
+    {
+        ""question"": ""Can we identify the maximum petal length observed for Iris-virginica species?"",
+        ""query"": ""result = df[df['class'] == 'Iris-virginica']['petal length'].max()"",
+    },
+    {
+        ""question"": ""What are the average sepal width and petal width for each class of iris plant?"",
+        ""query"": ""result = df.groupby('class')[['sepal width', 'petal width']].mean()"",
+    },
+    {
+        ""question"": ""How does the distribution of sepal length vary among different classes of iris plants?"",
+        ""query"": ""result = df.groupby('class')['sepal length'].describe()"",
+    },
+    {
+        ""question"": ""Can we find the minimum and maximum sepal width for Iris-setosa species?"",
+        ""query"": ""result = df[df['class'] == 'Iris-setosa']['sepal width'].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""What is the total number of iris plants with a petal length greater than 4.5 cm?"",
+        ""query"": ""result = df[df['petal length'] > 4.5].shape[0]"",
+    },
+    {
+        ""question"": ""Can we compare the mean values of sepal length, sepal width, petal length, and petal width for each iris class?"",
+        ""query"": ""result = df.groupby('class').mean()"",
+    },
+    {
+        ""question"": ""Is there any iris plant in our dataset with a sepal length less than 5 cm and petal length greater than 3 cm?"",
+        ""query"": ""result = df[(df['sepal length'] < 5) & (df['petal length'] > 3)].shape[0] > 0"",
+    }
+]","[
+    {
+        ""question"": ""How can we determine the standard deviation of petal widths for each class of iris plants?"",
+        ""query"": ""result = df.groupby('class')['petal width'].std()"",
+    },
+    {
+        ""question"": ""What is the count of iris plants that have a sepal width greater than the average sepal width?"",
+        ""query"": ""result = df[df['sepal width'] > df['sepal width'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""Can we find the top three longest petal lengths in the Iris-virginica class?"",
+        ""query"": ""result = df[df['class'] == 'Iris-virginica']['petal length'].nlargest(3)"",
+    },
+    {
+        ""question"": ""What percentage of iris plants have a petal width less than 1 cm?"",
+        ""query"": ""result = (df[df['petal width'] < 1].shape[0] / df.shape[0]) * 100"",
+    },
+    {
+        ""question"": ""How can we list the unique values of sepal lengths in our dataset?"",
+        ""query"": ""result = df['sepal length'].unique()"",
+    },
+    {
+        ""question"": ""What is the correlation matrix for the numerical features in our dataset?"",
+        ""query"": ""result = df.corr()"",
+    },
+    {
+        ""question"": ""Can we filter the dataset to only include Iris-setosa plants with sepal lengths greater than 5 cm?"",
+        ""query"": ""result = df[(df['class'] == 'Iris-setosa') & (df['sepal length'] > 5)]"",
+    },
+    {
+        ""question"": ""How can we determine the range (minimum and maximum values) of petal lengths for the Iris-versicolor class?"",
+        ""query"": ""result = df[df['class'] == 'Iris-versicolor']['petal length'].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""What is the average value of each feature for Iris plants with a petal width of 2 cm or more?"",
+        ""query"": ""result = df[df['petal width'] >= 2].mean()"",
+    },
+    {
+        ""question"": ""Can we create a pivot table showing the mean sepal length and petal length for each class?"",
+        ""query"": ""result = df.pivot_table(index='class', values=['sepal length', 'petal length'], aggfunc='mean')"",
+    }
+]","[
+    {
+        ""question"": ""What is the average sepal length across all iris plants in our dataset?"",
+        ""query"": ""result = df['sepal length'].mean()"",
+    },
+    {
+        ""question"": ""How many iris plants of each class do we have in our dataset?"",
+        ""query"": ""result = df['class'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the median petal width for each class of iris plant?"",
+        ""query"": ""result = df.groupby('class')['petal width'].median()"",
+    },
+    {
+        ""question"": ""Can we identify the maximum petal length observed for Iris-virginica species?"",
+        ""query"": ""result = df[df['class'] == 'Iris-virginica']['petal length'].max()"",
+    },
+    {
+        ""question"": ""What are the average sepal width and petal width for each class of iris plant?"",
+        ""query"": ""result = df.groupby('class')[['sepal width', 'petal width']].mean()"",
+    },
+    {
+        ""question"": ""How does the distribution of sepal length vary among different classes of iris plants?"",
+        ""query"": ""result = df.groupby('class')['sepal length'].describe()"",
+    },
+    {
+        ""question"": ""Can we find the minimum and maximum sepal width for Iris-setosa species?"",
+        ""query"": ""result = df[df['class'] == 'Iris-setosa']['sepal width'].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""What is the total number of iris plants with a petal length greater than 4.5 cm?"",
+        ""query"": ""result = df[df['petal length'] > 4.5].shape[0]"",
+    },
+    {
+        ""question"": ""Can we compare the mean values of sepal length, sepal width, petal length, and petal width for each iris class?"",
+        ""query"": ""result = df.groupby('class').mean()"",
+    },
+    {
+        ""question"": ""Is there any iris plant in our dataset with a sepal length less than 5 cm and petal length greater than 3 cm?"",
+        ""query"": ""result = df[(df['sepal length'] < 5) & (df['petal length'] > 3)].shape[0] > 0"",
+    },
+    {
+        ""question"": ""How can we determine the standard deviation of petal widths for each class of iris plants?"",
+        ""query"": ""result = df.groupby('class')['petal width'].std()"",
+    },
+    {
+        ""question"": ""What is the count of iris plants that have a sepal width greater than the average sepal width?"",
+        ""query"": ""result = df[df['sepal width'] > df['sepal width'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""Can we find the top three longest petal lengths in the Iris-virginica class?"",
+        ""query"": ""result = df[df['class'] == 'Iris-virginica']['petal length'].nlargest(3)"",
+    },
+    {
+        ""question"": ""What percentage of iris plants have a petal width less than 1 cm?"",
+        ""query"": ""result = (df[df['petal width'] < 1].shape[0] / df.shape[0]) * 100"",
+    },
+    {
+        ""question"": ""How can we list the unique values of sepal lengths in our dataset?"",
+        ""query"": ""result = df['sepal length'].unique()"",
+    },
+    {
+        ""question"": ""What is the correlation matrix for the numerical features in our dataset?"",
+        ""query"": ""result = df.corr()"",
+    },
+    {
+        ""question"": ""Can we filter the dataset to only include Iris-setosa plants with sepal lengths greater than 5 cm?"",
+        ""query"": ""result = df[(df['class'] == 'Iris-setosa') & (df['sepal length'] > 5)]"",
+    },
+    {
+        ""question"": ""How can we determine the range (minimum and maximum values) of petal lengths for the Iris-versicolor class?"",
+        ""query"": ""result = df[df['class'] == 'Iris-versicolor']['petal length'].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""What is the average value of each feature for Iris plants with a petal width of 2 cm or more?"",
+        ""query"": ""result = df[df['petal width'] >= 2].mean()"",
+    },
+    {
+        ""question"": ""Can we create a pivot table showing the mean sepal length and petal length for each class?"",
+        ""query"": ""result = df.pivot_table(index='class', values=['sepal length', 'petal length'], aggfunc='mean')"",
+    }
+]"

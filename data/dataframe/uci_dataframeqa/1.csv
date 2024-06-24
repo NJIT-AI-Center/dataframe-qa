@@ -1,0 +1,679 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Abalone
+- Description of dataframe: Predicting the age of abalone from physical measurements.  The age of abalone is determined by cutting the shell through the cone, staining it, and counting the number of rings through a microscope -- a boring and time-consuming task.  Other measurements, which are easier to obtain, are used to predict the age.  Further information, such as weather patterns and location (hence food availability) may be required to solve the problem.
+
+From the original data examples with missing values were removed (the majority having the predicted value missing), and the ranges of the continuous values have been scaled for use with an ANN (by dividing by 200).
+- Column information of dataframe:
+#   Column          Dtype 
+--- ------          ----- 
+0   Sex             str   
+1   Length          float 
+2   Diameter        float 
+3   Height          float 
+4   Whole_weight    float 
+5   Shucked_weight  float 
+6   Viscera_weight  float 
+7   Shell_weight    float 
+8   Rings           int   
+
+- Sample rows of dataframe in CSV format:
+Sex,Length,Diameter,Height,Whole_weight,Shucked_weight,Viscera_weight,Shell_weight,Rings
+F,0.545,0.43,0.16,0.844,0.3945,0.1855,0.231,9
+I,0.63,0.475,0.145,1.0605,0.5165,0.2195,0.28,10
+M,0.72,0.545,0.195,1.7475,0.8215,0.383,0.4705,11
+F,0.645,0.51,0.18,1.6195,0.7815,0.322,0.4675,12
+I,0.45,0.345,0.135,0.443,0.1975,0.0875,0.1175,14
+I,0.54,0.435,0.145,0.97,0.4285,0.22,0.264,17
+M,0.655,0.53,0.195,1.388,0.567,0.2735,0.41,13
+I,0.335,0.255,0.085,0.1785,0.071,0.0405,0.055,9
+M,0.71,0.54,0.165,1.959,0.7665,0.261,0.78,18
+F,0.5,0.375,0.14,0.604,0.242,0.1415,0.179,15
+M,0.51,0.41,0.155,1.2825,0.569,0.291,0.3795,9
+F,0.53,0.425,0.13,0.7585,0.325,0.197,0.205,8
+F,0.585,0.475,0.165,1.053,0.458,0.217,0.3,11
+F,0.45,0.325,0.135,0.438,0.1805,0.1165,0.11,9
+F,0.475,0.375,0.125,0.5785,0.2775,0.085,0.155,10
+F,0.615,0.465,0.15,0.923,0.4615,0.1825,0.2415,9
+M,0.315,0.25,0.09,0.203,0.0615,0.037,0.0795,11
+M,0.35,0.26,0.09,0.198,0.0725,0.056,0.06,10
+I,0.46,0.35,0.11,0.4675,0.2125,0.099,0.1375,7
+I,0.505,0.395,0.105,0.551,0.248,0.103,0.171,8
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the correlation matrix of the continuous variables in the Abalone dataset?"",
+        ""query"": ""result = df[['Length', 'Diameter', 'Height', 'Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']].corr()"",
+    },
+    {
+        ""question"": ""How does the average shell weight vary across different numbers of rings?"",
+        ""query"": ""result = df.groupby('Rings')['Shell_weight'].mean()"",
+    },
+    {
+        ""question"": ""Can you identify the outliers in shell weight using a standard deviation method?"",
+        ""query"": ""mean_shell_weight = df['Shell_weight'].mean(); std_shell_weight = df['Shell_weight'].std(); result = df[(df['Shell_weight'] > mean_shell_weight + 3 * std_shell_weight) | (df['Shell_weight'] < mean_shell_weight - 3 * std_shell_weight)]"",
+    },
+    {
+        ""question"": ""What is the distribution of sex categories in the dataset?"",
+        ""query"": ""result = df['Sex'].value_counts()"",
+    },
+    {
+        ""question"": ""Can you perform a linear regression model to predict the number of rings based on other physical measurements?"",
+        ""query"": ""from sklearn.linear_model import LinearRegression; X = df[['Length', 'Diameter', 'Height', 'Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']]; y = df['Rings']; model = LinearRegression(); model.fit(X, y); result = model.coef_, model.intercept_"",
+    },
+    {
+        ""question"": ""What is the relationship between whole weight and shucked weight? Show this with a linear regression line."",
+        ""query"": ""import seaborn as sns; import matplotlib.pyplot as plt; sns.regplot(x='Whole_weight', y='Shucked_weight', data=df); plt.show()"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the mean whole weight for each combination of sex and number of rings."",
+        ""query"": ""result = df.pivot_table(index='Sex', columns='Rings', values='Whole_weight', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Which sex category (M, F, I) has the highest average height and what is the value?"",
+        ""query"": ""result = df.groupby('Sex')['Height'].mean().idxmax(), df.groupby('Sex')['Height'].mean().max()"",
+    },
+    {
+        ""question"": ""Can you calculate the ratio of shucked weight to whole weight for each abalone and find the one with the highest ratio?"",
+        ""query"": ""df['Weight_ratio'] = df['Shucked_weight'] / df['Whole_weight']; result = df[df['Weight_ratio'] == df['Weight_ratio'].max()]"",
+    },
+    {
+        ""question"": ""Perform a Principal Component Analysis (PCA) on the scaled continuous variables and return the explained variance ratio of the first two components."",
+        ""query"": ""from sklearn.decomposition import PCA; pca = PCA(n_components=2); df_scaled = df[['Length', 'Diameter', 'Height', 'Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']]; pca.fit(df_scaled); result = pca.explained_variance_ratio_"",
+    }
+]","[
+    {
+        ""question"": ""What are the mean and median lengths of abalone by each sex category?"",
+        ""query"": ""result = df.groupby('Sex')['Length'].agg(['mean', 'median'])"",
+    },
+    {
+        ""question"": ""Can you create a new column 'Volume' as a product of Length, Diameter, and Height, then find the average Volume for each sex?"",
+        ""query"": ""df['Volume'] = df['Length'] * df['Diameter'] * df['Height']; result = df.groupby('Sex')['Volume'].mean()"",
+    },
+    {
+        ""question"": ""How does the average number of rings vary across different height quartiles?"",
+        ""query"": ""df['Height_quartile'] = pd.qcut(df['Height'], 4); result = df.groupby('Height_quartile')['Rings'].mean()"",
+    },
+    {
+        ""question"": ""Can you identify the sex category with the maximum average viscera weight to shell weight ratio?"",
+        ""query"": ""df['Weight_ratio'] = df['Viscera_weight'] / df['Shell_weight']; result = df.groupby('Sex')['Weight_ratio'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What is the standard deviation of whole weight for abalones with more than 10 rings?"",
+        ""query"": ""result = df[df['Rings'] > 10]['Whole_weight'].std()"",
+    },
+    {
+        ""question"": ""Can you plot a histogram of shell weights for each sex category?"",
+        ""query"": ""import seaborn as sns; sns.histplot(data=df, x='Shell_weight', hue='Sex', multiple='stack');"",
+    },
+    {
+        ""question"": ""Create a scatter plot showing the relationship between number of rings and whole weight colored by sex."",
+        ""query"": ""import matplotlib.pyplot as plt; fig, ax = plt.subplots(); scatter = ax.scatter(df['Rings'], df['Whole_weight'], c=df['Sex'].astype('category').cat.codes); legend1 = ax.legend(*scatter.legend_elements(), title='Sex'); ax.add_artist(legend1); plt.show()"",
+    },
+    {
+        ""question"": ""What is the percentage of abalones in each sex category that have more than 15 rings?"",
+        ""query"": ""result = df[df['Rings'] > 15]['Sex'].value_counts(normalize=True) * 100"",
+    },
+    {
+        ""question"": ""Can you use a box plot to compare the distributions of diameters for each sex category?"",
+        ""query"": ""import seaborn as sns; sns.boxplot(x='Sex', y='Diameter', data=df);"",
+    },
+    {
+        ""question"": ""Perform a logistic regression to predict the sex of the abalone (M, F, I) based on the other physical measurements."",
+        ""query"": ""from sklearn.linear_model import LogisticRegression; X = df[['Length', 'Diameter', 'Height', 'Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight', 'Rings']]; y = df['Sex']; model = LogisticRegression(); model.fit(X, y); result = model.coef_"",
+    }
+]","[
+    {
+        ""question"": ""What is the correlation matrix of the continuous variables in the Abalone dataset?"",
+        ""query"": ""result = df[['Length', 'Diameter', 'Height', 'Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']].corr()"",
+    },
+    {
+        ""question"": ""How does the average shell weight vary across different numbers of rings?"",
+        ""query"": ""result = df.groupby('Rings')['Shell_weight'].mean()"",
+    },
+    {
+        ""question"": ""Can you identify the outliers in shell weight using a standard deviation method?"",
+        ""query"": ""mean_shell_weight = df['Shell_weight'].mean(); std_shell_weight = df['Shell_weight'].std(); result = df[(df['Shell_weight'] > mean_shell_weight + 3 * std_shell_weight) | (df['Shell_weight'] < mean_shell_weight - 3 * std_shell_weight)]"",
+    },
+    {
+        ""question"": ""What is the distribution of sex categories in the dataset?"",
+        ""query"": ""result = df['Sex'].value_counts()"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the mean whole weight for each combination of sex and number of rings."",
+        ""query"": ""result = df.pivot_table(index='Sex', columns='Rings', values='Whole_weight', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""Which sex category (M, F, I) has the highest average height and what is the value?"",
+        ""query"": ""result = df.groupby('Sex')['Height'].mean().idxmax(), df.groupby('Sex')['Height'].mean().max()"",
+    },
+    {
+        ""question"": ""Can you calculate the ratio of shucked weight to whole weight for each abalone and find the one with the highest ratio?"",
+        ""query"": ""df['Weight_ratio'] = df['Shucked_weight'] / df['Whole_weight']; result = df[df['Weight_ratio'] == df['Weight_ratio'].max()]"",
+    },
+    {
+        ""question"": ""What are the mean and median lengths of abalone by each sex category?"",
+        ""query"": ""result = df.groupby('Sex')['Length'].agg(['mean', 'median'])"",
+    },
+    {
+        ""question"": ""Can you create a new column 'Volume' as a product of Length, Diameter, and Height, then find the average Volume for each sex?"",
+        ""query"": ""df['Volume'] = df['Length'] * df['Diameter'] * df['Height']; result = df.groupby('Sex')['Volume'].mean()"",
+    },
+    {
+        ""question"": ""How does the average number of rings vary across different height quartiles?"",
+        ""query"": ""df['Height_quartile'] = pd.qcut(df['Height'], 4); result = df.groupby('Height_quartile')['Rings'].mean()"",
+    },
+    {
+        ""question"": ""Can you identify the sex category with the maximum average viscera weight to shell weight ratio?"",
+        ""query"": ""df['Weight_ratio'] = df['Viscera_weight'] / df['Shell_weight']; result = df.groupby('Sex')['Weight_ratio'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What is the standard deviation of whole weight for abalones with more than 10 rings?"",
+        ""query"": ""result = df[df['Rings'] > 10]['Whole_weight'].std()"",
+    },
+    {
+        ""question"": ""What is the percentage of abalones in each sex category that have more than 15 rings?"",
+        ""query"": ""result = df[df['Rings'] > 15]['Sex'].value_counts(normalize=True) * 100"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Abalone
+- Description of dataframe: Predicting the age of abalone from physical measurements.  The age of abalone is determined by cutting the shell through the cone, staining it, and counting the number of rings through a microscope -- a boring and time-consuming task.  Other measurements, which are easier to obtain, are used to predict the age.  Further information, such as weather patterns and location (hence food availability) may be required to solve the problem.
+
+From the original data examples with missing values were removed (the majority having the predicted value missing), and the ranges of the continuous values have been scaled for use with an ANN (by dividing by 200).
+- Column information of dataframe:
+#   Column          Dtype 
+--- ------          ----- 
+0   Sex             str   
+1   Length          float 
+2   Diameter        float 
+3   Height          float 
+4   Whole_weight    float 
+5   Shucked_weight  float 
+6   Viscera_weight  float 
+7   Shell_weight    float 
+8   Rings           int   
+
+- Sample rows of dataframe in CSV format:
+Sex,Length,Diameter,Height,Whole_weight,Shucked_weight,Viscera_weight,Shell_weight,Rings
+I,0.43,0.33,0.095,0.32,0.118,0.065,0.123,7
+M,0.58,0.46,0.15,1.049,0.5205,0.1935,0.305,10
+M,0.63,0.495,0.175,1.2695,0.605,0.271,0.328,11
+M,0.52,0.465,0.15,0.9505,0.456,0.199,0.255,8
+I,0.365,0.255,0.08,0.1985,0.0785,0.0345,0.053,5
+I,0.515,0.38,0.12,0.625,0.3265,0.1295,0.16,7
+F,0.725,0.575,0.175,2.124,0.765,0.4515,0.85,20
+F,0.64,0.49,0.18,1.36,0.653,0.347,0.305,9
+M,0.72,0.545,0.195,1.7475,0.8215,0.383,0.4705,11
+I,0.415,0.335,0.1,0.358,0.169,0.067,0.105,7
+F,0.58,0.465,0.145,0.9865,0.47,0.2155,0.25,11
+F,0.57,0.44,0.125,0.865,0.3675,0.1725,0.27,12
+F,0.58,0.46,0.175,1.165,0.65,0.2205,0.3055,9
+F,0.72,0.58,0.195,2.103,1.0265,0.48,0.5375,10
+I,0.52,0.385,0.115,0.581,0.2555,0.156,0.143,10
+M,0.595,0.47,0.15,0.8915,0.359,0.2105,0.245,12
+I,0.575,0.45,0.135,0.807,0.3615,0.176,0.254,10
+F,0.55,0.47,0.15,0.897,0.377,0.184,0.29,9
+M,0.53,0.425,0.155,0.7905,0.307,0.171,0.2595,9
+F,0.6,0.465,0.15,1.1025,0.5455,0.262,0.25,8
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What are the average physical measurements of abalone?"",
+        ""query"": ""result = df[['Length', 'Diameter', 'Height', 'Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']].mean()"",
+    },
+    {
+        ""question"": ""How many abalone specimens are there for each sex?"",
+        ""query"": ""result = df['Sex'].value_counts()"",
+    },
+    {
+        ""question"": ""Can you show me the smallest and largest abalones in terms of shell diameter?"",
+        ""query"": ""result = df[df['Diameter'] == df['Diameter'].min()] \
+.append(df[df['Diameter'] == df['Diameter'].max()])"",
+    },
+    {
+        ""question"": ""I'm interested in knowing the most common age of abalone. Can you find that for me?"",
+        ""query"": ""result = df['Rings'].mode()"",
+    },
+    {
+        ""question"": ""What is the average age of male and female abalones separately?"",
+        ""query"": ""result = df.groupby('Sex')['Rings'].mean()"",
+    },
+    {
+        ""question"": ""Can you show me the details of the abalones that weigh the most and the least?"",
+        ""query"": ""result = df[df['Whole_weight'] == df['Whole_weight'].min()] \
+.append(df[df['Whole_weight'] == df['Whole_weight'].max()])"",
+    },
+    {
+        ""question"": ""I'd like to see a list of abalones older than 15 years. Can you provide that?"",
+        ""query"": ""result = df[df['Rings'] > 15]"",
+    },
+    {
+        ""question"": ""Could you provide a summary of the height measurements of the abalones?"",
+        ""query"": ""result = df['Height'].describe()"",
+    },
+    {
+        ""question"": ""How many abalones have a shell weight greater than the average shell weight?"",
+        ""query"": ""result = df[df['Shell_weight'] > df['Shell_weight'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""Can we find out if there's any correlation between the diameter and age of abalones?"",
+        ""query"": ""result = df[['Diameter', 'Rings']].corr()"",
+    }
+]","[
+    {
+        ""question"": ""Which abalones are heavier than average?"",
+        ""query"": ""result = df[df['Whole_weight'] > df['Whole_weight'].mean()]"",
+    },
+    {
+        ""question"": ""Can you identify the youngest abalones in the dataset?"",
+        ""query"": ""result = df[df['Rings'] == df['Rings'].min()]"",
+    },
+    {
+        ""question"": ""What's the typical size range for abalones in this collection?"",
+        ""query"": ""result = df[['Length', 'Diameter', 'Height']].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""Can you show me how the abalones' weight is distributed?"",
+        ""query"": ""result = df[['Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']].describe()"",
+    },
+    {
+        ""question"": ""I'm curious about the proportion of male to female abalones. Can you calculate that?"",
+        ""query"": ""result = df['Sex'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Are there more young or old abalones in this study?"",
+        ""query"": ""result = (df['Rings'] < 10).sum(), (df['Rings'] >= 10).sum()"",
+    },
+    {
+        ""question"": ""Which abalones have shell weights that are exceptionally light or heavy?"",
+        ""query"": ""result = df[(df['Shell_weight'] < df['Shell_weight'].quantile(0.1)) | (df['Shell_weight'] > df['Shell_weight'].quantile(0.9))]"",
+    },
+    {
+        ""question"": ""Can we find out the average age of abalones without considering the extremely young or old ones?"",
+        ""query"": ""result = df[(df['Rings'] > df['Rings'].quantile(0.1)) & (df['Rings'] < df['Rings'].quantile(0.9))]['Rings'].mean()"",
+    },
+    {
+        ""question"": ""I'd like to compare the average dimensions of abalones by their sex. How do I do that?"",
+        ""query"": ""result = df.pivot_table(index='Sex', values=['Length', 'Diameter', 'Height'], aggfunc='mean')"",
+    },
+    {
+        ""question"": ""What is the relationship between the weight of abalone meat and their age?"",
+        ""query"": ""result = df[['Shucked_weight', 'Rings']].corr()"",
+    }
+]","[
+    {
+        ""question"": ""What are the average physical measurements of abalone?"",
+        ""query"": ""result = df[['Length', 'Diameter', 'Height', 'Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']].mean()"",
+    },
+    {
+        ""question"": ""How many abalone specimens are there for each sex?"",
+        ""query"": ""result = df['Sex'].value_counts()"",
+    },
+    {
+        ""question"": ""Can you show me the smallest and largest abalones in terms of shell diameter?"",
+        ""query"": ""result = df[df['Diameter'] == df['Diameter'].min()].append(df[df['Diameter'] == df['Diameter'].max()])"",
+    },
+    {
+        ""question"": ""I'm interested in knowing the most common age of abalone. Can you find that for me?"",
+        ""query"": ""result = df['Rings'].mode()"",
+    },
+    {
+        ""question"": ""What is the average age of male and female abalones separately?"",
+        ""query"": ""result = df.groupby('Sex')['Rings'].mean()"",
+    },
+    {
+        ""question"": ""Can you show me the details of the abalones that weigh the most and the least?"",
+        ""query"": ""result = df[df['Whole_weight'] == df['Whole_weight'].min()].append(df[df['Whole_weight'] == df['Whole_weight'].max()])"",
+    },
+    {
+        ""question"": ""I'd like to see a list of abalones older than 15 years. Can you provide that?"",
+        ""query"": ""result = df[df['Rings'] > 15]"",
+    },
+    {
+        ""question"": ""Could you provide a summary of the height measurements of the abalones?"",
+        ""query"": ""result = df['Height'].describe()"",
+    },
+    {
+        ""question"": ""How many abalones have a shell weight greater than the average shell weight?"",
+        ""query"": ""result = df[df['Shell_weight'] > df['Shell_weight'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""Can we find out if there's any correlation between the diameter and age of abalones?"",
+        ""query"": ""result = df[['Diameter', 'Rings']].corr()"",
+    },
+    {
+        ""question"": ""Which abalones are heavier than average?"",
+        ""query"": ""result = df[df['Whole_weight'] > df['Whole_weight'].mean()]"",
+    },
+    {
+        ""question"": ""Can you identify the youngest abalones in the dataset?"",
+        ""query"": ""result = df[df['Rings'] == df['Rings'].min()]"",
+    },
+    {
+        ""question"": ""What's the typical size range for abalones in this collection?"",
+        ""query"": ""result = df[['Length', 'Diameter', 'Height']].agg(['min', 'max'])"",
+    },
+    {
+        ""question"": ""Can you show me how the abalones' weight is distributed?"",
+        ""query"": ""result = df[['Whole_weight', 'Shucked_weight', 'Viscera_weight', 'Shell_weight']].describe()"",
+    },
+    {
+        ""question"": ""I'm curious about the proportion of male to female abalones. Can you calculate that?"",
+        ""query"": ""result = df['Sex'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Are there more young or old abalones in this study?"",
+        ""query"": ""result = (df['Rings'] < 10).sum(), (df['Rings'] >= 10).sum()"",
+    },
+    {
+        ""question"": ""Which abalones have shell weights that are exceptionally light or heavy?"",
+        ""query"": ""result = df[(df['Shell_weight'] < df['Shell_weight'].quantile(0.1)) | (df['Shell_weight'] > df['Shell_weight'].quantile(0.9))]"",
+    },
+    {
+        ""question"": ""Can we find out the average age of abalones without considering the extremely young or old ones?"",
+        ""query"": ""result = df[(df['Rings'] > df['Rings'].quantile(0.1)) & (df['Rings'] < df['Rings'].quantile(0.9))]['Rings'].mean()"",
+    },
+    {
+        ""question"": ""I'd like to compare the average dimensions of abalones by their sex. How do I do that?"",
+        ""query"": ""result = df.pivot_table(index='Sex', values=['Length', 'Diameter', 'Height'], aggfunc='mean')"",
+    },
+    {
+        ""question"": ""What is the relationship between the weight of abalone meat and their age?"",
+        ""query"": ""result = df[['Shucked_weight', 'Rings']].corr()"",
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Abalone
+- Description of dataframe: Predicting the age of abalone from physical measurements.  The age of abalone is determined by cutting the shell through the cone, staining it, and counting the number of rings through a microscope -- a boring and time-consuming task.  Other measurements, which are easier to obtain, are used to predict the age.  Further information, such as weather patterns and location (hence food availability) may be required to solve the problem.
+
+From the original data examples with missing values were removed (the majority having the predicted value missing), and the ranges of the continuous values have been scaled for use with an ANN (by dividing by 200).
+- Column information of dataframe:
+#   Column          Dtype 
+--- ------          ----- 
+0   Sex             str   
+1   Length          float 
+2   Diameter        float 
+3   Height          float 
+4   Whole_weight    float 
+5   Shucked_weight  float 
+6   Viscera_weight  float 
+7   Shell_weight    float 
+8   Rings           int   
+
+- Sample rows of dataframe in CSV format:
+Sex,Length,Diameter,Height,Whole_weight,Shucked_weight,Viscera_weight,Shell_weight,Rings
+I,0.315,0.24,0.085,0.1715,0.071,0.0345,0.0535,7
+I,0.46,0.355,0.11,0.4255,0.2015,0.081,0.13,7
+I,0.5,0.365,0.125,0.528,0.229,0.103,0.1645,9
+F,0.47,0.355,0.18,0.441,0.1525,0.1165,0.135,8
+M,0.545,0.42,0.12,0.7865,0.403,0.185,0.17,7
+M,0.585,0.465,0.155,0.9145,0.4555,0.1965,0.235,9
+F,0.65,0.5,0.17,1.4045,0.694,0.318,0.3235,11
+I,0.5,0.385,0.155,0.762,0.3795,0.161,0.19,14
+I,0.48,0.35,0.135,0.5465,0.2735,0.0995,0.158,8
+F,0.63,0.485,0.19,1.2435,0.4635,0.3055,0.39,21
+I,0.25,0.19,0.06,0.0765,0.036,0.0115,0.0245,6
+I,0.485,0.385,0.13,0.568,0.2505,0.178,0.154,7
+F,0.435,0.325,0.11,0.4335,0.178,0.0985,0.155,7
+I,0.59,0.46,0.145,0.9015,0.419,0.1785,0.26,11
+F,0.415,0.305,0.105,0.3605,0.12,0.082,0.1,10
+F,0.45,0.36,0.125,0.5065,0.222,0.105,0.16,10
+I,0.475,0.375,0.115,0.5205,0.233,0.119,0.1455,7
+F,0.655,0.54,0.215,1.5555,0.695,0.296,0.444,11
+I,0.385,0.29,0.085,0.2505,0.112,0.061,0.08,8
+M,0.535,0.42,0.125,0.764,0.312,0.1505,0.265,11
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average size (length, diameter, and height) of abalone in our dataset?"",
+        ""query"": ""result = df[['Length', 'Diameter', 'Height']].mean()"",
+    },
+    {
+        ""question"": ""How does the average shell weight differ between male and female abalones?"",
+        ""query"": ""result = df.groupby('Sex')['Shell_weight'].mean()"",
+    },
+    {
+        ""question"": ""What is the correlation between whole weight and shell weight of abalones?"",
+        ""query"": ""result = df[['Whole_weight', 'Shell_weight']].corr()"",
+    },
+    {
+        ""question"": ""Can we identify any trends in the age of abalone (as indicated by the number of rings) over the different sizes?"",
+        ""query"": ""result = df.groupby('Rings')[['Length', 'Diameter', 'Height']].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of abalone sexes in our dataset?"",
+        ""query"": ""result = df['Sex'].value_counts()"",
+    },
+    {
+        ""question"": ""Which size category of abalone (small, medium, large) has the highest average weight, based on a classification of 'small' (length < 0.4), 'medium' (0.4 <= length < 0.6), and 'large' (length >= 0.6)?"",
+        ""query"": ""result = df.assign(Size_Category=pd.cut(df['Length'], bins=[0, 0.4, 0.6, 1], labels=['Small', 'Medium', 'Large'])).groupby('Size_Category')['Whole_weight'].mean()"",
+    },
+    {
+        ""question"": ""What is the average number of rings for each sex?"",
+        ""query"": ""result = df.groupby('Sex')['Rings'].mean()"",
+    },
+    {
+        ""question"": ""Are there any outliers in the whole weight of abalones, and if so, how many?"",
+        ""query"": ""result = df['Whole_weight'].plot(kind='box')"",
+    },
+    {
+        ""question"": ""What proportion of abalones fall into each third of the ring count distribution?"",
+        ""query"": ""result = pd.qcut(df['Rings'], q=3).value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Is there a significant difference in the average height of abalones based on their sex?"",
+        ""query"": ""result = df.groupby('Sex')['Height'].mean()"",
+    }
+]","[
+    {
+        ""question"": ""How many abalones are there in each unique ring count category?"",
+        ""query"": ""result = df['Rings'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the maximum shell weight recorded for each sex of abalone?"",
+        ""query"": ""result = df.groupby('Sex')['Shell_weight'].max()"",
+    },
+    {
+        ""question"": ""Can we find the average measurements (length, diameter, height) for abalones with more than 10 rings?"",
+        ""query"": ""result = df[df['Rings'] > 10][['Length', 'Diameter', 'Height']].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 heaviest whole weights observed in our dataset?"",
+        ""query"": ""result = df['Whole_weight'].nlargest(5)"",
+    },
+    {
+        ""question"": ""How does the average number of rings vary across different size categories of abalones?"",
+        ""query"": ""result = df.assign(Size_Category=pd.cut(df['Length'], bins=[0, 0.4, 0.6, 1], labels=['Small', 'Medium', 'Large'])).groupby('Size_Category')['Rings'].mean()"",
+    },
+    {
+        ""question"": ""What is the median viscera weight for abalones in each sex category?"",
+        ""query"": ""result = df.groupby('Sex')['Viscera_weight'].median()"",
+    },
+    {
+        ""question"": ""How does the count of abalones differ by their sex?"",
+        ""query"": ""result = df['Sex'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the standard deviation of the height of abalones in our dataset?"",
+        ""query"": ""result = df['Height'].std()"",
+    },
+    {
+        ""question"": ""Can we get a breakdown of average whole weight of abalones by their number of rings?"",
+        ""query"": ""result = df.groupby('Rings')['Whole_weight'].mean()"",
+    },
+    {
+        ""question"": ""What are the minimum and maximum lengths recorded in the dataset?"",
+        ""query"": ""result = df['Length'].agg(['min', 'max'])"",
+    }
+]","[
+    {
+        ""question"": ""What is the average size (length, diameter, and height) of abalone in our dataset?"",
+        ""query"": ""result = df[['Length', 'Diameter', 'Height']].mean()"",
+    },
+    {
+        ""question"": ""How does the average shell weight differ between male and female abalones?"",
+        ""query"": ""result = df.groupby('Sex')['Shell_weight'].mean()"",
+    },
+    {
+        ""question"": ""What is the correlation between whole weight and shell weight of abalones?"",
+        ""query"": ""result = df[['Whole_weight', 'Shell_weight']].corr()"",
+    },
+    {
+        ""question"": ""Can we identify any trends in the age of abalone (as indicated by the number of rings) over the different sizes?"",
+        ""query"": ""result = df.groupby('Rings')[['Length', 'Diameter', 'Height']].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of abalone sexes in our dataset?"",
+        ""query"": ""result = df['Sex'].value_counts()"",
+    },
+    {
+        ""question"": ""Which size category of abalone (small, medium, large) has the highest average weight, based on a classification of 'small' (length < 0.4), 'medium' (0.4 <= length < 0.6), and 'large' (length >= 0.6)?"",
+        ""query"": ""result = df.assign(Size_Category=pd.cut(df['Length'], bins=[0, 0.4, 0.6, 1], labels=['Small', 'Medium', 'Large'])).groupby('Size_Category')['Whole_weight'].mean()"",
+    },
+    {
+        ""question"": ""What is the average number of rings for each sex?"",
+        ""query"": ""result = df.groupby('Sex')['Rings'].mean()"",
+    },
+    {
+        ""question"": ""What proportion of abalones fall into each third of the ring count distribution?"",
+        ""query"": ""result = pd.qcut(df['Rings'], q=3).value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Is there a significant difference in the average height of abalones based on their sex?"",
+        ""query"": ""result = df.groupby('Sex')['Height'].mean()"",
+    },
+    {
+        ""question"": ""How many abalones are there in each unique ring count category?"",
+        ""query"": ""result = df['Rings'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the maximum shell weight recorded for each sex of abalone?"",
+        ""query"": ""result = df.groupby('Sex')['Shell_weight'].max()"",
+    },
+    {
+        ""question"": ""Can we find the average measurements (length, diameter, height) for abalones with more than 10 rings?"",
+        ""query"": ""result = df[df['Rings'] > 10][['Length', 'Diameter', 'Height']].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 heaviest whole weights observed in our dataset?"",
+        ""query"": ""result = df['Whole_weight'].nlargest(5)"",
+    },
+    {
+        ""question"": ""How does the average number of rings vary across different size categories of abalones?"",
+        ""query"": ""result = df.assign(Size_Category=pd.cut(df['Length'], bins=[0, 0.4, 0.6, 1], labels=['Small', 'Medium', 'Large'])).groupby('Size_Category')['Rings'].mean()"",
+    },
+    {
+        ""question"": ""What is the median viscera weight for abalones in each sex category?"",
+        ""query"": ""result = df.groupby('Sex')['Viscera_weight'].median()"",
+    },
+    {
+        ""question"": ""How does the count of abalones differ by their sex?"",
+        ""query"": ""result = df['Sex'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the standard deviation of the height of abalones in our dataset?"",
+        ""query"": ""result = df['Height'].std()"",
+    },
+    {
+        ""question"": ""Can we get a breakdown of average whole weight of abalones by their number of rings?"",
+        ""query"": ""result = df.groupby('Rings')['Whole_weight'].mean()"",
+    },
+    {
+        ""question"": ""What are the minimum and maximum lengths recorded in the dataset?"",
+        ""query"": ""result = df['Length'].agg(['min', 'max'])"",
+    }
+]"

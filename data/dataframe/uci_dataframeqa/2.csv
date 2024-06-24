@@ -1,0 +1,712 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Adult
+- Description of dataframe: Extraction was done by Barry Becker from the 1994 Census database.  A set of reasonably clean records was extracted using the following conditions: ((AAGE>16) && (AGI>100) && (AFNLWGT>1)&& (HRSWK>0))
+
+Prediction task is to determine whether a person makes over 50K a year.
+
+- Column information of dataframe:
+#   Column          Dtype 
+--- ------          ----- 
+0   age             int   
+1   workclass       str   
+2   fnlwgt          int   
+3   education       str   
+4   education-num   int   
+5   marital-status  str   
+6   occupation      str   
+7   relationship    str   
+8   race            str   
+9   sex             str   
+10  capital-gain    int   
+11  capital-loss    int   
+12  hours-per-week  int   
+13  native-country  str   
+14  income          str   
+
+- Sample rows of dataframe in CSV format:
+age,workclass,fnlwgt,education,education-num,marital-status,occupation,relationship,race,sex,capital-gain,capital-loss,hours-per-week,native-country,income
+20,,33860,Some-college,10,Never-married,,Not-in-family,Amer-Indian-Eskimo,Female,0,0,28,United-States,<=50K.
+37,Private,272950,HS-grad,9,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,40,United-States,<=50K
+23,Private,117363,Bachelors,13,Never-married,Other-service,Not-in-family,White,Female,0,0,35,United-States,<=50K.
+27,Private,168138,HS-grad,9,Never-married,Exec-managerial,Own-child,White,Male,0,0,40,United-States,<=50K
+45,Private,202746,Bachelors,13,Married-civ-spouse,Other-service,Husband,White,Male,0,0,40,United-States,<=50K.
+23,Private,203003,7th-8th,4,Never-married,Craft-repair,Not-in-family,White,Male,0,0,25,Germany,<=50K
+23,Private,188505,Bachelors,13,Never-married,Other-service,Own-child,White,Female,0,0,25,United-States,<=50K
+35,Private,106347,HS-grad,9,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,45,United-States,<=50K
+44,Private,230478,Bachelors,13,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,40,United-States,>50K
+73,Local-gov,205580,5th-6th,3,Married-civ-spouse,Prof-specialty,Husband,White,Male,0,0,6,United-States,<=50K
+32,Private,187815,Bachelors,13,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,45,United-States,>50K.
+50,Self-emp-inc,193720,Bachelors,13,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,1672,48,United-States,<=50K.
+66,Private,350498,Some-college,10,Married-civ-spouse,Sales,Husband,White,Male,0,0,28,United-States,<=50K
+34,Private,262118,Assoc-voc,11,Never-married,Exec-managerial,Unmarried,Amer-Indian-Eskimo,Female,0,0,40,United-States,<=50K.
+43,Private,206139,Bachelors,13,Married-civ-spouse,Prof-specialty,Husband,White,Male,0,0,50,United-States,>50K
+17,Private,114798,10th,6,Never-married,Other-service,Own-child,White,Female,0,0,20,United-States,<=50K
+42,Private,188615,Some-college,10,Separated,Prof-specialty,Not-in-family,White,Male,0,2231,50,Canada,>50K.
+45,Self-emp-inc,151584,Prof-school,15,Married-civ-spouse,Prof-specialty,Husband,White,Male,0,0,35,United-States,>50K
+42,Private,294431,Bachelors,13,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,60,United-States,>50K.
+20,Private,82777,Some-college,10,Never-married,Sales,Own-child,White,Male,0,0,16,United-States,<=50K
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average age of individuals in each workclass who earn more than $50K per year?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('workclass')['age'].mean()""
+    },
+    {
+        ""question"": ""How does the average capital gain differ between those who have a Bachelor's degree and those who don't?"",
+        ""query"": ""result = df.groupby(df['education'] == 'Bachelors')['capital-gain'].mean()""
+    },
+    {
+        ""question"": ""What is the correlation matrix between age, education-num, capital-gain, capital-loss, and hours-per-week?"",
+        ""query"": ""result = df[['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']].corr()""
+    },
+    {
+        ""question"": ""Identify the top 3 most common occupations among individuals who work more than 40 hours per week and earn less than $50K."",
+        ""query"": ""result = df[(df['hours-per-week'] > 40) & (df['income'] == '<=50K')]['occupation'].value_counts().head(3)""
+    },
+    {
+        ""question"": ""Calculate the percentage of individuals in each race category who earn over $50K."",
+        ""query"": ""result = df[df['income'] == '>50K']['race'].value_counts() / df['race'].value_counts() * 100""
+    },
+    {
+        ""question"": ""What is the average hours-per-week for each marital status category, sorted from highest to lowest?"",
+        ""query"": ""result = df.groupby('marital-status')['hours-per-week'].mean().sort_values(ascending=False)""
+    },
+    {
+        ""question"": ""Determine the proportion of females in each level of education (education-num) who earn more than $50K."",
+        ""query"": ""result = df[(df['sex'] == 'Female') & (df['income'] == '>50K')].groupby('education-num').size() / df[df['sex'] == 'Female'].groupby('education-num').size() * 100""
+    },
+    {
+        ""question"": ""What are the top 5 native countries with the highest average age of individuals earning over $50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('native-country')['age'].mean().nlargest(5)""
+    },
+    {
+        ""question"": ""For each occupation, calculate the difference between the highest and lowest hours-per-week worked."",
+        ""query"": ""result = df.groupby('occupation')['hours-per-week'].max() - df.groupby('occupation')['hours-per-week'].min()""
+    },
+    {
+        ""question"": ""Which combination of race and sex has the highest average capital loss, and what is that amount?"",
+        ""query"": ""result = df.groupby(['race', 'sex'])['capital-loss'].mean().idxmax(), df.groupby(['race', 'sex'])['capital-loss'].mean().max()""
+    }
+]","[
+    {
+        ""question"": ""What is the median education number for individuals in each race category earning below $50K?"",
+        ""query"": ""result = df[df['income'] == '<=50K'].groupby('race')['education-num'].median()""
+    },
+    {
+        ""question"": ""How many unique occupations are there for each workclass, and list them in descending order of their counts."",
+        ""query"": ""result = df.groupby('workclass')['occupation'].nunique().sort_values(ascending=False)""
+    },
+    {
+        ""question"": ""What is the standard deviation of ages for male and female individuals in each income bracket?"",
+        ""query"": ""result = df.groupby(['sex', 'income'])['age'].std()""
+    },
+    {
+        ""question"": ""Identify the workclass with the highest average capital gain, excluding those with zero capital gain."",
+        ""query"": ""result = df[df['capital-gain'] > 0].groupby('workclass')['capital-gain'].mean().idxmax()""
+    },
+    {
+        ""question"": ""Calculate the proportion of people with a marital status of 'Never-married' in each occupation."",
+        ""query"": ""result = df[df['marital-status'] == 'Never-married'].groupby('occupation').size() / df.groupby('occupation').size() * 100""
+    },
+    {
+        ""question"": ""What are the five most common native countries among individuals who work in 'Exec-managerial' positions?"",
+        ""query"": ""result = df[df['occupation'] == 'Exec-managerial']['native-country'].value_counts().head(5)""
+    },
+    {
+        ""question"": ""Determine the average number of hours worked per week for each education level among individuals who lost capital."",
+        ""query"": ""result = df[df['capital-loss'] > 0].groupby('education')['hours-per-week'].mean()""
+    },
+    {
+        ""question"": ""What is the age distribution (in 10-year intervals) among individuals with a 'Prof-specialty' occupation?"",
+        ""query"": ""result = pd.cut(df[df['occupation'] == 'Prof-specialty']['age'], bins=range(0, 100, 10)).value_counts()""
+    },
+    {
+        ""question"": ""Compare the average capital gain and loss for individuals in different marital statuses."",
+        ""query"": ""result = df.groupby('marital-status')[['capital-gain', 'capital-loss']].mean()""
+    },
+    {
+        ""question"": ""Identify the most common education level for each race category within the 'Private' workclass."",
+        ""query"": ""result = df[df['workclass'] == 'Private'].groupby('race')['education'].agg(lambda x: x.mode()[0])""
+    }
+]","[
+    {
+        ""question"": ""What is the average age of individuals in each workclass who earn more than $50K per year?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('workclass')['age'].mean()""
+    },
+    {
+        ""question"": ""How does the average capital gain differ between those who have a Bachelor's degree and those who don't?"",
+        ""query"": ""result = df.groupby(df['education'] == 'Bachelors')['capital-gain'].mean()""
+    },
+    {
+        ""question"": ""What is the correlation matrix between age, education-num, capital-gain, capital-loss, and hours-per-week?"",
+        ""query"": ""result = df[['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']].corr()""
+    },
+    {
+        ""question"": ""Identify the top 3 most common occupations among individuals who work more than 40 hours per week and earn less than $50K."",
+        ""query"": ""result = df[(df['hours-per-week'] > 40) & (df['income'] == '<=50K')]['occupation'].value_counts().head(3)""
+    },
+    {
+        ""question"": ""Calculate the percentage of individuals in each race category who earn over $50K."",
+        ""query"": ""result = df[df['income'] == '>50K']['race'].value_counts() / df['race'].value_counts() * 100""
+    },
+    {
+        ""question"": ""What is the median education number for individuals in each race category earning below $50K?"",
+        ""query"": ""result = df[df['income'] == '<=50K'].groupby('race')['education-num'].median()""
+    },
+    {
+        ""question"": ""How many unique occupations are there for each workclass, and list them in descending order of their counts."",
+        ""query"": ""result = df.groupby('workclass')['occupation'].nunique().sort_values(ascending=False)""
+    },
+    {
+        ""question"": ""What is the standard deviation of ages for male and female individuals in each income bracket?"",
+        ""query"": ""result = df.groupby(['sex', 'income'])['age'].std()""
+    },
+    {
+        ""question"": ""Identify the workclass with the highest average capital gain, excluding those with zero capital gain."",
+        ""query"": ""result = df[df['capital-gain'] > 0].groupby('workclass')['capital-gain'].mean().idxmax()""
+    },
+    {
+        ""question"": ""Calculate the proportion of people with a marital status of 'Never-married' in each occupation."",
+        ""query"": ""result = df[df['marital-status'] == 'Never-married'].groupby('occupation').size() / df.groupby('occupation').size() * 100""
+    },
+    {
+        ""question"": ""What are the top 5 native countries with the highest average age of individuals earning over $50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('native-country')['age'].mean().nlargest(5)""
+    },
+    {
+        ""question"": ""For each occupation, calculate the difference between the highest and lowest hours-per-week worked."",
+        ""query"": ""result = df.groupby('occupation')['hours-per-week'].max() - df.groupby('occupation')['hours-per-week'].min()""
+    },
+    {
+        ""question"": ""Which combination of race and sex has the highest average capital loss, and what is that amount?"",
+        ""query"": ""result = df.groupby(['race', 'sex'])['capital-loss'].mean().idxmax(), df.groupby(['race', 'sex'])['capital-loss'].mean().max()""
+    },
+    {
+        ""question"": ""What are the five most common native countries among individuals who work in 'Exec-managerial' positions?"",
+        ""query"": ""result = df[df['occupation'] == 'Exec-managerial']['native-country'].value_counts().head(5)""
+    },
+    {
+        ""question"": ""Determine the average number of hours worked per week for each education level among individuals who lost capital."",
+        ""query"": ""result = df[df['capital-loss'] > 0].groupby('education')['hours-per-week'].mean()""
+    },
+    {
+        ""question"": ""What is the age distribution (in 10-year intervals) among individuals with a 'Prof-specialty' occupation?"",
+        ""query"": ""result = pd.cut(df[df['occupation'] == 'Prof-specialty']['age'], bins=range(0, 100, 10)).value_counts()""
+    },
+    {
+        ""question"": ""Compare the average capital gain and loss for individuals in different marital statuses."",
+        ""query"": ""result = df.groupby('marital-status')[['capital-gain', 'capital-loss']].mean()""
+    },
+    {
+        ""question"": ""Identify the most common education level for each race category within the 'Private' workclass."",
+        ""query"": ""result = df[df['workclass'] == 'Private'].groupby('race')['education'].agg(lambda x: x.mode()[0])""
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Adult
+- Description of dataframe: Extraction was done by Barry Becker from the 1994 Census database.  A set of reasonably clean records was extracted using the following conditions: ((AAGE>16) && (AGI>100) && (AFNLWGT>1)&& (HRSWK>0))
+
+Prediction task is to determine whether a person makes over 50K a year.
+
+- Column information of dataframe:
+#   Column          Dtype 
+--- ------          ----- 
+0   age             int   
+1   workclass       str   
+2   fnlwgt          int   
+3   education       str   
+4   education-num   int   
+5   marital-status  str   
+6   occupation      str   
+7   relationship    str   
+8   race            str   
+9   sex             str   
+10  capital-gain    int   
+11  capital-loss    int   
+12  hours-per-week  int   
+13  native-country  str   
+14  income          str   
+
+- Sample rows of dataframe in CSV format:
+age,workclass,fnlwgt,education,education-num,marital-status,occupation,relationship,race,sex,capital-gain,capital-loss,hours-per-week,native-country,income
+36,Private,224566,Assoc-acdm,12,Never-married,Prof-specialty,Not-in-family,White,Male,0,1669,45,United-States,<=50K
+43,Self-emp-inc,214503,HS-grad,9,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,1887,45,United-States,>50K.
+32,Private,188154,Some-college,10,Divorced,Machine-op-inspct,Unmarried,White,Female,0,0,40,United-States,<=50K
+60,Self-emp-not-inc,153356,HS-grad,9,Divorced,Sales,Not-in-family,Black,Male,2597,0,55,United-States,<=50K
+18,Private,165754,Some-college,10,Never-married,Other-service,Own-child,White,Female,0,0,30,United-States,<=50K
+44,Private,192976,HS-grad,9,Married-civ-spouse,Transport-moving,Husband,Amer-Indian-Eskimo,Male,0,0,40,United-States,<=50K
+37,Private,173586,7th-8th,4,Never-married,Other-service,Own-child,Black,Male,0,0,56,United-States,<=50K.
+30,Private,347166,Bachelors,13,Never-married,Prof-specialty,Not-in-family,White,Male,13550,0,45,United-States,>50K
+62,Private,132917,Some-college,10,Married-civ-spouse,Transport-moving,Husband,Black,Male,0,0,20,United-States,<=50K
+54,Private,86837,HS-grad,9,Married-civ-spouse,Craft-repair,Husband,Asian-Pac-Islander,Male,0,1902,40,United-States,>50K
+29,Private,200515,Some-college,10,Married-civ-spouse,Machine-op-inspct,Husband,White,Male,0,0,38,United-States,<=50K
+44,Private,244172,5th-6th,3,Married-civ-spouse,Transport-moving,Husband,White,Male,0,0,40,Mexico,<=50K.
+45,Private,45857,11th,7,Married-civ-spouse,Other-service,Wife,White,Female,0,0,36,United-States,<=50K
+38,Local-gov,255454,Bachelors,13,Separated,Prof-specialty,Unmarried,Black,Male,0,0,40,United-States,<=50K
+54,Local-gov,449172,Bachelors,13,Divorced,Exec-managerial,Not-in-family,Black,Male,0,0,40,United-States,<=50K.
+39,Private,560313,Masters,14,Married-civ-spouse,Prof-specialty,Husband,Black,Male,0,0,45,United-States,>50K.
+53,Private,285621,Masters,14,Married-civ-spouse,Adm-clerical,Wife,White,Female,0,0,40,United-States,>50K
+31,Private,121321,HS-grad,9,Married-civ-spouse,Farming-fishing,Husband,White,Male,0,0,40,United-States,<=50K.
+45,Private,206947,HS-grad,9,Divorced,Adm-clerical,Not-in-family,White,Female,0,0,50,United-States,<=50K
+39,Private,316211,HS-grad,9,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,60,United-States,>50K
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average age of individuals earning more than $50,000 per year?"",
+        ""query"": ""result = df[df['income'] == '>50K']['age'].mean()"",
+    },
+    {
+        ""question"": ""How many people work in private sector and have an education level of bachelor's degree or higher?"",
+        ""query"": ""result = df[(df['workclass'] == 'Private') & (df['education-num'] >= 13)].shape[0]"",
+    },
+    {
+        ""question"": ""Can we find out the most common job title among those who work more than 40 hours per week?"",
+        ""query"": ""result = df[df['hours-per-week'] > 40]['occupation'].mode()[0]"",
+    },
+    {
+        ""question"": ""What proportion of people have never been married in this dataset?"",
+        ""query"": ""result = df[df['marital-status'] == 'Never-married'].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""What is the highest capital gain achieved by individuals under the age of 30?"",
+        ""query"": ""result = df[df['age'] < 30]['capital-gain'].max()"",
+    },
+    {
+        ""question"": ""How many individuals work part-time, less than 20 hours a week, and make over $50,000 a year?"",
+        ""query"": ""result = df[(df['hours-per-week'] < 20) & (df['income'] == '>50K')].shape[0]"",
+    },
+    {
+        ""question"": ""What are the top three most common native countries in this dataset?"",
+        ""query"": ""result = df['native-country'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""How many people are self-employed and also earn less than $50,000 per year?"",
+        ""query"": ""result = df[(df['workclass'].str.contains('Self')) & (df['income'] == '<=50K')].shape[0]"",
+    },
+    {
+        ""question"": ""What's the average number of hours worked per week by divorced individuals?"",
+        ""query"": ""result = df[df['marital-status'] == 'Divorced']['hours-per-week'].mean()"",
+    },
+    {
+        ""question"": ""Can we determine the most common level of education for those who earn under $50,000?"",
+        ""query"": ""result = df[df['income'] == '<=50K']['education'].mode()[0]"",
+    }
+]","[
+    {
+        ""question"": ""What is the median age of women in this dataset?"",
+        ""query"": ""result = df[df['sex'] == 'Female']['age'].median()"",
+    },
+    {
+        ""question"": ""How many individuals aged 50 or older are working in government jobs?"",
+        ""query"": ""result = df[(df['age'] >= 50) & (df['workclass'].str.contains('gov'))].shape[0]"",
+    },
+    {
+        ""question"": ""Can we find the maximum hours per week worked by someone in the 'Exec-managerial' occupation?"",
+        ""query"": ""result = df[df['occupation'] == 'Exec-managerial']['hours-per-week'].max()"",
+    },
+    {
+        ""question"": ""What proportion of individuals with a bachelor's degree earn more than $50,000?"",
+        ""query"": ""result = df[(df['education'] == 'Bachelors') & (df['income'] == '>50K')].shape[0] / df[df['education'] == 'Bachelors'].shape[0]"",
+    },
+    {
+        ""question"": ""What is the average capital loss for individuals in the 'Sales' occupation?"",
+        ""query"": ""result = df[df['occupation'] == 'Sales']['capital-loss'].mean()"",
+    },
+    {
+        ""question"": ""How many people are single (never married) and work more than 30 hours a week?"",
+        ""query"": ""result = df[(df['marital-status'] == 'Never-married') & (df['hours-per-week'] > 30)].shape[0]"",
+    },
+    {
+        ""question"": ""What are the five least common occupations in this dataset?"",
+        ""query"": ""result = df['occupation'].value_counts().tail(5)"",
+    },
+    {
+        ""question"": ""How many individuals have an advanced degree (Masters or Doctorate) and earn less than $50,000?"",
+        ""query"": ""result = df[(df['education'].isin(['Masters', 'Doctorate'])) & (df['income'] == '<=50K')].shape[0]"",
+    },
+    {
+        ""question"": ""What's the average age of self-employed individuals?"",
+        ""query"": ""result = df[df['workclass'] == 'Self-emp-not-inc']['age'].mean()"",
+    },
+    {
+        ""question"": ""Can we identify the most frequently reported native country for those earning over $50,000?"",
+        ""query"": ""result = df[df['income'] == '>50K']['native-country'].mode()[0]"",
+    }
+]","[
+    {
+        ""question"": ""What is the average age of individuals earning more than $50,000 per year?"",
+        ""query"": ""result = df[df['income'] == '>50K']['age'].mean()"",
+    },
+    {
+        ""question"": ""How many people work in private sector and have an education level of bachelor's degree or higher?"",
+        ""query"": ""result = df[(df['workclass'] == 'Private') & (df['education-num'] >= 13)].shape[0]"",
+    },
+    {
+        ""question"": ""Can we find out the most common job title among those who work more than 40 hours per week?"",
+        ""query"": ""result = df[df['hours-per-week'] > 40]['occupation'].mode()[0]"",
+    },
+    {
+        ""question"": ""What proportion of people have never been married in this dataset?"",
+        ""query"": ""result = df[df['marital-status'] == 'Never-married'].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""What is the highest capital gain achieved by individuals under the age of 30?"",
+        ""query"": ""result = df[df['age'] < 30]['capital-gain'].max()"",
+    },
+    {
+        ""question"": ""How many individuals work part-time, less than 20 hours a week, and make over $50,000 a year?"",
+        ""query"": ""result = df[(df['hours-per-week'] < 20) & (df['income'] == '>50K')].shape[0]"",
+    },
+    {
+        ""question"": ""What are the top three most common native countries in this dataset?"",
+        ""query"": ""result = df['native-country'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""How many people are self-employed and also earn less than $50,000 per year?"",
+        ""query"": ""result = df[(df['workclass'].str.contains('Self')) & (df['income'] == '<=50K')].shape[0]"",
+    },
+    {
+        ""question"": ""What's the average number of hours worked per week by divorced individuals?"",
+        ""query"": ""result = df[df['marital-status'] == 'Divorced']['hours-per-week'].mean()"",
+    },
+    {
+        ""question"": ""Can we determine the most common level of education for those who earn under $50,000?"",
+        ""query"": ""result = df[df['income'] == '<=50K']['education'].mode()[0]"",
+    },
+    {
+        ""question"": ""What is the median age of women in this dataset?"",
+        ""query"": ""result = df[df['sex'] == 'Female']['age'].median()"",
+    },
+    {
+        ""question"": ""How many individuals aged 50 or older are working in government jobs?"",
+        ""query"": ""result = df[(df['age'] >= 50) & (df['workclass'].str.contains('gov'))].shape[0]"",
+    },
+    {
+        ""question"": ""Can we find the maximum hours per week worked by someone in the 'Exec-managerial' occupation?"",
+        ""query"": ""result = df[df['occupation'] == 'Exec-managerial']['hours-per-week'].max()"",
+    },
+    {
+        ""question"": ""What proportion of individuals with a bachelor's degree earn more than $50,000?"",
+        ""query"": ""result = df[(df['education'] == 'Bachelors') & (df['income'] == '>50K')].shape[0] / df[df['education'] == 'Bachelors'].shape[0]"",
+    },
+    {
+        ""question"": ""What is the average capital loss for individuals in the 'Sales' occupation?"",
+        ""query"": ""result = df[df['occupation'] == 'Sales']['capital-loss'].mean()"",
+    },
+    {
+        ""question"": ""How many people are single (never married) and work more than 30 hours a week?"",
+        ""query"": ""result = df[(df['marital-status'] == 'Never-married') & (df['hours-per-week'] > 30)].shape[0]"",
+    },
+    {
+        ""question"": ""What are the five least common occupations in this dataset?"",
+        ""query"": ""result = df['occupation'].value_counts().tail(5)"",
+    },
+    {
+        ""question"": ""How many individuals have an advanced degree (Masters or Doctorate) and earn less than $50,000?"",
+        ""query"": ""result = df[(df['education'].isin(['Masters', 'Doctorate'])) & (df['income'] == '<=50K')].shape[0]"","
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Adult
+- Description of dataframe: Extraction was done by Barry Becker from the 1994 Census database.  A set of reasonably clean records was extracted using the following conditions: ((AAGE>16) && (AGI>100) && (AFNLWGT>1)&& (HRSWK>0))
+
+Prediction task is to determine whether a person makes over 50K a year.
+
+- Column information of dataframe:
+#   Column          Dtype 
+--- ------          ----- 
+0   age             int   
+1   workclass       str   
+2   fnlwgt          int   
+3   education       str   
+4   education-num   int   
+5   marital-status  str   
+6   occupation      str   
+7   relationship    str   
+8   race            str   
+9   sex             str   
+10  capital-gain    int   
+11  capital-loss    int   
+12  hours-per-week  int   
+13  native-country  str   
+14  income          str   
+
+- Sample rows of dataframe in CSV format:
+age,workclass,fnlwgt,education,education-num,marital-status,occupation,relationship,race,sex,capital-gain,capital-loss,hours-per-week,native-country,income
+24,Private,259510,Bachelors,13,Married-civ-spouse,Prof-specialty,Husband,White,Male,5013,0,30,United-States,<=50K
+23,Private,283092,HS-grad,9,Never-married,Sales,Other-relative,Black,Male,0,0,40,Jamaica,<=50K.
+41,Private,208470,HS-grad,9,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,40,United-States,>50K
+47,Private,186935,11th,7,Married-civ-spouse,Transport-moving,Husband,Black,Male,0,0,40,United-States,<=50K.
+76,?,211453,HS-grad,9,Widowed,?,Not-in-family,Black,Female,0,0,2,United-States,<=50K
+26,Private,379246,Some-college,10,Never-married,Other-service,Not-in-family,White,Female,0,0,40,United-States,<=50K.
+31,Local-gov,206609,Bachelors,13,Never-married,Protective-serv,Not-in-family,White,Male,0,1876,40,United-States,<=50K.
+44,Local-gov,159449,Some-college,10,Married-civ-spouse,Protective-serv,Husband,White,Male,0,0,80,United-States,>50K.
+59,Local-gov,283635,Masters,14,Divorced,Prof-specialty,Not-in-family,White,Female,0,0,40,United-States,<=50K
+61,Private,293899,Bachelors,13,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,50,United-States,>50K.
+37,Self-emp-not-inc,86643,Assoc-acdm,12,Never-married,Transport-moving,Not-in-family,White,Male,0,0,50,United-States,<=50K.
+39,Private,51264,11th,7,Divorced,Other-service,Own-child,White,Male,0,0,40,United-States,<=50K
+22,Private,188300,HS-grad,9,Never-married,Sales,Not-in-family,White,Female,0,0,28,United-States,<=50K.
+45,Private,155478,Some-college,10,Divorced,Tech-support,Unmarried,White,Female,0,0,40,United-States,<=50K.
+24,Private,236907,HS-grad,9,Married-civ-spouse,Farming-fishing,Husband,White,Male,0,0,55,United-States,<=50K.
+28,Private,429507,Assoc-acdm,12,Married-civ-spouse,Handlers-cleaners,Husband,Black,Male,0,0,40,United-States,<=50K
+40,Private,219591,10th,6,Married-civ-spouse,Craft-repair,Husband,White,Male,0,0,50,United-States,<=50K
+33,Private,70447,HS-grad,9,Never-married,Transport-moving,Other-relative,Asian-Pac-Islander,Male,0,0,40,United-States,<=50K
+46,Private,234289,Masters,14,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,60,United-States,<=50K.
+48,Private,174386,Masters,14,Married-civ-spouse,Prof-specialty,Husband,White,Male,0,0,40,El-Salvador,>50K
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average age of individuals earning more than 50K per year?"",
+        ""query"": ""result = df[df['income'] == '>50K']['age'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals of each race are making over 50K a year?"",
+        ""query"": ""result = df[df['income'] == '>50K']['race'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the proportion of males to females earning less than or equal to 50K per year?"",
+        ""query"": ""result = df[df['income'] == '<=50K']['sex'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Which top 5 occupations have the highest number of individuals earning over 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K']['occupation'].value_counts().head(5)"",
+    },
+    {
+        ""question"": ""What is the average weekly hours worked by individuals with different education levels earning more than 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('education')['hours-per-week'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 3 native countries contributing to the highest earners (>50K) in our dataset?"",
+        ""query"": ""result = df[df['income'] == '>50K']['native-country'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""How does the average capital gain differ between those earning above and below 50K?"",
+        ""query"": ""result = df.groupby('income')['capital-gain'].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of marital status among high earners (more than 50K)?"",
+        ""query"": ""result = df[df['income'] == '>50K']['marital-status'].value_counts()"",
+    },
+    {
+        ""question"": ""Which age group (grouped in decades: 20s, 30s, etc.) has the highest proportion of individuals earning over 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby(df['age'] // 10 * 10)['age'].count()"",
+    },
+    {
+        ""question"": ""What is the average education-num of individuals in different workclasses earning over 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('workclass')['education-num'].mean()"",
+    }
+]","[
+    {
+        ""question"": ""What is the total number of individuals earning over 50K in each workclass category?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('workclass').size()"",
+    },
+    {
+        ""question"": ""Which education level has the highest average age among those earning over 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('education')['age'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""How many different occupations are represented in the dataset among individuals earning more than 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K']['occupation'].nunique()"",
+    },
+    {
+        ""question"": ""What is the ratio of the number of individuals with a bachelor's degree earning above and below 50K?"",
+        ""query"": ""result = df[df['education'] == 'Bachelors']['income'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Can we see a breakdown of average hours-per-week worked across different races for those earning under 50K?"",
+        ""query"": ""result = df[df['income'] == '<=50K'].groupby('race')['hours-per-week'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 native countries with the lowest average age of high earners (>50K)?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('native-country')['age'].mean().nsmallest(5)"",
+    },
+    {
+        ""question"": ""How does the average capital loss compare between individuals earning more than 50K and those earning less?"",
+        ""query"": ""result = df.groupby('income')['capital-loss'].mean()"",
+    },
+    {
+        ""question"": ""What is the percentage distribution of marital status in the high-income group (>50K)?"",
+        ""query"": ""result = df[df['income'] == '>50K']['marital-status'].value_counts(normalize=True) * 100"",
+    },
+    {
+        ""question"": ""Which age group has the least representation in the dataset among those earning more than 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby(df['age'] // 10 * 10).size().idxmin()"",
+    },
+    {
+        ""question"": ""Can we find out the most common occupation among high earners (>50K) in the United States?"",
+        ""query"": ""result = df[(df['income'] == '>50K') & (df['native-country'] == 'United-States')]['occupation'].mode()[0]"",
+    }
+]","[
+    {
+        ""question"": ""What is the average age of individuals earning more than 50K per year?"",
+        ""query"": ""result = df[df['income'] == '>50K']['age'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals of each race are making over 50K a year?"",
+        ""query"": ""result = df[df['income'] == '>50K']['race'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the proportion of males to females earning less than or equal to 50K per year?"",
+        ""query"": ""result = df[df['income'] == '<=50K']['sex'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Which top 5 occupations have the highest number of individuals earning over 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K']['occupation'].value_counts().head(5)"",
+    },
+    {
+        ""question"": ""What is the average weekly hours worked by individuals with different education levels earning more than 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('education')['hours-per-week'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 3 native countries contributing to the highest earners (>50K) in our dataset?"",
+        ""query"": ""result = df[df['income'] == '>50K']['native-country'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""How does the average capital gain differ between those earning above and below 50K?"",
+        ""query"": ""result = df.groupby('income')['capital-gain'].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of marital status among high earners (more than 50K)?"",
+        ""query"": ""result = df[df['income'] == '>50K']['marital-status'].value_counts()"",
+    },
+    {
+        ""question"": ""Which age group (grouped in decades: 20s, 30s, etc.) has the highest proportion of individuals earning over 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby(df['age'] // 10 * 10)['age'].count()"",
+    },
+    {
+        ""question"": ""What is the average education-num of individuals in different workclasses earning over 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('workclass')['education-num'].mean()"",
+    },
+    {
+        ""question"": ""What is the total number of individuals earning over 50K in each workclass category?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('workclass').size()"",
+    },
+    {
+        ""question"": ""Which education level has the highest average age among those earning over 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('education')['age'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""How many different occupations are represented in the dataset among individuals earning more than 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K']['occupation'].nunique()"",
+    },
+    {
+        ""question"": ""What is the ratio of the number of individuals with a bachelor's degree earning above and below 50K?"",
+        ""query"": ""result = df[df['education'] == 'Bachelors']['income'].value_counts(normalize=True)"",
+    },
+    {
+        ""question"": ""Can we see a breakdown of average hours-per-week worked across different races for those earning under 50K?"",
+        ""query"": ""result = df[df['income'] == '<=50K'].groupby('race')['hours-per-week'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 native countries with the lowest average age of high earners (>50K)?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby('native-country')['age'].mean().nsmallest(5)"",
+    },
+    {
+        ""question"": ""How does the average capital loss compare between individuals earning more than 50K and those earning less?"",
+        ""query"": ""result = df.groupby('income')['capital-loss'].mean()"",
+    },
+    {
+        ""question"": ""What is the percentage distribution of marital status in the high-income group (>50K)?"",
+        ""query"": ""result = df[df['income'] == '>50K']['marital-status'].value_counts(normalize=True) * 100"",
+    },
+    {
+        ""question"": ""Which age group has the least representation in the dataset among those earning more than 50K?"",
+        ""query"": ""result = df[df['income'] == '>50K'].groupby(df['age'] // 10 * 10).size().idxmin()"",
+    },
+    {
+        ""question"": ""Can we find out the most common occupation among high earners (>50K) in the United States?"",
+        ""query"": ""result = df[(df['income'] == '>50K') & (df['native-country'] == 'United-States')]['occupation'].mode()[0]"",
+    }
+]"

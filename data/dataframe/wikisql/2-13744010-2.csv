@@ -1,0 +1,16 @@
+Rank,Institution,Gold,Silver,Bronze
+1,University of Texas at Austin,7.0,2.0,1.0
+2,Auburn University,5.0,3.0,4.0
+3,University of Michigan,3.0,2.0,0.0
+4,Stanford University,2.0,5.0,3.0
+5,University of Southern California,1.0,2.0,0.0
+6,University of Florida,1.0,0.0,2.0
+7,University of Tennessee,1.0,1.0,0.0
+8,Arizona State University,1.0,0.0,1.0
+9,"University of California, Berkeley",0.0,3.0,2.0
+10,University of Arizona,0.0,1.0,3.0
+11,University of South Carolina,0.0,1.0,1.0
+11,University of Wyoming,0.0,1.0,1.0
+13,University of Georgia,0.0,0.0,2.0
+14,University of Kentucky,0.0,0.0,1.0
+Total,Total,21.0,21.0,21.0

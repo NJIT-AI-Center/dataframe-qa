@@ -1,0 +1,19 @@
+No.,Name,Livery,Arrival,Type,Configuration,Builder,Built,Status,Location
+3,River Irt,Mid Green,1917.0,Steam,0-8-2,Sir Arthur Heywood,1894.0,Under overhaul,Workington
+7,River Esk,Blackberry Black,1923.0,Steam,2-8-2,Davey Paxman & Co.,1923.0,Overhaul stalled,Engine shed
+9,River Mite,Indian Red,1966.0,Steam,2-8-2,Clarkson & Sons,1966.0,In traffic,N/A
+10,Northern Rock,Muscat Green,1976.0,Steam,2-6-2,R&ER,1976.0,In traffic,N/A
+BVR 1,Wroxham Broad,Sky Blue,2013.0,Steam,2-6-4T,Guest Engineering,1964.0,In traffic,N/A
+RHDR 5,Hercules,Maroon,2013.0,Steam,4-8-2,Davey Paxman & Co.,1927.0,In traffic,N/A
+11,Bonnie Dundee,Bronze Green,1976.0,Steam,0-4-2,Kerr Stuart,1900.0,"Stored, unserviceable",Carriage shed
+N/A,Synolda,NGR Blue,1978.0,Steam,4-4-2,Bassett-Lowke,1912.0,Operational,Museum
+N/A,The Flower of the Forest,NER Green,1992.0,Steam,0-2-2,R&ER,1985.0,"Stored, unserviceable",Carriage shed
+6,Katie,Heywood Green,1982.0,Steam,0-4-0T,Sir Arthur Heywood,1896.0,"Stored, incomplete",Carriage shed
+ICL 1,Bunny,Green,1922.0,Petrol-Mechanical,B-2,Francis Theakston,1922.0,"Stored, unserviceable",Carriage shed
+ICL 5,Quarryman,Fordson Green,1927.0,Petrol-Mechanical,4w,Muir-Hill,1927.0,Stored,Irton Road shed
+ICL 4,Perkins,Yellow,1929.0,Diesel-Mechanical,4w-4,Muir-Hill,1929.0,In traffic,N/A
+ICL 7,Shelagh of Eskdale,Apple & Brunswick Green,1969.0,Diesel-Mechanical,4-6-4,Severn-Lamb,1969.0,Awaiting new PU,Headshunt
+ICL 8,Lady Wakefield,Brunswick Green,1980.0,Diesel-Mechanical,B-B,R&ER,1980.0,Under overhaul,TMA Engineering
+N/A,Greenbat,Dark Green,1982.0,Battery-Electric,4w,Greenwood & Batley,1957.0,"Stored, unserviceable",Headshunt
+ICL 9,Cyril,Unlined Green,1985.0,Diesel-Mechanical,4w,R.A. Lister,1932.0,Station pilot,N/A
+ICL 10,Les,Dark Green,1999.0,Diesel-Mechanical,4w,R.A. Lister,1960.0,Workshop pilot,N/A

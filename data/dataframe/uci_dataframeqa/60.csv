@@ -1,0 +1,706 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Liver Disorders
+- Description of dataframe: The first 5 variables are all blood tests which are thought to be sensitive to liver disorders that might arise from excessive alcohol consumption. Each line in the dataset constitutes the record of a single male individual.
+
+Important note: The 7th field (selector) has been widely misinterpreted in the past as a dependent variable representing presence or absence of a liver disorder. This is incorrect [1]. The 7th field was created by BUPA researchers as a train/test selector. It is not suitable as a dependent variable for classification. The dataset does not contain any variable representing presence or absence of a liver disorder. Researchers who wish to use this dataset as a classification benchmark should follow the method used in experiments by the donor (Forsyth & Rada, 1986, Machine learning: applications in expert systems and information retrieval) and others (e.g. Turney, 1995, Cost-sensitive classification: Empirical evaluation of a hybrid genetic decision tree induction algorithm), who used the 6th field (drinks), after dichotomising, as a dependent variable for classification. Because of widespread misinterpretation in the past, researchers should take care to state their method clearly.
+
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   mcv       int   
+1   alkphos   int   
+2   sgpt      int   
+3   sgot      int   
+4   gammagt   int   
+5   drinks    float 
+6   selector  int   
+
+- Sample rows of dataframe in CSV format:
+mcv,alkphos,sgpt,sgot,gammagt,drinks,selector
+87,71,32,19,27,1.0,1
+87,41,31,19,16,0.5,1
+95,60,26,22,28,6.0,1
+100,60,29,23,76,6.0,2
+93,84,58,47,62,7.0,2
+87,90,43,28,156,2.0,2
+93,56,25,21,33,0.5,2
+91,107,20,20,56,0.5,1
+89,74,19,23,16,0.5,2
+91,64,21,17,26,3.0,2
+86,66,22,24,26,10.0,2
+84,97,41,20,32,0.0,2
+92,82,27,24,37,6.0,2
+93,102,47,23,37,5.0,2
+89,89,23,18,104,3.0,2
+97,93,21,20,68,6.0,2
+98,43,35,23,69,6.0,2
+91,138,45,21,48,10.0,1
+88,66,23,12,15,3.0,1
+85,79,17,8,9,0.5,1
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average value of each blood test result for individuals who consume more than 5 drinks daily?"",
+        ""query"": ""result = df[df['drinks'] > 5].mean()"",
+    },
+    {
+        ""question"": ""How does the average gamma GT level vary between individuals who consume less than 3 drinks daily and those who consume 3 or more?"",
+        ""query"": ""result = df.groupby(df['drinks'] >= 3)['gammagt'].mean()"",
+    },
+    {
+        ""question"": ""Identify the top 10% of individuals with the highest SGPT levels and calculate their average number of drinks."",
+        ""query"": ""result = df.nlargest(int(len(df) * 0.1), 'sgpt')['drinks'].mean()"",
+    },
+    {
+        ""question"": ""Is there a correlation between the SGOT and Gamma GT levels? Compute the Pearson correlation coefficient."",
+        ""query"": ""result = df[['sgot', 'gammagt']].corr(method='pearson')"",
+    },
+    {
+        ""question"": ""Create a new column 'risk_factor' which is the product of SGPT and Gamma GT, then determine the average risk factor for each group of drinks (0-2, 3-5, 6+)."",
+        ""query"": ""result = df.assign(risk_factor=df['sgpt'] * df['gammagt']).groupby(pd.cut(df['drinks'], bins=[0, 2, 5, float('inf')]))['risk_factor'].mean()"",
+    },
+    {
+        ""question"": ""What is the median value of AlkPhos for individuals with MCV levels in the top 25%?"",
+        ""query"": ""result = df[df['mcv'] > df['mcv'].quantile(0.75)]['alkphos'].median()"",
+    },
+    {
+        ""question"": ""Calculate the standard deviation of drinks consumed for individuals with SGOT levels above the 75th percentile."",
+        ""query"": ""result = df[df['sgot'] > df['sgot'].quantile(0.75)]['drinks'].std()"",
+    },
+    {
+        ""question"": ""Group the individuals based on the 'selector' field and calculate the average MCV level for each group."",
+        ""query"": ""result = df.groupby('selector')['mcv'].mean()"",
+    },
+    {
+        ""question"": ""Identify the individual(s) with the highest number of drinks and return their entire record."",
+        ""query"": ""result = df[df['drinks'] == df['drinks'].max()]"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the mean SGPT levels, indexed by the 'selector' and columned by the number of drinks (rounded down to the nearest integer)."",
+        ""query"": ""result = df.pivot_table(values='sgpt', index='selector', columns=df['drinks'].astype(int).rename('drinks_rounded'), aggfunc='mean')"",
+    }
+]","[
+    {
+        ""question"": ""How many individuals have Gamma GT levels above the 90th percentile?"",
+        ""query"": ""result = (df['gammagt'] > df['gammagt'].quantile(0.9)).sum()"",
+    },
+    {
+        ""question"": ""What is the range (difference between max and min) of SGPT levels for individuals consuming exactly 5 drinks?"",
+        ""query"": ""result = df[df['drinks'] == 5]['sgpt'].max() - df[df['drinks'] == 5]['sgpt'].min()"",
+    },
+    {
+        ""question"": ""Find the interquartile range (IQR) for AlkPhos levels in the dataset."",
+        ""query"": ""result = df['alkphos'].quantile(0.75) - df['alkphos'].quantile(0.25)"",
+    },
+    {
+        ""question"": ""For each level of drinks consumed (rounded to the nearest integer), what is the percentage of individuals that fall into each selector category?"",
+        ""query"": ""result = df.groupby([df['drinks'].round(), 'selector']).size().groupby(level=0).apply(lambda x: 100 * x / float(x.sum()))"",
+    },
+    {
+        ""question"": ""Identify the correlation matrix for the first five blood test results."",
+        ""query"": ""result = df.iloc[:, :5].corr()"",
+    },
+    {
+        ""question"": ""Calculate the skewness of the 'drinks' distribution."",
+        ""query"": ""result = df['drinks'].skew()"",
+    },
+    {
+        ""question"": ""How many unique values are there in the MCV blood test results, and what is their median value?"",
+        ""query"": ""result = {'unique_count': df['mcv'].nunique(), 'median_value': df['mcv'].median()}"",
+    },
+    {
+        ""question"": ""Create a new dataframe showing the mean and median of SGOT levels for each 'selector' value."",
+        ""query"": ""result = df.groupby('selector')['sgot'].agg(['mean', 'median'])"",
+    },
+    {
+        ""question"": ""What is the average number of drinks for individuals with SGOT levels in the lowest 10%?"",
+        ""query"": ""result = df[df['sgot'] < df['sgot'].quantile(0.1)]['drinks'].mean()"",
+    },
+    {
+        ""question"": ""Perform a linear regression between SGPT and Gamma GT levels, and return the slope and intercept."",
+        ""query"": ""import numpy as np; result = np.polyfit(df['sgpt'], df['gammagt'], 1)"",
+    }
+]","[
+    {
+        ""question"": ""What is the average value of each blood test result for individuals who consume more than 5 drinks daily?"",
+        ""query"": ""result = df[df['drinks'] > 5].mean()"",
+    },
+    {
+        ""question"": ""How does the average gamma GT level vary between individuals who consume less than 3 drinks daily and those who consume 3 or more?"",
+        ""query"": ""result = df.groupby(df['drinks'] >= 3)['gammagt'].mean()"",
+    },
+    {
+        ""question"": ""Identify the top 10% of individuals with the highest SGPT levels and calculate their average number of drinks."",
+        ""query"": ""result = df.nlargest(int(len(df) * 0.1), 'sgpt')['drinks'].mean()"",
+    },
+    {
+        ""question"": ""Is there a correlation between the SGOT and Gamma GT levels? Compute the Pearson correlation coefficient."",
+        ""query"": ""result = df[['sgot', 'gammagt']].corr(method='pearson')"",
+    },
+    {
+        ""question"": ""Create a new column 'risk_factor' which is the product of SGPT and Gamma GT, then determine the average risk factor for each group of drinks (0-2, 3-5, 6+)."",
+        ""query"": ""result = df.assign(risk_factor=df['sgpt'] * df['gammagt']).groupby(pd.cut(df['drinks'], bins=[0, 2, 5, float('inf')]))['risk_factor'].mean()"",
+    },
+    {
+        ""question"": ""What is the median value of AlkPhos for individuals with MCV levels in the top 25%?"",
+        ""query"": ""result = df[df['mcv'] > df['mcv'].quantile(0.75)]['alkphos'].median()"",
+    },
+    {
+        ""question"": ""Calculate the standard deviation of drinks consumed for individuals with SGOT levels above the 75th percentile."",
+        ""query"": ""result = df[df['sgot'] > df['sgot'].quantile(0.75)]['drinks'].std()"",
+    },
+    {
+        ""question"": ""Group the individuals based on the 'selector' field and calculate the average MCV level for each group."",
+        ""query"": ""result = df.groupby('selector')['mcv'].mean()"",
+    },
+    {
+        ""question"": ""Identify the individual(s) with the highest number of drinks and return their entire record."",
+        ""query"": ""result = df[df['drinks'] == df['drinks'].max()]"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the mean SGPT levels, indexed by the 'selector' and columned by the number of drinks (rounded down to the nearest integer)."",
+        ""query"": ""result = df.pivot_table(values='sgpt', index='selector', columns=df['drinks'].astype(int).rename('drinks_rounded'), aggfunc='mean')"",
+    },
+    {
+        ""question"": ""How many individuals have Gamma GT levels above the 90th percentile?"",
+        ""query"": ""result = (df['gammagt'] > df['gammagt'].quantile(0.9)).sum()"",
+    },
+    {
+        ""question"": ""What is the range (difference between max and min) of SGPT levels for individuals consuming exactly 5 drinks?"",
+        ""query"": ""result = df[df['drinks'] == 5]['sgpt'].max() - df[df['drinks'] == 5]['sgpt'].min()"",
+    },
+    {
+        ""question"": ""Find the interquartile range (IQR) for AlkPhos levels in the dataset."",
+        ""query"": ""result = df['alkphos'].quantile(0.75) - df['alkphos'].quantile(0.25)"",
+    },
+    {
+        ""question"": ""For each level of drinks consumed (rounded to the nearest integer), what is the percentage of individuals that fall into each selector category?"",
+        ""query"": ""result = df.groupby([df['drinks'].round(), 'selector']).size().groupby(level=0).apply(lambda x: 100 * x / float(x.sum()))"",
+    },
+    {
+        ""question"": ""Identify the correlation matrix for the first five blood test results."",
+        ""query"": ""result = df.iloc[:, :5].corr()"",
+    },
+    {
+        ""question"": ""Calculate the skewness of the 'drinks' distribution."",
+        ""query"": ""result = df['drinks'].skew()"",
+    },
+    {
+        ""question"": ""How many unique values are there in the MCV blood test results, and what is their median value?"",
+        ""query"": ""result = {'unique_count': df['mcv'].nunique(), 'median_value': df['mcv'].median()}"",
+    },
+    {
+        ""question"": ""Create a new dataframe showing the mean and median of SGOT levels for each 'selector' value."",
+        ""query"": ""result = df.groupby('selector')['sgot'].agg(['mean', 'median'])"",
+    },
+    {
+        ""question"": ""What is the average number of drinks for individuals with SGOT levels in the lowest 10%?"",
+        ""query"": ""result = df[df['sgot'] < df['sgot'].quantile(0.1)]['drinks'].mean()"",
+    },
+    {
+        ""question"": ""Perform a linear regression between SGPT and Gamma GT levels, and return the slope and intercept."",
+        ""query"": ""import numpy as np; result = np.polyfit(df['sgpt'], df['gammagt'], 1)"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Liver Disorders
+- Description of dataframe: The first 5 variables are all blood tests which are thought to be sensitive to liver disorders that might arise from excessive alcohol consumption. Each line in the dataset constitutes the record of a single male individual.
+
+Important note: The 7th field (selector) has been widely misinterpreted in the past as a dependent variable representing presence or absence of a liver disorder. This is incorrect [1]. The 7th field was created by BUPA researchers as a train/test selector. It is not suitable as a dependent variable for classification. The dataset does not contain any variable representing presence or absence of a liver disorder. Researchers who wish to use this dataset as a classification benchmark should follow the method used in experiments by the donor (Forsyth & Rada, 1986, Machine learning: applications in expert systems and information retrieval) and others (e.g. Turney, 1995, Cost-sensitive classification: Empirical evaluation of a hybrid genetic decision tree induction algorithm), who used the 6th field (drinks), after dichotomising, as a dependent variable for classification. Because of widespread misinterpretation in the past, researchers should take care to state their method clearly.
+
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   mcv       int   
+1   alkphos   int   
+2   sgpt      int   
+3   sgot      int   
+4   gammagt   int   
+5   drinks    float 
+6   selector  int   
+
+- Sample rows of dataframe in CSV format:
+mcv,alkphos,sgpt,sgot,gammagt,drinks,selector
+94,48,11,23,43,0.5,2
+95,80,50,64,55,10.0,2
+85,59,25,20,25,3.0,2
+90,47,28,15,18,0.5,1
+89,62,42,30,20,3.0,1
+90,61,28,29,31,2.0,1
+83,54,27,15,12,0.5,1
+91,44,18,18,23,2.0,2
+90,64,12,17,14,0.5,2
+87,41,31,19,16,0.5,1
+90,76,37,19,50,6.0,1
+99,69,45,32,30,3.0,1
+92,87,57,25,44,6.0,2
+86,48,20,20,6,3.0,1
+88,91,56,35,126,9.0,2
+92,80,10,26,20,6.0,1
+91,54,25,22,35,4.0,1
+81,61,32,37,53,3.0,2
+86,54,33,16,54,0.0,2
+96,74,27,25,43,6.0,2
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""How many individuals have consumed more than 5 drinks?"",
+        ""query"": ""result = df[df['drinks'] > 5].shape[0]"",
+    },
+    {
+        ""question"": ""What is the average value of the first blood test across all individuals?"",
+        ""query"": ""result = df['mcv'].mean()"",
+    },
+    {
+        ""question"": ""Can you find the top 3 individuals with the highest values in the second blood test?"",
+        ""query"": ""result = df.nlargest(3, 'alkphos')"",
+    },
+    {
+        ""question"": ""How many individuals have the third blood test value below 30?"",
+        ""query"": ""result = df[df['sgpt'] < 30].count()"",
+    },
+    {
+        ""question"": ""What is the median value of the fourth blood test?"",
+        ""query"": ""result = df['sgot'].median()"",
+    },
+    {
+        ""question"": ""Can we see a summary of statistics for the fifth blood test?"",
+        ""query"": ""result = df['gammagt'].describe()"",
+    },
+    {
+        ""question"": ""How many individuals are in each category of the 'selector' field?"",
+        ""query"": ""result = df['selector'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the lowest drinking level recorded and in which individual does it appear?"",
+        ""query"": ""result = df[df['drinks'] == df['drinks'].min()]"",
+    },
+    {
+        ""question"": ""Can you provide a sorted list of individuals based on their drinking levels?"",
+        ""query"": ""result = df.sort_values(by='drinks')"",
+    },
+    {
+        ""question"": ""What is the correlation between the first blood test and alcohol consumption levels?"",
+        ""query"": ""result = df[['mcv', 'drinks']].corr()"",
+    }
+]","[
+    {
+        ""question"": ""Which individual has the highest recorded value in the first blood test?"",
+        ""query"": ""result = df[df['mcv'] == df['mcv'].max()]"",
+    },
+    {
+        ""question"": ""How many individuals have their second blood test value above the average of that test?"",
+        ""query"": ""result = df[df['alkphos'] > df['alkphos'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""What are the average values for each of the blood tests?"",
+        ""query"": ""result = df[['mcv', 'alkphos', 'sgpt', 'sgot', 'gammagt']].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have a drinking level greater than the median drinking level?"",
+        ""query"": ""result = df[df['drinks'] > df['drinks'].median()].shape[0]"",
+    },
+    {
+        ""question"": ""Can you identify the individual with the lowest value in the third blood test?"",
+        ""query"": ""result = df[df['sgpt'] == df['sgpt'].min()]"",
+    },
+    {
+        ""question"": ""What is the range (difference between max and min) for the fourth blood test?"",
+        ""query"": ""result = df['sgot'].max() - df['sgot'].min()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in average alcohol consumption between the two selector categories?"",
+        ""query"": ""result = df.groupby('selector')['drinks'].mean()"",
+    },
+    {
+        ""question"": ""What percentage of individuals have a fifth blood test value above 50?"",
+        ""query"": ""result = (df[df['gammagt'] > 50].shape[0] / df.shape[0]) * 100"",
+    },
+    {
+        ""question"": ""Can we see a breakdown of the number of individuals by their drinking levels in intervals of 2 (0-2, 2-4, etc.)?"",
+        ""query"": ""result = pd.cut(df['drinks'], bins=range(0, int(df['drinks'].max()) + 2, 2)).value_counts()"",
+    },
+    {
+        ""question"": ""What is the relationship between the second and fifth blood tests?"",
+        ""query"": ""result = df[['alkphos', 'gammagt']].corr()"",
+    }
+]","[
+    {
+        ""question"": ""How many individuals have consumed more than 5 drinks?"",
+        ""query"": ""result = df[df['drinks'] > 5].shape[0]"",
+    },
+    {
+        ""question"": ""What is the average value of the first blood test across all individuals?"",
+        ""query"": ""result = df['mcv'].mean()"",
+    },
+    {
+        ""question"": ""Can you find the top 3 individuals with the highest values in the second blood test?"",
+        ""query"": ""result = df.nlargest(3, 'alkphos')"",
+    },
+    {
+        ""question"": ""How many individuals have the third blood test value below 30?"",
+        ""query"": ""result = df[df['sgpt'] < 30].count()"",
+    },
+    {
+        ""question"": ""What is the median value of the fourth blood test?"",
+        ""query"": ""result = df['sgot'].median()"",
+    },
+    {
+        ""question"": ""Can we see a summary of statistics for the fifth blood test?"",
+        ""query"": ""result = df['gammagt'].describe()"",
+    },
+    {
+        ""question"": ""How many individuals are in each category of the 'selector' field?"",
+        ""query"": ""result = df['selector'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the lowest drinking level recorded and in which individual does it appear?"",
+        ""query"": ""result = df[df['drinks'] == df['drinks'].min()]"",
+    },
+    {
+        ""question"": ""Can you provide a sorted list of individuals based on their drinking levels?"",
+        ""query"": ""result = df.sort_values(by='drinks')"",
+    },
+    {
+        ""question"": ""What is the correlation between the first blood test and alcohol consumption levels?"",
+        ""query"": ""result = df[['mcv', 'drinks']].corr()"",
+    },
+    {
+        ""question"": ""Which individual has the highest recorded value in the first blood test?"",
+        ""query"": ""result = df[df['mcv'] == df['mcv'].max()]"",
+    },
+    {
+        ""question"": ""How many individuals have their second blood test value above the average of that test?"",
+        ""query"": ""result = df[df['alkphos'] > df['alkphos'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""What are the average values for each of the blood tests?"",
+        ""query"": ""result = df[['mcv', 'alkphos', 'sgpt', 'sgot', 'gammagt']].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have a drinking level greater than the median drinking level?"",
+        ""query"": ""result = df[df['drinks'] > df['drinks'].median()].shape[0]"",
+    },
+    {
+        ""question"": ""Can you identify the individual with the lowest value in the third blood test?"",
+        ""query"": ""result = df[df['sgpt'] == df['sgpt'].min()]"",
+    },
+    {
+        ""question"": ""What is the range (difference between max and min) for the fourth blood test?"",
+        ""query"": ""result = df['sgot'].max() - df['sgot'].min()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in average alcohol consumption between the two selector categories?"",
+        ""query"": ""result = df.groupby('selector')['drinks'].mean()"",
+    },
+    {
+        ""question"": ""What percentage of individuals have a fifth blood test value above 50?"",
+        ""query"": ""result = (df[df['gammagt'] > 50].shape[0] / df.shape[0]) * 100"",
+    },
+    {
+        ""question"": ""Can we see a breakdown of the number of individuals by their drinking levels in intervals of 2 (0-2, 2-4, etc.)?"",
+        ""query"": ""result = pd.cut(df['drinks'], bins=range(0, int(df['drinks'].max()) + 2, 2)).value_counts()"",
+    },
+    {
+        ""question"": ""What is the relationship between the second and fifth blood tests?"",
+        ""query"": ""result = df[['alkphos', 'gammagt']].corr()"",
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Liver Disorders
+- Description of dataframe: The first 5 variables are all blood tests which are thought to be sensitive to liver disorders that might arise from excessive alcohol consumption. Each line in the dataset constitutes the record of a single male individual.
+
+Important note: The 7th field (selector) has been widely misinterpreted in the past as a dependent variable representing presence or absence of a liver disorder. This is incorrect [1]. The 7th field was created by BUPA researchers as a train/test selector. It is not suitable as a dependent variable for classification. The dataset does not contain any variable representing presence or absence of a liver disorder. Researchers who wish to use this dataset as a classification benchmark should follow the method used in experiments by the donor (Forsyth & Rada, 1986, Machine learning: applications in expert systems and information retrieval) and others (e.g. Turney, 1995, Cost-sensitive classification: Empirical evaluation of a hybrid genetic decision tree induction algorithm), who used the 6th field (drinks), after dichotomising, as a dependent variable for classification. Because of widespread misinterpretation in the past, researchers should take care to state their method clearly.
+
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   mcv       int   
+1   alkphos   int   
+2   sgpt      int   
+3   sgot      int   
+4   gammagt   int   
+5   drinks    float 
+6   selector  int   
+
+- Sample rows of dataframe in CSV format:
+mcv,alkphos,sgpt,sgot,gammagt,drinks,selector
+86,123,20,25,23,10.0,2
+101,65,18,21,22,0.5,2
+84,73,46,32,39,4.0,2
+89,82,23,14,35,0.5,1
+87,75,37,19,70,2.0,2
+94,91,30,26,25,2.0,2
+87,45,19,13,16,4.0,2
+87,64,16,20,24,5.0,2
+86,58,36,27,59,0.5,2
+94,91,27,20,15,0.5,1
+91,63,17,17,46,4.0,2
+86,109,16,22,28,6.0,2
+91,63,25,26,15,6.0,1
+97,44,113,45,150,5.0,2
+91,54,25,22,35,4.0,1
+91,55,9,25,16,2.0,2
+90,63,16,21,14,1.0,2
+85,64,59,32,23,0.0,2
+95,80,50,64,55,10.0,2
+87,59,37,27,34,2.0,2
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average value of each blood test across all records?"",
+        ""query"": ""result = df[['mcv', 'alkphos', 'sgpt', 'sgot', 'gammagt']].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have a drinks value exceeding 5.0?"",
+        ""query"": ""result = df[df['drinks'] > 5.0].shape[0]"",
+    },
+    {
+        ""question"": ""Which individual has the highest Gammagt value and what is that value?"",
+        ""query"": ""result = df[df['gammagt'] == df['gammagt'].max()][['gammagt']]"",
+    },
+    {
+        ""question"": ""What is the correlation between 'drinks' and each of the blood test variables?"",
+        ""query"": ""result = df[['mcv', 'alkphos', 'sgpt', 'sgot', 'gammagt', 'drinks']].corr()['drinks'][:-1]"",
+    },
+    {
+        ""question"": ""Can we group the individuals by 'selector' and compute the average drinks consumption for each group?"",
+        ""query"": ""result = df.groupby('selector')['drinks'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have 'sgpt' levels above the average sgpt level?"",
+        ""query"": ""result = df[df['sgpt'] > df['sgpt'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""Is there a significant difference in average 'alkphos' levels between the two selector groups?"",
+        ""query"": ""result = df.groupby('selector')['alkphos'].mean()"",
+    },
+    {
+        ""question"": ""What is the median 'mcv' value for individuals who consume more than 4 drinks?"",
+        ""query"": ""result = df[df['drinks'] > 4]['mcv'].median()"",
+    },
+    {
+        ""question"": ""Can we find the top 10 individuals with the highest 'sgot' levels?"",
+        ""query"": ""result = df.nlargest(10, 'sgot')[['sgot']]"",
+    },
+    {
+        ""question"": ""What is the distribution of 'drinks' values in the dataset? (using bins of 0-1, 1-2, 2-3, etc.)"",
+        ""query"": ""result = pd.cut(df['drinks'], bins=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], include_lowest=True).value_counts().sort_index()"",
+    }
+]","[
+    {
+        ""question"": ""What percentage of individuals have 'mcv' levels above 90?"",
+        ""query"": ""result = (df['mcv'] > 90).mean() * 100"",
+    },
+    {
+        ""question"": ""Can we identify the top 5% of individuals with the highest 'alkphos' levels?"",
+        ""query"": ""result = df.nlargest(int(len(df) * 0.05), 'alkphos')"",
+    },
+    {
+        ""question"": ""What is the standard deviation of the 'sgpt' levels in the dataset?"",
+        ""query"": ""result = df['sgpt'].std()"",
+    },
+    {
+        ""question"": ""How does the average 'gammagt' level vary between different 'selector' groups?"",
+        ""query"": ""result = df.groupby('selector')['gammagt'].mean()"",
+    },
+    {
+        ""question"": ""Is there a linear relationship between 'sgot' and 'drinks'? Calculate the Pearson correlation coefficient."",
+        ""query"": ""result = df['sgot'].corr(df['drinks'])"",
+    },
+    {
+        ""question"": ""What is the average number of drinks for individuals with 'mcv' levels below 85?"",
+        ""query"": ""result = df[df['mcv'] < 85]['drinks'].mean()"",
+    },
+    {
+        ""question"": ""Can we categorize the 'drinks' data into 'low' (0-3), 'medium' (3-6), and 'high' (above 6) consumption and find the count for each category?"",
+        ""query"": ""result = pd.cut(df['drinks'], bins=[0, 3, 6, df['drinks'].max()], labels=['low', 'medium', 'high'], right=False).value_counts()"",
+    },
+    {
+        ""question"": ""What is the distribution of 'alkphos' levels in the dataset, categorized into quartiles?"",
+        ""query"": ""result = pd.qcut(df['alkphos'], q=4).value_counts().sort_index()"",
+    },
+    {
+        ""question"": ""How many individuals have 'gammagt' levels more than two standard deviations above the mean?"",
+        ""query"": ""result = df[df['gammagt'] > df['gammagt'].mean() + 2 * df['gammagt'].std()].shape[0]"",
+    },
+    {
+        ""question"": ""What is the relationship between the minimum and maximum values of 'sgpt' and 'sgot' in the dataset?"",
+        ""query"": ""result = df[['sgpt', 'sgot']].agg(['min', 'max'])"",
+    }
+]","[
+    {
+        ""question"": ""What is the average value of each blood test across all records?"",
+        ""query"": ""result = df[['mcv', 'alkphos', 'sgpt', 'sgot', 'gammagt']].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have a drinks value exceeding 5.0?"",
+        ""query"": ""result = df[df['drinks'] > 5.0].shape[0]"",
+    },
+    {
+        ""question"": ""Which individual has the highest Gammagt value and what is that value?"",
+        ""query"": ""result = df[df['gammagt'] == df['gammagt'].max()][['gammagt']]"",
+    },
+    {
+        ""question"": ""What is the correlation between 'drinks' and each of the blood test variables?"",
+        ""query"": ""result = df[['mcv', 'alkphos', 'sgpt', 'sgot', 'gammagt', 'drinks']].corr()['drinks'][:-1]"",
+    },
+    {
+        ""question"": ""Can we group the individuals by 'selector' and compute the average drinks consumption for each group?"",
+        ""query"": ""result = df.groupby('selector')['drinks'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have 'sgpt' levels above the average sgpt level?"",
+        ""query"": ""result = df[df['sgpt'] > df['sgpt'].mean()].shape[0]"",
+    },
+    {
+        ""question"": ""Is there a significant difference in average 'alkphos' levels between the two selector groups?"",
+        ""query"": ""result = df.groupby('selector')['alkphos'].mean()"",
+    },
+    {
+        ""question"": ""What is the median 'mcv' value for individuals who consume more than 4 drinks?"",
+        ""query"": ""result = df[df['drinks'] > 4]['mcv'].median()"",
+    },
+    {
+        ""question"": ""Can we find the top 10 individuals with the highest 'sgot' levels?"",
+        ""query"": ""result = df.nlargest(10, 'sgot')[['sgot']]"",
+    },
+    {
+        ""question"": ""What is the distribution of 'drinks' values in the dataset? (using bins of 0-1, 1-2, 2-3, etc.)"",
+        ""query"": ""result = pd.cut(df['drinks'], bins=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], include_lowest=True).value_counts().sort_index()"",
+    },
+    {
+        ""question"": ""What percentage of individuals have 'mcv' levels above 90?"",
+        ""query"": ""result = (df['mcv'] > 90).mean() * 100"",
+    },
+    {
+        ""question"": ""Can we identify the top 5% of individuals with the highest 'alkphos' levels?"",
+        ""query"": ""result = df.nlargest(int(len(df) * 0.05), 'alkphos')"",
+    },
+    {
+        ""question"": ""What is the standard deviation of the 'sgpt' levels in the dataset?"",
+        ""query"": ""result = df['sgpt'].std()"",
+    },
+    {
+        ""question"": ""How does the average 'gammagt' level vary between different 'selector' groups?"",
+        ""query"": ""result = df.groupby('selector')['gammagt'].mean()"",
+    },
+    {
+        ""question"": ""Is there a linear relationship between 'sgot' and 'drinks'? Calculate the Pearson correlation coefficient."",
+        ""query"": ""result = df['sgot'].corr(df['drinks'])"",
+    },
+    {
+        ""question"": ""What is the average number of drinks for individuals with 'mcv' levels below 85?"",
+        ""query"": ""result = df[df['mcv'] < 85]['drinks'].mean()"",
+    },
+    {
+        ""question"": ""Can we categorize the 'drinks' data into 'low' (0-3), 'medium' (3-6), and 'high' (above 6) consumption and find the count for each category?"",
+        ""query"": ""result = pd.cut(df['drinks'], bins=[0, 3, 6, df['drinks'].max()], labels=['low', 'medium', 'high'], right=False).value_counts()"",
+    },
+    {
+        ""question"": ""What is the distribution of 'alkphos' levels in the dataset, categorized into quartiles?"",
+        ""query"": ""result = pd.qcut(df['alkphos'], q=4).value_counts().sort_index()"",
+    },
+    {
+        ""question"": ""How many individuals have 'gammagt' levels more than two standard deviations above the mean?"",
+        ""query"": ""result = df[df['gammagt'] > df['gammagt'].mean() + 2 * df['gammagt'].std()].shape[0]"",
+    },
+    {
+        ""question"": ""What is the relationship between the minimum and maximum values of 'sgpt' and 'sgot' in the dataset?"",
+        ""query"": ""result = df[['sgpt', 'sgot']].agg(['min', 'max'])"",
+    }
+]"

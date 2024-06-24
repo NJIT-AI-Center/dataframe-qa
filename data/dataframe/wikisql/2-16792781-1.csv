@@ -1,0 +1,107 @@
+Rank,Venue name,Highest attendance,Location,Current seating capacity
+1.0,Indianapolis Motor Speedway,"400,000","Speedway , Indiana , United States",257325.0
+2.0,Circuit de la Sarthe,"235,000","Le Mans , France",100000.0
+3.0,Tokyo Racecourse,"223,000","Tokyo , Japan",13750.0
+4.0,Nürburgring-Nordschleife,"220,000","Nürburg , Germany",220000.0
+5.0,Texas Motor Speedway,"212,585","Fort Worth , Texas , United States",138122.0
+7.0,Aintree Racecourse,"200,000-300,000","Aintree , England",75000.0
+8.0,Badminton Park,"200,000","Badminton , England",200000.0
+8.0,Shanghai International Circuit,"200,000","Shanghai , China",200000.0
+11.0,Estádio do Maracanã,"199,854","Rio de Janeiro , Brazil",78838.0
+12.0,Hampden Park,"183,724","Glasgow , Scotland",52103.0
+13.0,Talladega Superspeedway,"175,000","Talladega , Alabama , United States",175000.0
+14.0,Daytona International Speedway,"167,785","Daytona Beach , Florida , United States",167785.0
+15.0,Charlotte Motor Speedway,"167,000","Concord , North Carolina , United States",167000.0
+16.0,Nakayama Racecourse,"165,676","Chiba , Japan",15944.0
+17.0,Bristol Motor Speedway,"165,000","Bristol , Tennessee , United States",165000.0
+18.0,Churchill Downs,"164,858","Louisville , Kentucky , United States",51000.0
+19.0,Las Vegas Motor Speedway,"156,000","Las Vegas , Nevada , United States",142000.0
+20.0,Suzuka Circuit,"155,000","Suzuka , Japan",155000.0
+20.0,Istanbul Park,"155,000","Istanbul , Turkey",155000.0
+22.0,Rungnado May Day Stadium,"150,000","Pyongyang , North Korea",150000.0
+22.0,Südschleife,"150,000","Nürburg, Germany",150000.0
+22.0,Belmont Park,"150,000","Elmont , New York , United States",33000.0
+25.0,Holmenkollbakken,"143,000","Oslo , Norway",50000.0
+26.0,Circuit de Catalunya,"140,000","Montmeló , Spain",140000.0
+26.0,Fuji Speedway,"140,000","Oyama , Japan",140000.0
+28.0,Ibrox Stadium,"139,940","Glasgow, Scotland",51082.0
+29.0,Hanshin Racecourse,"139,877","Hyogo , Japan",12603.0
+30.0,Estádio do Morumbi,"138,032","São Paulo , Brazil",66795.0
+31.0,Michigan International Speedway,"137,243","Brooklyn , Michigan , United States",137243.0
+32.0,Autodromo Nazionale Monza,"137,000","Monza , Italy",137000.0
+33.0,Korea International Circuit,"135,000","Yeongam , South Korea",135000.0
+33.0,Dover International Speedway,"135,000","Dover , Delaware , United States",135000.0
+35.0,Mineirão,"132,834","Belo Horizonte , Brazil",62547.0
+36.0,Flemington Racecourse,"130,000","Melbourne , Australia",130000.0
+36.0,Sepang International Circuit,"130,000","Sepang , Malaysia",130000.0
+38.0,Azadi Stadium,"128,000","Tehran , Iran",90000.0
+39.0,Strahov Stadium,"150,000","Prague , Czech Republic",250000.0
+40.0,Silverstone Circuit,"125,000","Silverstone , England",125000.0
+40.0,San Siro,"125,000","Milan , Italy",82955.0
+40.0,Atlanta Motor Speedway,"125,000","Hampton , Georgia , United States",125000.0
+43.0,Melbourne Cricket Ground,"121,696","Melbourne, Australia",100000.0
+44.0,Cairo International Stadium,"120,480","Cairo , Egypt",74100.0
+45.0,Crystal Palace National Sports Centre,"120,028","London , England",24000.0
+46.0,Salt Lake Stadium,"120,000","Kolkata , India",120000.0
+46.0,Buddh International Circuit,"120,000","Greater Noida , India",120000.0
+46.0,Eden Gardens,"120,000","Kolkata, India",88000.0
+46.0,Kyoto Racecourse,"120,000","Kyoto , Japan",28000.0
+46.0,Camp Nou,"120,000","Barcelona , Spain",98722.0
+46.0,Santiago Bernabéu Stadium,"120,000","Madrid , Spain",80400.0
+46.0,Hockenheimring,"120,000","Hockenheim , Germany",120000.0
+46.0,EuroSpeedway Lausitz,"120,000","Oberspreewald-Lausitz , Germany",120000.0
+46.0,Circuit de Valencia,"120,000","Cheste , Spain",120000.0
+46.0,Pimlico Race Course,"120,000","Baltimore , Maryland , United States",43000.0
+46.0,Mangueirão,"120,000","Belém , Brazil",45007.0
+46.0,Silesian Stadium,"120,000","Chorzów , Poland",47246.0
+46.0,Circuit de Nevers Magny-Cours,"120,000","Magny-Cours , France",120000.0
+46.0,Hungaroring,"120,000","Mogyoród , Hungary",120000.0
+46.0,Epsom Downs Racecourse,"120,000","Epsom , England",10875.0
+61.0,Autódromo José Carlos Pace,"119,000","São Paulo, Brazil",119000.0
+62.0,Castelão,"118,496","Fortaleza , Brazil",64846.0
+62.0,Circuit of the Americas,"117,429","Austin , Texas , United States",120000.0
+63.0,Los Angeles Memorial Coliseum,"115,300","Los Angeles , California , United States",92000.0
+64.0,Michigan Stadium,"115,109","Ann Arbor , Michigan, United States",109901.0
+65.0,Estadio Presidente Juan Domingo Perón,"115,000","Buenos Aires , Argentina",51389.0
+66.0,Stadium Australia,"114,714","Sydney , Australia",83500.0
+67.0,Estadio Azteca,"114,465","Mexico City , Mexico",105000.0
+68.0,Salpausselkä,"114,082","Lahti , Finland",80000.0
+69.0,Soldier Field,"112,912","Chicago , Illinois , United States",61000.0
+70.0,Richmond International Raceway,"112,029","Richmond , Virginia , United States",112029.0
+71.0,Beaver Stadium,"110,753","State College , Pennsylvania , United States",107282.0
+72.0,Berlin Olympic Stadium,"110,000","Berlin , Germany",74228.0
+72.0,Stadion Crvena Zvezda,"110,000","Belgrade , Serbia",55000.0
+72.0,Estádio Fonte Nova,"110,000","Salvador , Brazil",50000.0
+72.0,"National Stadium, Bukit Jalil","110,000","Kuala Lumpur , Malaysia",100000.0
+72.0,Boris Paichadze Stadium,"110,000","Tbilisi , Georgia",55000.0
+72.0,Yadegar-e-Emam Stadium,"110,000","Tabriz , Iran",70000.0
+78.0,Neyland Stadium,"109,061","Knoxville , Tennessee, United States",100011.0
+79.0,Cowboys Stadium,"108,713","Arlington , Texas, United States",80000.0
+80.0,Kentucky Speedway,"107,000","Sparta , Kentucky , United States",107000.0
+81.0,Rose Bowl,"106,869","Pasadena , California, United States",92542.0
+82.0,Estádio Beira-Rio,"106,554","Porto Alegre , Brazil",51300.0
+83.0,Ohio Stadium,"106,033","Columbus , Ohio , United States",102329.0
+84.0,New Hampshire Motor Speedway,"105,491","Loudon , New Hampshire , United States",93521.0
+85.0,Stadium Puskás Ferenc,"104,000","Budapest , Hungary",68976.0
+85.0,Murrayfield Stadium,"104,000","Edinburgh , Scotland",67800.0
+87.0,Luzhniki Stadium,"103,000","Moscow , Russia",84745.0
+87.0,Gottlieb-Daimler-Stadion,"103,000","Stuttgart , Germany",58000.0
+89.0,Odsal Stadium,"102,569","Bradford , England",27491.0
+90.0,Infineon Raceway,"102,000","Sonoma , California, United States",102000.0
+90.0,Olimpiysky National Sports Complex,"102,000","Kiev , Ukraine",83450.0
+90.0,Stade 5 Juillet 1962,"102,000","Algiers , Algeria",66000.0
+93.0,Bryant–Denny Stadium,"101,821","Tuscaloosa , Alabama, United States",101821.0
+94.0,Darrell K Royal-Texas Memorial Stadium,"101,437","Austin , Texas, United States",100119.0
+95.0,Bung Karno Stadium,"100,800","Jakarta , Indonesia",88083.0
+96.0,Seoul Olympic Stadium,"100,000","Seoul , South Korea",69950.0
+97.0,Estadio Centenario,"100,000","Montevideo , Uruguay",76000.0
+97.0,Jawaharlal Nehru Stadium,"100,000","Delhi , India",78000.0
+97.0,Ellis Park Stadium,"100,000","Johannesburg , South Africa",62567.0
+97.0,Circuit Bugatti,"100,000","Le Mans , France",100000.0
+97.0,TT Circuit Assen,"100,000","Assen , Netherlands",100000.0
+97.0,Circuit Gilles Villeneuve,"100,000","Montreal , Quebec , Canada",100000.0
+97.0,Hipódromo de San Isidro,"100,000","San Isidro , Argentina",100000.0
+97.0,Hohe Warte Stadium,"100,000","Vienna , Austria",4600.0
+97.0,Autódromo Hermanos Rodríguez,"100,000","Mexico City, Mexico",100000.0
+97.0,Stade des Martyrs,"100,000","Kinshasa , DR Congo",80000.0
+97.0,Goodwood Circuit,"100,000","Chichester , England",100000.0

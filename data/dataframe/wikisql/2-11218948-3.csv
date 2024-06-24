@@ -1,0 +1,60 @@
+Code,Type,Name,Area (km 2 ),Population,Regional County Municipality,Region
+15005.0,P,Saint-Irénée,60.29,685.0,Charlevoix-Est,3.0
+15013.0,V,La Malbaie,470.57,9121.0,Charlevoix-Est,3.0
+15025.0,M,Notre-Dame-des-Monts,56.15,843.0,Charlevoix-Est,3.0
+15030.0,M,Saint-Aimé-des-Lacs,101.57,1016.0,Charlevoix-Est,3.0
+15035.0,V,Clermont,52.99,3057.0,Charlevoix-Est,3.0
+15058.0,M,Saint-Siméon,289.73,1422.0,Charlevoix-Est,3.0
+15065.0,M,Baie-Sainte-Catherine,232.16,254.0,Charlevoix-Est,3.0
+16005.0,M,Petite-Rivière-Saint-François,135.66,732.0,Charlevoix,3.0
+16013.0,V,Baie-Saint-Paul,546.73,7365.0,Charlevoix,3.0
+16023.0,M,L'Isle-aux-Coudres,29.54,1304.0,Charlevoix,3.0
+16048.0,M,Les Éboulements,153.99,1258.0,Charlevoix,3.0
+16050.0,P,Saint-Hilarion,97.77,1111.0,Charlevoix,3.0
+16055.0,P,Saint-Urbain,327.68,1465.0,Charlevoix,3.0
+20005.0,M,Saint-François-de-l'Île-d'Orléans,30.76,528.0,L'Île-d'Orléans,3.0
+20010.0,P,Sainte-Famille,46.43,869.0,L'Île-d'Orléans,3.0
+20015.0,M,Saint-Jean-de-l'Île-d'Orléans,43.64,897.0,L'Île-d'Orléans,3.0
+20020.0,M,Saint-Laurent-de-l'Île-d'Orléans,35.32,1576.0,L'Île-d'Orléans,3.0
+20025.0,M,Saint-Pierre-de-l'Île-d'Orléans,31.13,1877.0,L'Île-d'Orléans,3.0
+20030.0,VL,Sainte-Pétronille,4.5,1034.0,L'Île-d'Orléans,3.0
+21005.0,M,Saint-Tite-des-Caps,130.01,1442.0,La Côte-de-Beaupré,3.0
+21010.0,M,Saint-Ferréol-les-Neiges,82.28,2283.0,La Côte-de-Beaupré,3.0
+21015.0,P,Saint-Louis-de-Gonzague-du-Cap-Tourmente,0.0,2.0,La Côte-de-Beaupré,3.0
+21020.0,P,Saint-Joachim,40.68,1472.0,La Côte-de-Beaupré,3.0
+21025.0,V,Beaupré,22.53,2946.0,La Côte-de-Beaupré,3.0
+21030.0,V,Sainte-Anne-de-Beaupré,64.38,2781.0,La Côte-de-Beaupré,3.0
+21035.0,V,Château-Richer,228.99,3599.0,La Côte-de-Beaupré,3.0
+21040.0,M,L'Ange-Gardien,50.67,3011.0,La Côte-de-Beaupré,3.0
+21045.0,M,Boischatel,19.64,5020.0,La Côte-de-Beaupré,3.0
+22005.0,V,Sainte-Catherine-de-la-Jacques-Cartier,120.61,5111.0,La Jacques-Cartier,3.0
+22010.0,V,Fossambault-sur-le-Lac,10.96,1151.0,La Jacques-Cartier,3.0
+22015.0,V,Lac-Saint-Joseph,32.81,201.0,La Jacques-Cartier,3.0
+22020.0,M,Shannon,61.79,4159.0,La Jacques-Cartier,3.0
+22025.0,M,Saint-Gabriel-de-Valcartier,441.17,2561.0,La Jacques-Cartier,3.0
+22030.0,V,Lac-Delage,1.46,506.0,La Jacques-Cartier,3.0
+22035.0,CU,Stoneham-et-Tewkesbury,684.75,5976.0,La Jacques-Cartier,3.0
+22040.0,M,Lac-Beauport,62.72,6254.0,La Jacques-Cartier,3.0
+22045.0,V,Sainte-Brigitte-de-Laval,111.49,3789.0,La Jacques-Cartier,3.0
+23015.0,P,Notre-Dame-des-Anges,0.06,485.0,Not part of a RCM,3.0
+23027.0,V,Quebec City,451.79,496257.0,Not part of a RCM,3.0
+23057.0,V,L'Ancienne-Lorette,8.02,16726.0,Not part of a RCM,3.0
+23072.0,V,Saint-Augustin-de-Desmaures,84.94,17191.0,Not part of a RCM,3.0
+34007.0,V,Neuville,72.04,3708.0,Portneuf,3.0
+34017.0,V,Pont-Rouge,121.02,7712.0,Portneuf,3.0
+34025.0,V,Donnacona,20.12,5635.0,Portneuf,3.0
+34030.0,V,Cap-Santé,54.38,2567.0,Portneuf,3.0
+34038.0,V,Saint-Basile,97.69,2731.0,Portneuf,3.0
+34048.0,V,Portneuf,110.43,3166.0,Portneuf,3.0
+34058.0,M,Deschambault-Grondines,123.6,2036.0,Portneuf,3.0
+34060.0,P,Saint-Gilbert,36.95,276.0,Portneuf,3.0
+34065.0,V,Saint-Marc-des-Carrières,16.73,2839.0,Portneuf,3.0
+34078.0,M,Saint-Casimir,65.93,1512.0,Portneuf,3.0
+34085.0,P,Saint-Thuribe,50.81,304.0,Portneuf,3.0
+34090.0,M,Saint-Ubalde,141.28,1447.0,Portneuf,3.0
+34097.0,M,Saint-Alban,150.55,1143.0,Portneuf,3.0
+34105.0,M,Sainte-Christine-d'Auvergne,145.58,362.0,Portneuf,3.0
+34115.0,M,Saint-Léonard-de-Portneuf,138.71,993.0,Portneuf,3.0
+34120.0,V,Lac-Sergent,3.52,280.0,Portneuf,3.0
+34128.0,V,Saint-Raymond,684.65,9298.0,Portneuf,3.0
+34135.0,M,Rivière-à-Pierre,521.31,655.0,Portneuf,3.0

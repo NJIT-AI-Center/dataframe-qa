@@ -1,0 +1,100 @@
+Number,Name,Year Built,Boat Builder,Current Status
+1.0,Seasnipe,1898/9,"R. Latham & Co., Crossens",Lost off Southport
+2.0,Goshawk,1898/9,"R. Latham & Co., Crossens",SCYC
+4.0,Kittiwake,1898/9,"R. Latham & Co., Crossens",Lost off Southport 1936
+5.0,Seagull,1898/9,"R. Latham & Co., Crossens",Lost at Abersoch
+6.0,Scoter,1898/9,"R. Latham & Co., Crossens",TBSC
+7.0,Seamew,1898/9,"R. Latham & Co., Crossens",Buenos Aires prior 1914
+8.0,Dovekie,1898/9,"R. Latham & Co., Crossens",WYC
+9.0,Cormorant,1898/9,"R. Latham & Co., Crossens",WYC
+10.0,Sandpiper,1899,"R. Lathom & Co., Crossens",WYC
+11.0,Teal,1899,"R. Latham & Co., Crossens",WYC
+12.0,Merlin,1899,"R. Latham & Co., Crossens",Lost at Trearddur Bay 1989
+14.0,Petrel,1899,"R. Latham & Co., Crossens",Lost in Mersey 1967
+15.0,Fansy,1900,"P Wright, Crossens",South Africa prior 1914
+16.0,Dodo,1900,"P Wright, Crossens",Lost in Mersey
+17.0,Mallard,1902/3,"W.H Rowland & Co., Bangor",TBSC
+18.0,Chila,1902/3,"W.H Rowland & Co., Bangor",TBSC
+19.0,Fansy,1902/3,"W.H Rowland & Co., Bangor",Lost at Conway 1945
+20.0,Puffin,1902/3,"W.H Rowland & Co., Bangor",WYC
+21.0,Dotterel,1902/3,"W.H Rowland & Co., Bangor",Lost at Abersoch 1970
+22.0,Seahawk,1902/3,"W.H Rowland & Co., Bangor",Lost in Mersey before 1925
+24.0,Skua,1902/3,"W.H Rowland & Co., Bangor",WYC
+25.0,Valmai,1902/3,"W.H Rowland & Co., Bangor",WYC
+26.0,Fulmar,1902/3,"W.H Rowland & Co., Bangor",WYC
+27.0,Gannet,1905/6,"W. Roberts & Son, Chester",Lost in Mersey 1910
+28.0,Albatross,1905/6,"W. Roberts & Son, Chester",Lost at West Kirby 1953
+29.0,Tern,1905/6,"W. Roberts & Son, Chester",WYC
+30.0,Curlew,1905/6,"W. Roberts & Son, Chester",Lost off Hoylake 1926
+31.0,Goeland,1905/6,"W. Roberts & Son, Chester",Lost in Merseyside 1926
+32.0,Whimbrel,1906,"Hilditch, Carrickfergus",WYC
+33.0,Seasnipe,1905/6,"W. Roberts & Son, Chester",SCYC
+34.0,Gannet,1906,"Hilditch, Carrickfergus",Lost off Hoylake
+35.0,Royal Tern,1906,"Hilditch, Carrickfergus",SCYC
+36.0,Grebe,1906,"Hilditch, Carrickfergus",U.S.A.
+37.0,Sealark,1906,"Hilditch, Carrickfergus",Lost in Mersey 1923
+38.0,Gael,1906,"Hilditch, Carrickfergus",WYC
+39.0,Whaup,1910/11,"W.H Rowland & Co., Bangor",Lost off Southport 1963
+40.0,Penguin,1910/11,"W.H Rowland & Co., Bangor",SCYC
+41.0,Osprey,1910/11,"W.H Rowland & Co., Bangor",WYC
+42.0,Bobolink,1920,"John Crossfield & Co., Conway",WYC
+44.0,Fleetwing,1920,"John Crossfield & Co., Conway",Lost in Mersey 1957
+45.0,Stormy Petrel,1920,"John Crossfield & Co., Conway",Burnt at Lytham 1956
+46.0,Dodo,1920,"John Crossfield & Co., Conway",WYC
+47.0,Mollyhawk,1920,"John Crossfield & Co., Conway",Lost in Mersey
+48.0,Dunlin,1920,"John Crossfield & Co., Conway",Lost in Trearddur Bay 1950
+49.0,Sealark,1920,"John Crossfield & Co., Conway",TBSC
+50.0,Seamew,1920,"John Crossfield & Co., Conway",TBSC
+51.0,Dot,1922,"Rowlands Dockyards Ltd., Bangor",TBSC
+52.0,Pintail,1922,"Rowlands Dockyards Ltd., Bangor",SCYC
+53.0,Auk,1920,"John Crossfield & Co., Conway",TBSC
+54.0,Gannet,1922,"Rowlands Dockyards Ltd., Bangor",Lost in Trearddur Bay 1923
+55.0,Shearwater,1922,"Rowlands Dockyards Ltd., Bangor",TBSC
+56.0,Kittiwake,1922,"Rowlands Dockyards Ltd., Bangor",WYC
+57.0,Tern,1922,"Rowlands Dockyards Ltd., Bangor",TBSC
+58.0,Sea Swallow,1924,"Enterprise Small Craft Co., Rock Ferry",TBSC
+59.0,Gull,1924,"Enterprise Small Craft Co., Rock Ferry",TBSC
+60.0,Guillemot,1924,"Enterprise Small Craft Co., Rock Ferry",WYC
+61.0,Pipit,1924,"Enterprise Small Craft Co., Rock Ferry",SCYC
+62.0,Merganser,1924,"Enterprise Small Craft Co., Rock Ferry",SCYC
+64.0,Heron,1924,"Enterprise Small Craft Co., Rock Ferry",Lost in Trearddur Bay 1944
+65.0,Golden Eye,1924,"Enterprise Small Craft Co., Rock Ferry",WYC
+66.0,Smew,1924,"Enterprise Small Craft Co., Rock Ferry",Lost on the River Dart 1956
+67.0,Scaup,1924,"Enterprise Small Craft Co., Rock Ferry",TBSC
+68.0,Gannet,1924,"Enterprise Small Craft Co., Rock Ferry",WYC
+69.0,Eider,1924,"Enterprise Small Craft Co., Rock Ferry",Lost in Mersey
+70.0,Dipper,1926,"A.M. Dickie & Son, Bangor",TBSC
+71.0,Ruddy Duck,1926,"A.M. Dickie & Son, Bangor",SCYC
+72.0,Sula,1926,"A.M. Dickie & Son, Bangor",TBSC
+74.0,Avocet,1922,"Rowlands Dockyards Ltd., Bangor",TBSC
+75.0,Curlew,1931,"A.M. Dickie & Son, Bangor",TBSC
+76.0,Tringa,1935/6,"A.M. Dickie & Son, Bangor",TBSC
+77.0,Eider,1935/6,"A.M. Dickie & Son, Bangor",SCYC
+78.0,Cygnet,1935/6,"A.M. Dickie & Son, Bangor",TBSC
+79.0,Dunlin,1935/6,"A.M. Dickie & Son, Bangor",TBSC
+80.0,Gwylan,1939,"A.M. Dickie & Son, Bangor",TBSC
+81.0,Egret,1939,"A.M. Dickie & Son, Bangor",TBSC
+82.0,Widgeon,1953,"S. Bond, Rock Ferry",WYC
+84.0,Sanderling,1953,"S. Bond, Rock Ferry",Lost in Trearddur Bay 1983
+85.0,Halcyon,1953,"S. Bond, Rock Ferry",TBSC
+86.0,Solan Goose,1953,"Western Marine, Pwllheli",SCYC
+87.0,Calloo,1953,"Western Marine, Pwllheli",WYC
+88.0,Goosander,1961,"Kenneth M. Gibbs Ltd., Pwllheli",WYC
+89.0,Kayoshk,1961,"Kenneth M. Gibbs Ltd., Pwllheli",SCYC
+90.0,Pochard,1967,"WYC, New Brighton",WYC
+91.0,Marila,1967,"Philip Winram & Sons, Liverpool",SCYC
+92.0,Snowgoose,1968,"Philip Winram & Sons, Liverpool",TBSC
+93.0,Redshank,1968,"Philip Winram & Sons, Liverpool",TBSC
+94.0,Terek,1968,"Philip Winram & Sons, Liverpool",WYC
+95.0,Turnstone,1968,"Philip Winram & Sons, Liverpool",TBSC
+96.0,Shellduck,1968,"Philip Winram & Sons, Liverpool",TBSC
+97.0,Herring Gull,1969,"Philip Winram & Sons, Liverpool",TBSC
+98.0,Merlin,1994,"J. Jones, Trearddur Bay",TBSC
+99.0,Razorbill,1998,"A.C.F. Morris, West Mersea",TBSC
+100.0,Oystercatcher,1998,"Classic Sailboats, Caernarfon",TBSC
+101.0,Sanderling,2005,"Classic Sailboats, Caernarfon",TBSC
+102.0,Chough,2005,"Classic Sailboats, Caernarfon",TBSC
+103.0,Arctic Tern,2006,"Classic Sailboats, Caernarfon",TBSC
+104.0,Petrel,2006,"Classic Sailboats, Caernarfon",TBSC
+105.0,Rockhopper,2007,"Classic Sailboats, Caernarfon",TBSC
+106.0,Harlequin,2010,"Classic Sailboats, Caernarfon",TBSC

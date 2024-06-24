@@ -1,0 +1,65 @@
+Rank,Heat,Lane,Name,Nationality,Time
+1.0,8.0,4.0,Eamon Sullivan,Australia,47.8
+2.0,8.0,5.0,Stefan Nystrand,Sweden,47.83
+3.0,7.0,6.0,Brent Hayden,Canada,47.84
+4.0,9.0,4.0,Alain Bernard,France,47.85
+5.0,8.0,6.0,Pieter van den Hoogenband,Netherlands,47.97
+6.0,7.0,8.0,Milorad Čavić,Serbia,48.15
+7.0,8.0,3.0,César Cielo Filho,Brazil,48.16
+8.0,9.0,5.0,Garrett Weber-Gale,United States,48.19
+9.0,9.0,7.0,Lyndon Ferns,South Africa,48.26
+10.0,7.0,3.0,Filippo Magnini,Italy,48.3
+11.0,7.0,4.0,Jason Lezak,United States,48.33
+12.0,9.0,6.0,Matt Targett,Australia,48.4
+13.0,7.0,5.0,Fabien Gilot,France,48.42
+14.0,8.0,2.0,Andrey Grechin,Russia,48.5
+15.0,9.0,8.0,Jonas Persson,Sweden,48.51
+16.0,7.0,7.0,Dominik Meichtry,Switzerland,48.55
+16.0,8.0,8.0,Christian Galenda,Italy,48.55
+18.0,9.0,3.0,Yevgeny Lagunov,Russia,48.59
+19.0,7.0,1.0,Yoris Grandjean,Belgium,48.82
+20.0,6.0,8.0,George Bovell,Trinidad and Tobago,48.83
+21.0,5.0,6.0,Martin Verner,Czech Republic,48.95
+22.0,6.0,5.0,Albert Subirats,Venezuela,48.97
+23.0,8.0,1.0,Joel Greenshields,Canada,49.04
+24.0,4.0,4.0,Jason Dunford,Kenya,49.06
+25.0,6.0,1.0,Chen Zuo,China,49.08
+26.0,4.0,5.0,Nimrod Shapira Bar-Or,Israel,49.1
+27.0,9.0,1.0,Jakob Andkjær,Denmark,49.25
+28.0,5.0,5.0,Balázs Makány,Hungary,49.27
+28.0,5.0,7.0,Paulius Viktoravicius,Lithuania,49.27
+30.0,8.0,7.0,Ryk Neethling,South Africa,49.28
+31.0,4.0,6.0,Peter Mankoč,Slovenia,49.33
+32.0,6.0,3.0,Nabil Kebbab,Algeria,49.38
+33.0,9.0,2.0,Steffen Deibler,Germany,49.39
+34.0,7.0,2.0,Duje Draganja,Croatia,49.49
+35.0,6.0,2.0,José Meolans,Argentina,49.5
+36.0,5.0,1.0,Shaune Fraser,Cayman Islands,49.56
+36.0,6.0,7.0,Yuriy Yegoshin,Ukraine,49.56
+38.0,6.0,4.0,Mitja Zastrow,Netherlands,49.61
+39.0,4.0,1.0,Ryan Pini,Papua New Guinea,49.72
+40.0,6.0,6.0,Hisayoshi Sato,Japan,49.85
+41.0,4.0,3.0,Matti Rajakylä,Finland,49.91
+42.0,3.0,4.0,Virdhawal Khade,India,50.07
+43.0,5.0,2.0,Martín Kutscher,Uruguay,50.08
+44.0,5.0,3.0,Stanislau Neviarouski,Belarus,50.14
+45.0,5.0,4.0,Tiago Venâncio,Portugal,50.3
+46.0,3.0,2.0,Romāns Miloslavskis,Latvia,50.4
+47.0,3.0,3.0,Terrence Haynes,Barbados,50.5
+48.0,4.0,8.0,Aristeidis Grigoriadis,Greece,50.62
+49.0,5.0,8.0,Örn Arnarson,Iceland,50.68
+50.0,4.0,2.0,Norbert Trandafir,Romania,50.74
+51.0,4.0,7.0,Danil Haustov,Estonia,50.92
+52.0,3.0,7.0,Alexandr Sklyar,Kazakhstan,51.24
+53.0,2.0,6.0,Jan Roodzant,Aruba,51.69
+54.0,3.0,6.0,Lim Nam-Gyun,South Korea,51.8
+55.0,3.0,1.0,Petr Romashkin,Uzbekistan,51.83
+56.0,2.0,3.0,Mikael Koloyan,Armenia,51.89
+57.0,2.0,2.0,Gael Adam,Mauritius,52.35
+58.0,2.0,5.0,Carl Probert,Fiji,52.37
+59.0,3.0,8.0,Christopher Duenas,Guam,52.64
+60.0,2.0,4.0,Roy-Allan Burch,Bermuda,52.65
+61.0,2.0,7.0,Obaid Al-Jasmi,United Arab Emirates,53.29
+62.0,1.0,3.0,Emile Bakale,Congo,55.08
+63.0,1.0,4.0,Miguel Angel Navarro,Bolivia,56.96
+64.0,1.0,5.0,Sofyan El Gidi,Libya,57.89

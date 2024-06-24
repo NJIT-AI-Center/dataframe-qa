@@ -1,0 +1,766 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Automobile
+- Description of dataframe: This data set consists of three types of entities: (a) the specification of an auto in terms of various characteristics, (b) its assigned insurance risk rating, (c) its normalized losses in use as compared to other cars.  The second rating corresponds to the degree to which the auto is more risky than its price indicates. Cars are initially assigned a risk factor symbol associated with its price.   Then, if it is more risky (or less), this symbol is adjusted by moving it up (or down) the scale.  Actuarians call this process ""symboling"".  A value of +3 indicates that the auto is risky, -3 that it is probably pretty safe.
+
+The third factor is the relative average loss payment per insured vehicle year.  This value is normalized for all autos within a particular size classification (two-door small, station wagons, sports/speciality, etc...), and represents the average loss per car per year.
+
+Note: Several of the attributes in the database could be used as a ""class"" attribute.
+- Column information of dataframe:
+#   Column             Dtype 
+--- ------             ----- 
+0   normalized-losses  float 
+1   make               str   
+2   fuel-type          str   
+3   aspiration         str   
+4   num-of-doors       float 
+5   body-style         str   
+6   drive-wheels       str   
+7   engine-location    str   
+8   wheel-base         float 
+9   length             float 
+10  width              float 
+11  height             float 
+12  curb-weight        int   
+13  engine-type        str   
+14  num-of-cylinders   int   
+15  engine-size        int   
+16  fuel-system        str   
+17  bore               float 
+18  stroke             float 
+19  compression-ratio  float 
+20  horsepower         float 
+21  peak-rpm           float 
+22  city-mpg           int   
+23  highway-mpg        int   
+24  price              float 
+25  symboling          int   
+
+- Sample rows of dataframe in CSV format:
+normalized-losses,make,fuel-type,aspiration,num-of-doors,body-style,drive-wheels,engine-location,wheel-base,length,width,height,curb-weight,engine-type,num-of-cylinders,engine-size,fuel-system,bore,stroke,compression-ratio,horsepower,peak-rpm,city-mpg,highway-mpg,price,symboling
+134.0,toyota,gas,std,2.0,hardtop,rwd,front,98.4,176.2,65.6,52.0,2540,ohc,4,146,mpfi,3.62,3.5,9.3,116.0,4800.0,24,30,8449.0,2
+168.0,toyota,gas,std,2.0,hatchback,rwd,front,94.5,168.7,64.0,52.6,2204,ohc,4,98,2bbl,3.19,3.03,9.0,70.0,4800.0,29,34,8238.0,1
+168.0,nissan,gas,std,2.0,hardtop,fwd,front,95.1,162.4,63.8,53.3,2008,ohc,4,97,2bbl,3.15,3.29,9.4,69.0,5200.0,31,37,8249.0,2
+161.0,mitsubishi,gas,std,2.0,hatchback,fwd,front,93.7,157.3,64.4,50.8,1918,ohc,4,92,2bbl,2.97,3.23,9.4,68.0,5500.0,37,41,5389.0,2
+103.0,volvo,gas,std,4.0,sedan,rwd,front,104.3,188.8,67.2,56.2,2935,ohc,4,141,mpfi,3.78,3.15,9.5,114.0,5400.0,24,28,15985.0,-2
+104.0,mazda,gas,std,2.0,hatchback,fwd,front,93.1,159.1,64.2,54.1,1900,ohc,4,91,2bbl,3.03,3.15,9.0,68.0,5000.0,31,38,6095.0,1
+93.0,mercedes-benz,diesel,turbo,4.0,sedan,rwd,front,115.6,202.6,71.7,56.3,3770,ohc,5,183,idi,3.58,3.64,21.5,123.0,4350.0,22,25,31600.0,-1
+128.0,nissan,gas,std,4.0,sedan,fwd,front,100.4,181.7,66.5,55.1,3095,ohcv,6,181,mpfi,3.43,3.27,9.0,152.0,5200.0,17,22,13499.0,0
+85.0,subaru,gas,turbo,4.0,wagon,4wd,front,96.9,173.6,65.4,54.9,2650,ohcf,4,108,mpfi,3.62,2.64,7.7,111.0,4800.0,23,23,11694.0,0
+94.0,volkswagen,gas,std,4.0,sedan,fwd,front,97.3,171.7,65.5,55.7,2212,ohc,4,109,mpfi,3.19,3.4,9.0,85.0,5250.0,27,34,8195.0,2
+,porsche,gas,std,2.0,hardtop,rwd,rear,89.5,168.9,65.0,51.6,2756,ohcf,6,194,mpfi,3.74,2.9,9.5,207.0,5900.0,17,25,34028.0,3
+93.0,mercedes-benz,diesel,turbo,4.0,wagon,rwd,front,110.0,190.9,70.3,58.7,3750,ohc,5,183,idi,3.58,3.64,21.5,123.0,4350.0,22,25,28248.0,-1
+104.0,mazda,gas,std,2.0,hatchback,fwd,front,93.1,159.1,64.2,54.1,1905,ohc,4,91,2bbl,3.03,3.15,9.0,68.0,5000.0,31,38,6795.0,1
+145.0,jaguar,gas,std,4.0,sedan,rwd,front,113.0,199.6,69.6,52.8,4066,dohc,6,258,mpfi,3.63,4.17,8.1,176.0,4750.0,15,19,32250.0,0
+81.0,toyota,gas,std,4.0,wagon,4wd,front,95.7,169.7,63.6,59.1,2290,ohc,4,92,2bbl,3.05,3.03,9.0,62.0,4800.0,27,32,7898.0,0
+102.0,subaru,gas,std,4.0,sedan,4wd,front,97.0,172.0,65.4,54.3,2385,ohcf,4,108,2bbl,3.62,2.64,9.0,82.0,4800.0,24,25,9233.0,0
+,volkswagen,diesel,turbo,4.0,sedan,fwd,front,100.4,180.2,66.9,55.1,2579,ohc,4,97,idi,3.01,3.4,23.0,68.0,4500.0,33,38,13845.0,0
+,porsche,gas,std,2.0,hardtop,rwd,rear,89.5,168.9,65.0,51.6,2756,ohcf,6,194,mpfi,3.74,2.9,9.5,207.0,5900.0,17,25,32528.0,3
+,mercedes-benz,gas,std,4.0,sedan,rwd,front,115.6,202.6,71.7,56.5,3740,ohcv,8,234,mpfi,3.46,3.1,8.3,155.0,4750.0,16,18,34184.0,-1
+104.0,saab,gas,turbo,4.0,sedan,fwd,front,99.1,186.6,66.5,56.1,2847,dohc,4,121,mpfi,3.54,3.07,9.0,160.0,5500.0,19,26,18620.0,2
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What are the top three car makes with the highest average price, and what is their corresponding average symboling rating?"",
+        ""query"": ""result = df.groupby('make')['price', 'symboling'].mean().nlargest(3, 'price')"",
+    },
+    {
+        ""question"": ""How does the average city-mpg differ between cars with different numbers of cylinders? Provide a summary statistic table."",
+        ""query"": ""result = df.groupby('num-of-cylinders')['city-mpg'].mean()"",
+    },
+    {
+        ""question"": ""For each body style, what is the correlation coefficient between engine size and price?"",
+        ""query"": ""result = df.groupby('body-style')[['engine-size', 'price']].corr().iloc[0::2,-1]"",
+    },
+    {
+        ""question"": ""Identify the make and body style of cars that have a higher than average highway-mpg for their respective fuel type."",
+        ""query"": ""result = df[df['highway-mpg'] > df.groupby('fuel-type')['highway-mpg'].transform('mean')][['make', 'body-style']]"",
+    },
+    {
+        ""question"": ""What is the distribution of cars based on the number of doors and their respective average normalized losses?"",
+        ""query"": ""result = df.groupby('num-of-doors')['normalized-losses'].mean()"",
+    },
+    {
+        ""question"": ""For cars with horsepower greater than 150, determine the average price categorized by their engine type and number of cylinders."",
+        ""query"": ""result = df[df['horsepower'] > 150].groupby(['engine-type', 'num-of-cylinders'])['price'].mean()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in the average curb weight between front and rear engine locations? Provide the mean values."",
+        ""query"": ""result = df.groupby('engine-location')['curb-weight'].mean()"",
+    },
+    {
+        ""question"": ""Calculate the average peak-rpm for each combination of aspiration and fuel type."",
+        ""query"": ""result = df.groupby(['aspiration', 'fuel-type'])['peak-rpm'].mean()"",
+    },
+    {
+        ""question"": ""Which make has the widest range of prices, and what is this range?"",
+        ""query"": ""result = df.groupby('make')['price'].agg(lambda x: x.max() - x.min()).idxmax(), df.groupby('make')['price'].agg(lambda x: x.max() - x.min()).max()"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the average price for each combination of number of doors and body style."",
+        ""query"": ""result = df.pivot_table(values='price', index='num-of-doors', columns='body-style', aggfunc='mean')"",
+    }
+]","[
+    {
+        ""question"": ""What is the relationship between normalized losses and symboling? Calculate the Pearson correlation coefficient."",
+        ""query"": ""result = df['normalized-losses'].corr(df['symboling'])"",
+    },
+    {
+        ""question"": ""Identify the make of cars that have an average compression-ratio higher than the overall average."",
+        ""query"": ""result = df.groupby('make')['compression-ratio'].mean().loc[lambda x: x > df['compression-ratio'].mean()]"",
+    },
+    {
+        ""question"": ""For each fuel type, determine the variance in highway-mpg."",
+        ""query"": ""result = df.groupby('fuel-type')['highway-mpg'].var()"",
+    },
+    {
+        ""question"": ""What is the average price of cars for each combination of aspiration and number of doors, excluding those with missing price values?"",
+        ""query"": ""result = df.dropna(subset=['price']).groupby(['aspiration', 'num-of-doors'])['price'].mean()"",
+    },
+    {
+        ""question"": ""How do the average city-mpg and highway-mpg compare for diesel and gas cars?"",
+        ""query"": ""result = df.groupby('fuel-type')[['city-mpg', 'highway-mpg']].mean()"",
+    },
+    {
+        ""question"": ""Identify the makes of cars that have a symboling rating of 3. Calculate the average price for these cars."",
+        ""query"": ""result = df[df['symboling'] == 3].groupby('make')['price'].mean()"",
+    },
+    {
+        ""question"": ""What is the standard deviation of curb weight across different body styles?"",
+        ""query"": ""result = df.groupby('body-style')['curb-weight'].std()"",
+    },
+    {
+        ""question"": ""For cars with more than 4 cylinders, how does the average price vary with the number of doors?"",
+        ""query"": ""result = df[df['num-of-cylinders'] > 4].groupby('num-of-doors')['price'].mean()"",
+    },
+    {
+        ""question"": ""Create a summary table showing the count, mean, and median price of cars grouped by make and body style."",
+        ""query"": ""result = df.groupby(['make', 'body-style'])['price'].agg(['count', 'mean', 'median'])"",
+    },
+    {
+        ""question"": ""Calculate the average engine size for each combination of number of cylinders and engine location."",
+        ""query"": ""result = df.groupby(['num-of-cylinders', 'engine-location'])['engine-size'].mean()"",
+    }
+]","[
+    {
+        ""question"": ""What are the top three car makes with the highest average price, and what is their corresponding average symboling rating?"",
+        ""query"": ""result = df.groupby('make')['price', 'symboling'].mean().nlargest(3, 'price')"",
+    },
+    {
+        ""question"": ""How does the average city-mpg differ between cars with different numbers of cylinders? Provide a summary statistic table."",
+        ""query"": ""result = df.groupby('num-of-cylinders')['city-mpg'].mean()"",
+    },
+    {
+        ""question"": ""For each body style, what is the correlation coefficient between engine size and price?"",
+        ""query"": ""result = df.groupby('body-style')[['engine-size', 'price']].corr().iloc[0::2,-1]"",
+    },
+    {
+        ""question"": ""Identify the make and body style of cars that have a higher than average highway-mpg for their respective fuel type."",
+        ""query"": ""result = df[df['highway-mpg'] > df.groupby('fuel-type')['highway-mpg'].transform('mean')][['make', 'body-style']]"",
+    },
+    {
+        ""question"": ""What is the distribution of cars based on the number of doors and their respective average normalized losses?"",
+        ""query"": ""result = df.groupby('num-of-doors')['normalized-losses'].mean()"",
+    },
+    {
+        ""question"": ""For cars with horsepower greater than 150, determine the average price categorized by their engine type and number of cylinders."",
+        ""query"": ""result = df[df['horsepower'] > 150].groupby(['engine-type', 'num-of-cylinders'])['price'].mean()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in the average curb weight between front and rear engine locations? Provide the mean values."",
+        ""query"": ""result = df.groupby('engine-location')['curb-weight'].mean()"",
+    },
+    {
+        ""question"": ""Calculate the average peak-rpm for each combination of aspiration and fuel type."",
+        ""query"": ""result = df.groupby(['aspiration', 'fuel-type'])['peak-rpm'].mean()"",
+    },
+    {
+        ""question"": ""Which make has the widest range of prices, and what is this range?"",
+        ""query"": ""result = df.groupby('make')['price'].agg(lambda x: x.max() - x.min()).idxmax(), df.groupby('make')['price'].agg(lambda x: x.max() - x.min()).max()"",
+    },
+    {
+        ""question"": ""Create a pivot table showing the average price for each combination of number of doors and body style."",
+        ""query"": ""result = df.pivot_table(values='price', index='num-of-doors', columns='body-style', aggfunc='mean')"",
+    },
+    {
+        ""question"": ""What is the relationship between normalized losses and symboling? Calculate the Pearson correlation coefficient."",
+        ""query"": ""result = df['normalized-losses'].corr(df['symboling'])"",
+    },
+    {
+        ""question"": ""Identify the make of cars that have an average compression-ratio higher than the overall average."",
+        ""query"": ""result = df.groupby('make')['compression-ratio'].mean().loc[lambda x: x > df['compression-ratio'].mean()]"",
+    },
+    {
+        ""question"": ""For each fuel type, determine the variance in highway-mpg."",
+        ""query"": ""result = df.groupby('fuel-type')['highway-mpg'].var()"",
+    },
+    {
+        ""question"": ""What is the average price of cars for each combination of aspiration and number of doors, excluding those with missing price values?"",
+        ""query"": ""result = df.dropna(subset=['price']).groupby(['aspiration', 'num-of-doors'])['price'].mean()"",
+    },
+    {
+        ""question"": ""How do the average city-mpg and highway-mpg compare for diesel and gas cars?"",
+        ""query"": ""result = df.groupby('fuel-type')[['city-mpg', 'highway-mpg']].mean()"",
+    },
+    {
+        ""question"": ""Identify the makes of cars that have a symboling rating of 3. Calculate the average price for these cars."",
+        ""query"": ""result = df[df['symboling'] == 3].groupby('make')['price'].mean()"",
+    },
+    {
+        ""question"": ""What is the standard deviation of curb weight across different body styles?"",
+        ""query"": ""result = df.groupby('body-style')['curb-weight'].std()"",
+    },
+    {
+        ""question"": ""For cars with more than 4 cylinders, how does the average price vary with the number of doors?"",
+        ""query"": ""result = df[df['num-of-cylinders'] > 4].groupby('num-of-doors')['price'].mean()"",
+    },
+    {
+        ""question"": ""Create a summary table showing the count, mean, and median price of cars grouped by make and body style."",
+        ""query"": ""result = df.groupby(['make', 'body-style'])['price'].agg(['count', 'mean', 'median'])"",
+    },
+    {
+        ""question"": ""Calculate the average engine size for each combination of number of cylinders and engine location."",
+        ""query"": ""result = df.groupby(['num-of-cylinders', 'engine-location'])['engine-size'].mean()"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Automobile
+- Description of dataframe: This data set consists of three types of entities: (a) the specification of an auto in terms of various characteristics, (b) its assigned insurance risk rating, (c) its normalized losses in use as compared to other cars.  The second rating corresponds to the degree to which the auto is more risky than its price indicates. Cars are initially assigned a risk factor symbol associated with its price.   Then, if it is more risky (or less), this symbol is adjusted by moving it up (or down) the scale.  Actuarians call this process ""symboling"".  A value of +3 indicates that the auto is risky, -3 that it is probably pretty safe.
+
+The third factor is the relative average loss payment per insured vehicle year.  This value is normalized for all autos within a particular size classification (two-door small, station wagons, sports/speciality, etc...), and represents the average loss per car per year.
+
+Note: Several of the attributes in the database could be used as a ""class"" attribute.
+- Column information of dataframe:
+#   Column             Dtype 
+--- ------             ----- 
+0   normalized-losses  float 
+1   make               str   
+2   fuel-type          str   
+3   aspiration         str   
+4   num-of-doors       float 
+5   body-style         str   
+6   drive-wheels       str   
+7   engine-location    str   
+8   wheel-base         float 
+9   length             float 
+10  width              float 
+11  height             float 
+12  curb-weight        int   
+13  engine-type        str   
+14  num-of-cylinders   int   
+15  engine-size        int   
+16  fuel-system        str   
+17  bore               float 
+18  stroke             float 
+19  compression-ratio  float 
+20  horsepower         float 
+21  peak-rpm           float 
+22  city-mpg           int   
+23  highway-mpg        int   
+24  price              float 
+25  symboling          int   
+
+- Sample rows of dataframe in CSV format:
+normalized-losses,make,fuel-type,aspiration,num-of-doors,body-style,drive-wheels,engine-location,wheel-base,length,width,height,curb-weight,engine-type,num-of-cylinders,engine-size,fuel-system,bore,stroke,compression-ratio,horsepower,peak-rpm,city-mpg,highway-mpg,price,symboling
+93.0,mercedes-benz,diesel,turbo,4.0,wagon,rwd,front,110.0,190.9,70.3,58.7,3750,ohc,5,183,idi,3.58,3.64,21.5,123.0,4350.0,22,25,28248.0,-1
+231.0,nissan,gas,std,2.0,hatchback,rwd,front,99.2,178.5,67.9,49.7,3139,ohcv,6,181,mpfi,3.43,3.27,9.0,160.0,5200.0,19,25,18399.0,1
+194.0,nissan,gas,turbo,2.0,hatchback,rwd,front,91.3,170.7,67.9,49.7,3139,ohcv,6,181,mpfi,3.43,3.27,7.8,200.0,5200.0,17,23,19699.0,3
+101.0,honda,gas,std,2.0,hatchback,fwd,front,93.7,150.0,64.0,52.6,1940,ohc,4,92,1bbl,2.91,3.41,9.2,76.0,6000.0,30,34,6529.0,1
+128.0,nissan,gas,std,2.0,sedan,fwd,front,94.5,165.3,63.8,54.5,1889,ohc,4,97,2bbl,3.15,3.29,9.4,69.0,5200.0,31,37,5499.0,1
+161.0,mitsubishi,gas,std,2.0,hatchback,fwd,front,93.7,157.3,64.4,50.8,2004,ohc,4,92,2bbl,2.97,3.23,9.4,68.0,5500.0,31,38,6669.0,2
+128.0,nissan,gas,std,2.0,sedan,fwd,front,94.5,165.3,63.8,54.5,1918,ohc,4,97,2bbl,3.15,3.29,9.4,69.0,5200.0,31,37,6649.0,1
+,mercury,gas,turbo,2.0,hatchback,rwd,front,102.7,178.4,68.0,54.8,2910,ohc,4,140,mpfi,3.78,3.12,8.0,175.0,5000.0,19,24,16503.0,1
+102.0,subaru,gas,std,4.0,sedan,4wd,front,97.0,172.0,65.4,54.3,2385,ohcf,4,108,2bbl,3.62,2.64,9.0,82.0,4800.0,24,25,9233.0,0
+65.0,toyota,gas,std,4.0,hatchback,fwd,front,102.4,175.6,66.5,53.9,2414,ohc,4,122,mpfi,3.31,3.54,8.7,92.0,4200.0,27,32,9988.0,-1
+129.0,mazda,gas,std,2.0,hatchback,fwd,front,98.8,177.8,66.5,53.7,2385,ohc,4,122,2bbl,3.39,3.39,8.6,84.0,4800.0,26,32,8845.0,1
+,peugot,gas,std,4.0,wagon,rwd,front,114.2,198.9,68.4,58.7,3230,l,4,120,mpfi,3.46,3.19,8.4,97.0,5000.0,19,24,12440.0,0
+128.0,nissan,diesel,std,2.0,sedan,fwd,front,94.5,165.3,63.8,54.5,2017,ohc,4,103,idi,2.99,3.47,21.9,55.0,4800.0,45,50,7099.0,1
+91.0,toyota,gas,std,4.0,hatchback,fwd,front,95.7,166.3,64.4,52.8,2122,ohc,4,98,2bbl,3.19,3.03,9.0,70.0,4800.0,28,34,8358.0,0
+,volkswagen,gas,std,4.0,sedan,fwd,front,100.4,180.2,66.9,55.1,2661,ohc,5,136,mpfi,3.19,3.4,8.5,110.0,5500.0,19,24,13295.0,0
+103.0,volvo,gas,turbo,4.0,sedan,rwd,front,104.3,188.8,67.2,56.2,3045,ohc,4,130,mpfi,3.62,3.15,7.5,162.0,5100.0,17,22,18420.0,-2
+95.0,volvo,diesel,turbo,4.0,sedan,rwd,front,109.1,188.8,68.9,55.5,3217,ohc,6,145,idi,3.01,3.4,23.0,106.0,4800.0,26,27,22470.0,-1
+,renault,gas,std,2.0,hatchback,fwd,front,96.1,176.8,66.6,50.5,2460,ohc,4,132,mpfi,3.46,3.9,8.7,,,23,31,9895.0,2
+137.0,honda,gas,std,2.0,hatchback,fwd,front,86.6,144.6,63.9,50.8,1819,ohc,4,92,1bbl,2.91,3.41,9.2,76.0,6000.0,31,38,6855.0,2
+85.0,honda,gas,std,4.0,sedan,fwd,front,96.5,175.4,62.5,54.1,2372,ohc,4,110,1bbl,3.15,3.58,9.0,86.0,5800.0,27,33,10295.0,0
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What are the top 5 cars with the lowest average loss payment per year?"",
+        ""query"": ""result = df.sort_values(by='normalized-losses').head(5)""
+    },
+    {
+        ""question"": ""How many cars are there for each body style available?"",
+        ""query"": ""result = df['body-style'].value_counts()""
+    },
+    {
+        ""question"": ""Can you show a list of unique car makes available in the dataset?"",
+        ""query"": ""result = df['make'].unique()""
+    },
+    {
+        ""question"": ""What is the average price of diesel and gas cars?"",
+        ""query"": ""result = df.groupby('fuel-type')['price'].mean()""
+    },
+    {
+        ""question"": ""Which cars have a risk rating of +3?"",
+        ""query"": ""result = df[df['symboling'] == 3]""
+    },
+    {
+        ""question"": ""How many cars have more than 4 cylinders?"",
+        ""query"": ""result = df[df['num-of-cylinders'] > 4].shape[0]""
+    },
+    {
+        ""question"": ""What are the average dimensions (length, width, height) of cars grouped by body style?"",
+        ""query"": ""result = df.groupby('body-style')['length', 'width', 'height'].mean()""
+    },
+    {
+        ""question"": ""Can I see a breakdown of the number of cars by their number of doors?"",
+        ""query"": ""result = df['num-of-doors'].value_counts()""
+    },
+    {
+        ""question"": ""What are the 3 most common engine types in the dataset?"",
+        ""query"": ""result = df['engine-type'].value_counts().head(3)""
+    },
+    {
+        ""question"": ""Which cars have horsepower greater than 150 and are rear-wheel drive?"",
+        ""query"": ""result = df[(df['horsepower'] > 150) & (df['drive-wheels'] == 'rwd')]""
+    }
+]","[
+    {
+        ""question"": ""What are the five most expensive car brands in the dataset?"",
+        ""query"": ""result = df.groupby('make')['price'].mean().nlargest(5)""
+    },
+    {
+        ""question"": ""Can you identify the cars with the highest and lowest compression ratios?"",
+        ""query"": ""result = df[df['compression-ratio'] == df['compression-ratio'].max()] | df[df['compression-ratio'] == df['compression-ratio'].min()]""
+    },
+    {
+        ""question"": ""What is the average weight of cars classified as sports/speciality?"",
+        ""query"": ""result = df[df['body-style'] == 'sports/speciality']['curb-weight'].mean()""
+    },
+    {
+        ""question"": ""Can we see a list of cars that have turbo aspiration?"",
+        ""query"": ""result = df[df['aspiration'] == 'turbo']""
+    },
+    {
+        ""question"": ""How does fuel efficiency (highway-mpg) vary across different car makes?"",
+        ""query"": ""result = df.groupby('make')['highway-mpg'].mean()""
+    },
+    {
+        ""question"": ""Which cars have more than 200 horsepower but are priced below $20,000?"",
+        ""query"": ""result = df[(df['horsepower'] > 200) & (df['price'] < 20000)]""
+    },
+    {
+        ""question"": ""What are the average city and highway mpg ratings for cars with different fuel types?"",
+        ""query"": ""result = df.groupby('fuel-type')['city-mpg', 'highway-mpg'].mean()""
+    },
+    {
+        ""question"": ""Can you show the distribution of cars based on their engine sizes?"",
+        ""query"": ""result = df['engine-size'].value_counts()""
+    },
+    {
+        ""question"": ""What are the characteristics of cars that have a safety rating of -3?"",
+        ""query"": ""result = df[df['symboling'] == -3]""
+    },
+    {
+        ""question"": ""Which cars have a wheelbase longer than 100 inches?"",
+        ""query"": ""result = df[df['wheel-base'] > 100]""
+    }
+]","[
+    {
+        ""question"": ""What are the top 5 cars with the lowest average loss payment per year?"",
+        ""query"": ""result = df.sort_values(by='normalized-losses').head(5)""
+    },
+    {
+        ""question"": ""How many cars are there for each body style available?"",
+        ""query"": ""result = df['body-style'].value_counts()""
+    },
+    {
+        ""question"": ""Can you show a list of unique car makes available in the dataset?"",
+        ""query"": ""result = df['make'].unique()""
+    },
+    {
+        ""question"": ""What is the average price of diesel and gas cars?"",
+        ""query"": ""result = df.groupby('fuel-type')['price'].mean()""
+    },
+    {
+        ""question"": ""Which cars have a risk rating of +3?"",
+        ""query"": ""result = df[df['symboling'] == 3]""
+    },
+    {
+        ""question"": ""How many cars have more than 4 cylinders?"",
+        ""query"": ""result = df[df['num-of-cylinders'] > 4].shape[0]""
+    },
+    {
+        ""question"": ""What are the average dimensions (length, width, height) of cars grouped by body style?"",
+        ""query"": ""result = df.groupby('body-style')['length', 'width', 'height'].mean()""
+    },
+    {
+        ""question"": ""Can I see a breakdown of the number of cars by their number of doors?"",
+        ""query"": ""result = df['num-of-doors'].value_counts()""
+    },
+    {
+        ""question"": ""What are the 3 most common engine types in the dataset?"",
+        ""query"": ""result = df['engine-type'].value_counts().head(3)""
+    },
+    {
+        ""question"": ""Which cars have horsepower greater than 150 and are rear-wheel drive?"",
+        ""query"": ""result = df[(df['horsepower'] > 150) & (df['drive-wheels'] == 'rwd')]""
+    },
+    {
+        ""question"": ""What are the five most expensive car brands in the dataset?"",
+        ""query"": ""result = df.groupby('make')['price'].mean().nlargest(5)""
+    },
+    {
+        ""question"": ""Can you identify the cars with the highest and lowest compression ratios?"",
+        ""query"": ""result = df[df['compression-ratio'] == df['compression-ratio'].max()] | df[df['compression-ratio'] == df['compression-ratio'].min()]""
+    },
+    {
+        ""question"": ""What is the average weight of cars classified as sports/speciality?"",
+        ""query"": ""result = df[df['body-style'] == 'sports/speciality']['curb-weight'].mean()""
+    },
+    {
+        ""question"": ""Can we see a list of cars that have turbo aspiration?"",
+        ""query"": ""result = df[df['aspiration'] == 'turbo']""
+    },
+    {
+        ""question"": ""How does fuel efficiency (highway-mpg) vary across different car makes?"",
+        ""query"": ""result = df.groupby('make')['highway-mpg'].mean()""
+    },
+    {
+        ""question"": ""Which cars have more than 200 horsepower but are priced below $20,000?"",
+        ""query"": ""result = df[(df['horsepower'] > 200) & (df['price'] < 20000)]""
+    },
+    {
+        ""question"": ""What are the average city and highway mpg ratings for cars with different fuel types?"",
+        ""query"": ""result = df.groupby('fuel-type')['city-mpg', 'highway-mpg'].mean()""
+    },
+    {
+        ""question"": ""Can you show the distribution of cars based on their engine sizes?"",
+        ""query"": ""result = df['engine-size'].value_counts()""
+    },
+    {
+        ""question"": ""What are the characteristics of cars that have a safety rating of -3?"",
+        ""query"": ""result = df[df['symboling'] == -3]""
+    },
+    {
+        ""question"": ""Which cars have a wheelbase longer than 100 inches?"",
+        ""query"": ""result = df[df['wheel-base'] > 100]""
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Automobile
+- Description of dataframe: This data set consists of three types of entities: (a) the specification of an auto in terms of various characteristics, (b) its assigned insurance risk rating, (c) its normalized losses in use as compared to other cars.  The second rating corresponds to the degree to which the auto is more risky than its price indicates. Cars are initially assigned a risk factor symbol associated with its price.   Then, if it is more risky (or less), this symbol is adjusted by moving it up (or down) the scale.  Actuarians call this process ""symboling"".  A value of +3 indicates that the auto is risky, -3 that it is probably pretty safe.
+
+The third factor is the relative average loss payment per insured vehicle year.  This value is normalized for all autos within a particular size classification (two-door small, station wagons, sports/speciality, etc...), and represents the average loss per car per year.
+
+Note: Several of the attributes in the database could be used as a ""class"" attribute.
+- Column information of dataframe:
+#   Column             Dtype 
+--- ------             ----- 
+0   normalized-losses  float 
+1   make               str   
+2   fuel-type          str   
+3   aspiration         str   
+4   num-of-doors       float 
+5   body-style         str   
+6   drive-wheels       str   
+7   engine-location    str   
+8   wheel-base         float 
+9   length             float 
+10  width              float 
+11  height             float 
+12  curb-weight        int   
+13  engine-type        str   
+14  num-of-cylinders   int   
+15  engine-size        int   
+16  fuel-system        str   
+17  bore               float 
+18  stroke             float 
+19  compression-ratio  float 
+20  horsepower         float 
+21  peak-rpm           float 
+22  city-mpg           int   
+23  highway-mpg        int   
+24  price              float 
+25  symboling          int   
+
+- Sample rows of dataframe in CSV format:
+normalized-losses,make,fuel-type,aspiration,num-of-doors,body-style,drive-wheels,engine-location,wheel-base,length,width,height,curb-weight,engine-type,num-of-cylinders,engine-size,fuel-system,bore,stroke,compression-ratio,horsepower,peak-rpm,city-mpg,highway-mpg,price,symboling
+128.0,nissan,gas,std,2.0,sedan,fwd,front,94.5,165.3,63.8,54.5,1951,ohc,4,97,2bbl,3.15,3.29,9.4,69.0,5200.0,31,37,7299.0,1
+194.0,nissan,gas,turbo,2.0,hatchback,rwd,front,91.3,170.7,67.9,49.7,3139,ohcv,6,181,mpfi,3.43,3.27,7.8,200.0,5200.0,17,23,19699.0,3
+148.0,dodge,gas,std,4.0,hatchback,fwd,front,93.7,157.3,63.8,50.6,1967,ohc,4,90,2bbl,2.97,3.23,9.4,68.0,5500.0,31,38,6229.0,1
+122.0,volkswagen,gas,std,2.0,sedan,fwd,front,97.3,171.7,65.5,55.7,2209,ohc,4,109,mpfi,3.19,3.4,9.0,85.0,5250.0,27,34,7975.0,2
+81.0,chevrolet,gas,std,4.0,sedan,fwd,front,94.5,158.8,63.6,52.0,1909,ohc,4,90,2bbl,3.03,3.11,9.6,70.0,5400.0,38,43,6575.0,0
+94.0,volkswagen,gas,std,4.0,sedan,fwd,front,97.3,171.7,65.5,55.7,2300,ohc,4,109,mpfi,3.19,3.4,10.0,100.0,5500.0,26,32,9995.0,2
+,alfa-romero,gas,std,2.0,hatchback,rwd,front,94.5,171.2,65.5,52.4,2823,ohcv,6,152,mpfi,2.68,3.47,9.0,154.0,5000.0,19,26,16500.0,1
+85.0,subaru,gas,turbo,4.0,wagon,4wd,front,96.9,173.6,65.4,54.9,2650,ohcf,4,108,mpfi,3.62,2.64,7.7,111.0,4800.0,23,23,11694.0,0
+118.0,dodge,gas,turbo,2.0,hatchback,fwd,front,93.7,157.3,63.8,50.8,2128,ohc,4,98,mpfi,3.03,3.39,7.6,102.0,5500.0,24,30,7957.0,1
+137.0,honda,gas,std,2.0,hatchback,fwd,front,86.6,144.6,63.9,50.8,1819,ohc,4,92,1bbl,2.91,3.41,9.2,76.0,6000.0,31,38,6855.0,2
+,volkswagen,gas,std,4.0,sedan,fwd,front,100.4,180.2,66.9,55.1,2661,ohc,5,136,mpfi,3.19,3.4,8.5,110.0,5500.0,19,24,13295.0,0
+121.0,chevrolet,gas,std,2.0,hatchback,fwd,front,88.4,141.1,60.3,53.2,1488,l,3,61,2bbl,2.91,3.03,9.5,48.0,5100.0,47,53,5151.0,2
+81.0,toyota,gas,std,4.0,wagon,4wd,front,95.7,169.7,63.6,59.1,2290,ohc,4,92,2bbl,3.05,3.03,9.0,62.0,4800.0,27,32,7898.0,0
+,isuzu,gas,std,2.0,hatchback,rwd,front,96.0,172.6,65.2,51.4,2734,ohc,4,119,spfi,3.43,3.23,9.2,90.0,5000.0,24,29,11048.0,2
+102.0,subaru,gas,std,4.0,sedan,4wd,front,97.0,172.0,65.4,54.3,2385,ohcf,4,108,2bbl,3.62,2.64,9.0,82.0,4800.0,24,25,9233.0,0
+,bmw,gas,std,2.0,sedan,rwd,front,103.5,193.8,67.9,53.7,3380,ohc,6,209,mpfi,3.62,3.39,8.0,182.0,5400.0,16,22,41315.0,0
+65.0,toyota,gas,std,4.0,sedan,fwd,front,102.4,175.6,66.5,54.9,2326,ohc,4,122,mpfi,3.31,3.54,8.7,92.0,4200.0,29,34,8948.0,-1
+87.0,toyota,gas,std,2.0,hatchback,fwd,front,95.7,158.7,63.6,54.5,1985,ohc,4,92,2bbl,3.05,3.03,9.0,62.0,4800.0,35,39,5348.0,1
+158.0,audi,gas,std,4.0,sedan,fwd,front,105.8,192.7,71.4,55.7,2844,ohc,5,136,mpfi,3.19,3.4,8.5,110.0,5500.0,19,25,17710.0,1
+148.0,dodge,gas,std,4.0,sedan,fwd,front,93.7,157.3,63.8,50.6,1989,ohc,4,90,2bbl,2.97,3.23,9.4,68.0,5500.0,31,38,7609.0,1
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What are the top 5 makes of cars in our database in terms of the number of models available?"",
+        ""query"": ""result = df['make'].value_counts().head(5)"",
+    },
+    {
+        ""question"": ""How does the average price of cars vary across different body styles?"",
+        ""query"": ""result = df.groupby('body-style')['price'].mean()"",
+    },
+    {
+        ""question"": ""What is the correlation between engine size and price for our automobiles?"",
+        ""query"": ""result = df[['engine-size', 'price']].corr()"",
+    },
+    {
+        ""question"": ""Which fuel type (gas or diesel) has a higher average highway mileage?"",
+        ""query"": ""result = df.groupby('fuel-type')['highway-mpg'].mean()"",
+    },
+    {
+        ""question"": ""What are the average normalized losses for cars with different numbers of doors (2 and 4)?"",
+        ""query"": ""result = df.groupby('num-of-doors')['normalized-losses'].mean()"",
+    },
+    {
+        ""question"": ""Can we get a summary of average city and highway mileage by car make?"",
+        ""query"": ""result = df.groupby('make')[['city-mpg', 'highway-mpg']].mean()"",
+    },
+    {
+        ""question"": ""How many cars have a risk factor symbol of +3, and which makes are they?"",
+        ""query"": ""result = df[df['symboling'] == 3]['make'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the average price of cars for each engine type?"",
+        ""query"": ""result = df.groupby('engine-type')['price'].mean()"",
+    },
+    {
+        ""question"": ""Which make of cars has the highest average curb weight?"",
+        ""query"": ""result = df.groupby('make')['curb-weight'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What are the five most common combinations of aspiration and body style in our database?"",
+        ""query"": ""result = df.groupby(['aspiration', 'body-style']).size().nlargest(5)"",
+    }
+]","[
+    {
+        ""question"": ""What is the overall average price of the automobiles in our database?"",
+        ""query"": ""result = df['price'].mean()"",
+    },
+    {
+        ""question"": ""How many unique car makes are in our database, and what are they?"",
+        ""query"": ""result = df['make'].nunique(), df['make'].unique()"",
+    },
+    {
+        ""question"": ""What are the top 3 most frequent engine types used in our car models?"",
+        ""query"": ""result = df['engine-type'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""For each car make, what is the average engine size and average price?"",
+        ""query"": ""result = df.groupby('make')[['engine-size', 'price']].mean()"",
+    },
+    {
+        ""question"": ""Which car make has the lowest average normalized loss?"",
+        ""query"": ""result = df.groupby('make')['normalized-losses'].mean().idxmin()"",
+    },
+    {
+        ""question"": ""How does the average price of cars compare between front and rear engine locations?"",
+        ""query"": ""result = df.groupby('engine-location')['price'].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of car body styles in our database?"",
+        ""query"": ""result = df['body-style'].value_counts()"",
+    },
+    {
+        ""question"": ""Can we identify the make and model of cars with the highest and lowest insurance risk ratings?"",
+        ""query"": ""result = df.loc[df['symboling'].idxmax(), 'make'], df.loc[df['symboling'].idxmin(), 'make']"",
+    },
+    {
+        ""question"": ""What is the average horsepower for cars in each fuel type category?"",
+        ""query"": ""result = df.groupby('fuel-type')['horsepower'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 makes with the most fuel-efficient cars, based on average city-mpg?"",
+        ""query"": ""result = df.groupby('make')['city-mpg'].mean().nlargest(5)"",
+    }
+]","[
+    {
+        ""question"": ""What are the top 5 makes of cars in our database in terms of the number of models available?"",
+        ""query"": ""result = df['make'].value_counts().head(5)"",
+    },
+    {
+        ""question"": ""How does the average price of cars vary across different body styles?"",
+        ""query"": ""result = df.groupby('body-style')['price'].mean()"",
+    },
+    {
+        ""question"": ""What is the correlation between engine size and price for our automobiles?"",
+        ""query"": ""result = df[['engine-size', 'price']].corr()"",
+    },
+    {
+        ""question"": ""Which fuel type (gas or diesel) has a higher average highway mileage?"",
+        ""query"": ""result = df.groupby('fuel-type')['highway-mpg'].mean()"",
+    },
+    {
+        ""question"": ""What are the average normalized losses for cars with different numbers of doors (2 and 4)?"",
+        ""query"": ""result = df.groupby('num-of-doors')['normalized-losses'].mean()"",
+    },
+    {
+        ""question"": ""Can we get a summary of average city and highway mileage by car make?"",
+        ""query"": ""result = df.groupby('make')[['city-mpg', 'highway-mpg']].mean()"",
+    },
+    {
+        ""question"": ""How many cars have a risk factor symbol of +3, and which makes are they?"",
+        ""query"": ""result = df[df['symboling'] == 3]['make'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the average price of cars for each engine type?"",
+        ""query"": ""result = df.groupby('engine-type')['price'].mean()"",
+    },
+    {
+        ""question"": ""Which make of cars has the highest average curb weight?"",
+        ""query"": ""result = df.groupby('make')['curb-weight'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""What are the five most common combinations of aspiration and body style in our database?"",
+        ""query"": ""result = df.groupby(['aspiration', 'body-style']).size().nlargest(5)"",
+    },
+    {
+        ""question"": ""What is the overall average price of the automobiles in our database?"",
+        ""query"": ""result = df['price'].mean()"",
+    },
+    {
+        ""question"": ""How many unique car makes are in our database, and what are they?"",
+        ""query"": ""result = df['make'].nunique(), df['make'].unique()"",
+    },
+    {
+        ""question"": ""What are the top 3 most frequent engine types used in our car models?"",
+        ""query"": ""result = df['engine-type'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""For each car make, what is the average engine size and average price?"",
+        ""query"": ""result = df.groupby('make')[['engine-size', 'price']].mean()"",
+    },
+    {
+        ""question"": ""Which car make has the lowest average normalized loss?"",
+        ""query"": ""result = df.groupby('make')['normalized-losses'].mean().idxmin()"",
+    },
+    {
+        ""question"": ""How does the average price of cars compare between front and rear engine locations?"",
+        ""query"": ""result = df.groupby('engine-location')['price'].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of car body styles in our database?"",
+        ""query"": ""result = df['body-style'].value_counts()"",
+    },
+    {
+        ""question"": ""Can we identify the make and model of cars with the highest and lowest insurance risk ratings?"",
+        ""query"": ""result = df.loc[df['symboling'].idxmax(), 'make'], df.loc[df['symboling'].idxmin(), 'make']"",
+    },
+    {
+        ""question"": ""What is the average horsepower for cars in each fuel type category?"",
+        ""query"": ""result = df.groupby('fuel-type')['horsepower'].mean()"",
+    },
+    {
+        ""question"": ""What are the top 5 makes with the most fuel-efficient cars, based on average city-mpg?"",
+        ""query"": ""result = df.groupby('make')['city-mpg'].mean().nlargest(5)"",
+    }
+]"

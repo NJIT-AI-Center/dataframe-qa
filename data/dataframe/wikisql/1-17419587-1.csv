@@ -1,0 +1,11 @@
+Rank,Airport,Location,IATA,1985–86,1990–91,1995–96,2000–01,2005–06,2007–08,2009–10,2010-11
+1.0,Sydney Airport,"Sydney , New South Wales",SYD,9497.0,12361.0,19878.0,25814.0,28996.0,32701.0,34458.0,36624.0
+2.0,Melbourne Airport,"Melbourne , Victoria",MEL,6476.0,8346.0,12972.0,16881.0,21041.0,23943.0,25918.0,27607.0
+3.0,Brisbane Airport,"Brisbane , Queensland",BNE,3457.0,5246.0,9236.0,12467.0,16016.0,18298.0,18889.0,20278.0
+4.0,Perth Airport,"Perth , Western Australia",PER,1939.0,2508.0,4145.0,5162.0,7005.0,8952.0,9992.0,11328.0
+5.0,Adelaide Airport,"Adelaide , South Australia",ADL,2082.0,2461.0,3743.0,4443.0,5767.0,6619.0,7016.0,7021.0
+6.0,Gold Coast Airport,"Gold Coast , Queensland",OOL,587.0,1288.0,2595.0,2891.0,3518.0,4323.0,5186.0,5261.0
+7.0,Cairns Airport,"Cairns , Queensland",CNS,778.0,1090.0,1993.0,1888.0,3731.0,3777.0,3550.0,3848.0
+8.0,Canberra International Airport,"Canberra , Australian Capital Territory",CBR,1008.0,1124.0,1750.0,2107.0,2550.0,2853.0,3258.0,3206.0
+9.0,Hobart International Airport,"Hobart , Tasmania",HBA,506.0,590.0,850.0,974.0,1606.0,1758.0,1856.0,1903.0
+10.0,Darwin International Airport,"Darwin , Northern Territory",DRW,407.0,496.0,932.0,1078.0,1219.0,1562.0,1569.0,1743.0

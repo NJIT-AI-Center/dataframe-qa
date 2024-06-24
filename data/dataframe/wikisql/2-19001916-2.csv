@@ -1,0 +1,7 @@
+Entities,Country,Supply point,Voltage (kV),Power (MW)
+"FURNAS, ELECTROSUL, ELECTROBRAS",Brazil,Itaipu,500.0,7000.0
+EBISA,Argentina,Yacyretá,500.0,1540.0
+ENERSUL,Brazil,Pedro Juan Caballero,23.0,3.0
+COPEL,Brazil,Acaray,132.0,50.0
+EMSA,Argentina,C.A. López,132.0,30.0
+TRANSNEA/EDEFOR,Argentina,Guarambaré,220.0,80.0

@@ -1,0 +1,736 @@
+role,prompt,response1,response2,final
+data scientist,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Heart Disease
+- Description of dataframe: This database contains 76 attributes, but all published experiments refer to using a subset of 14 of them.  In particular, the Cleveland database is the only one that has been used by ML researchers to date.  The ""goal"" field refers to the presence of heart disease in the patient.  It is integer valued from 0 (no presence) to 4. Experiments with the Cleveland database have concentrated on simply attempting to distinguish presence (values 1,2,3,4) from absence (value 0).  
+   
+The names and social security numbers of the patients were recently removed from the database, replaced with dummy values.
+
+One file has been ""processed"", that one containing the Cleveland database.  All four unprocessed files also exist in this directory.
+
+To see Test Costs (donated by Peter Turney), please see the folder ""Costs"" 
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   age       int   
+1   sex       int   
+2   cp        int   
+3   trestbps  int   
+4   chol      int   
+5   fbs       int   
+6   restecg   int   
+7   thalach   int   
+8   exang     int   
+9   oldpeak   float 
+10  slope     int   
+11  ca        float 
+12  thal      float 
+13  num       int   
+
+- Sample rows of dataframe in CSV format:
+age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,num
+62,0,4,138,294,1,0,106,0,1.9,2,3.0,3.0,2
+69,0,1,140,239,0,0,151,0,1.8,1,2.0,3.0,0
+51,0,4,130,305,0,0,142,1,1.2,2,0.0,7.0,2
+57,1,4,130,131,0,0,115,1,1.2,2,1.0,7.0,3
+46,1,2,101,197,1,0,156,0,0.0,1,0.0,7.0,0
+45,1,2,128,308,0,2,170,0,0.0,1,0.0,3.0,0
+44,1,3,130,233,0,0,179,1,0.4,1,0.0,3.0,0
+57,1,4,132,207,0,0,168,1,0.0,1,0.0,7.0,0
+54,1,4,140,239,0,0,160,0,1.2,1,0.0,3.0,0
+65,1,4,135,254,0,2,127,0,2.8,2,1.0,7.0,2
+59,1,4,135,234,0,0,161,0,0.5,2,0.0,7.0,0
+41,1,3,112,250,0,0,179,0,0.0,1,0.0,3.0,0
+41,1,2,110,235,0,0,153,0,0.0,1,0.0,3.0,0
+61,1,4,140,207,0,2,138,1,1.9,1,1.0,7.0,1
+42,1,2,120,295,0,0,162,0,0.0,1,0.0,3.0,0
+64,1,4,120,246,0,2,96,1,2.2,3,1.0,3.0,3
+51,1,1,125,213,0,2,125,1,1.4,1,1.0,3.0,0
+41,0,2,130,204,0,2,172,0,1.4,1,0.0,3.0,0
+50,0,4,110,254,0,2,159,0,0.0,1,0.0,3.0,0
+42,1,4,136,315,0,0,125,1,1.8,2,0.0,6.0,2
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data scientist category.
+
+- Charactoeristics of the questions from data scientist category:
+Questions tailored for individuals with an in-depth understanding of the dataset, possessing expertise in statistical and mathematical analysis. These questions should challenge their analytical skills, encouraging the use of advanced data manipulation and interpretation techniques. The focus is on extracting complex insights and patterns from the data.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average age of patients for each heart disease severity category?"",
+        ""query"": ""result = df.groupby('num')['age'].mean()"",
+    },
+    {
+        ""question"": ""How does the average cholesterol level vary between different types of chest pain (cp) across genders?"",
+        ""query"": ""result = df.groupby(['sex', 'cp'])['chol'].mean()"",
+    },
+    {
+        ""question"": ""Identify the correlation matrix for the continuous variables in the dataset."",
+        ""query"": ""result = df[['age', 'trestbps', 'chol', 'thalach', 'oldpeak', 'ca', 'thal']].corr()"",
+    },
+    {
+        ""question"": ""Calculate the percentage of patients with fasting blood sugar greater than 120 mg/dl in each heart disease category."",
+        ""query"": ""result = df.groupby('num')['fbs'].apply(lambda x: (x > 0).sum() / len(x) * 100)"",
+    },
+    {
+        ""question"": ""What is the count and percentage of male and female patients in each heart disease severity category?"",
+        ""query"": ""result = df.groupby('num')['sex'].value_counts(normalize=True).unstack().fillna(0) * 100"",
+    },
+    {
+        ""question"": ""Determine the median of maximum heart rate achieved (thalach) for each age group (10-year intervals)."",
+        ""query"": ""result = df.groupby(pd.cut(df['age'], bins=range(20, 81, 10)))['thalach'].median()"",
+    },
+    {
+        ""question"": ""For each severity of heart disease (num), what is the proportion of patients with reversible defect (thal=7.0)?"",
+        ""query"": ""result = df.groupby('num')['thal'].apply(lambda x: (x == 7.0).sum() / len(x))"",
+    },
+    {
+        ""question"": ""What is the standard deviation of resting blood pressure (trestbps) for each chest pain type (cp)?"",
+        ""query"": ""result = df.groupby('cp')['trestbps'].std()"",
+    },
+    {
+        ""question"": ""Find the age group (10-year intervals) with the highest average number of major vessels colored by fluoroscopy (ca) in patients with heart disease (num > 0)."",
+        ""query"": ""result = df[df['num'] > 0].groupby(pd.cut(df['age'], bins=range(20, 81, 10)))['ca'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""Compare the mean cholesterol levels between patients with and without exercise-induced angina (exang) for each sex."",
+        ""query"": ""result = df.groupby(['sex', 'exang'])['chol'].mean()"",
+    }
+]","[
+    {
+        ""question"": ""What is the distribution of maximum heart rate achieved (thalach) across different heart disease severity levels?"",
+        ""query"": ""result = df.groupby('num')['thalach'].describe()"",
+    },
+    {
+        ""question"": ""Calculate the average oldpeak (ST depression induced by exercise relative to rest) for each combination of chest pain type (cp) and slope of the peak exercise ST segment (slope)."",
+        ""query"": ""result = df.groupby(['cp', 'slope'])['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""Identify the top three ages with the highest prevalence of heart disease (num > 0)."",
+        ""query"": ""result = df[df['num'] > 0]['age'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""How does the presence of heart disease vary with the number of major vessels colored by fluoroscopy (ca)?"",
+        ""query"": ""result = df.groupby('ca')['num'].value_counts(normalize=True).unstack().fillna(0)"",
+    },
+    {
+        ""question"": ""What is the proportion of patients with reversible defect thalassemia (thal=7.0) among different resting electrocardiographic results (restecg)?"",
+        ""query"": ""result = df.groupby('restecg')['thal'].apply(lambda x: (x == 7.0).mean())"",
+    },
+    {
+        ""question"": ""Determine the relationship between age and cholesterol level, segmented by the presence of heart disease (num)."",
+        ""query"": ""result = df.groupby('num').apply(lambda x: x[['age', 'chol']].corr().iloc[0, 1])"",
+    },
+    {
+        ""question"": ""Find the average number of major vessels colored by fluoroscopy (ca) for patients without heart disease (num = 0) and compare it with patients with heart disease (num > 0)."",
+        ""query"": ""result = df.groupby(df['num'] > 0)['ca'].mean()"",
+    },
+    {
+        ""question"": ""What is the variance in resting blood pressure (trestbps) among different heart disease severity levels?"",
+        ""query"": ""result = df.groupby('num')['trestbps'].var()"",
+    },
+    {
+        ""question"": ""Compare the mean oldpeak values between genders for each heart disease severity level."",
+        ""query"": ""result = df.groupby(['num', 'sex'])['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""Identify the chest pain type (cp) that has the highest median cholesterol level among patients aged 50 and above."",
+        ""query"": ""result = df[df['age'] >= 50].groupby('cp')['chol'].median().idxmax()"",
+    }
+]","[
+    {
+        ""question"": ""What is the average age of patients for each heart disease severity category?"",
+        ""query"": ""result = df.groupby('num')['age'].mean()"",
+    },
+    {
+        ""question"": ""How does the average cholesterol level vary between different types of chest pain (cp) across genders?"",
+        ""query"": ""result = df.groupby(['sex', 'cp'])['chol'].mean()"",
+    },
+    {
+        ""question"": ""Identify the correlation matrix for the continuous variables in the dataset."",
+        ""query"": ""result = df[['age', 'trestbps', 'chol', 'thalach', 'oldpeak', 'ca', 'thal']].corr()"",
+    },
+    {
+        ""question"": ""Calculate the percentage of patients with fasting blood sugar greater than 120 mg/dl in each heart disease category."",
+        ""query"": ""result = df.groupby('num')['fbs'].apply(lambda x: (x > 0).sum() / len(x) * 100)"",
+    },
+    {
+        ""question"": ""What is the count and percentage of male and female patients in each heart disease severity category?"",
+        ""query"": ""result = df.groupby('num')['sex'].value_counts(normalize=True).unstack().fillna(0) * 100"",
+    },
+    {
+        ""question"": ""Determine the median of maximum heart rate achieved (thalach) for each age group (10-year intervals)."",
+        ""query"": ""result = df.groupby(pd.cut(df['age'], bins=range(20, 81, 10)))['thalach'].median()"",
+    },
+    {
+        ""question"": ""For each severity of heart disease (num), what is the proportion of patients with reversible defect (thal=7.0)?"",
+        ""query"": ""result = df.groupby('num')['thal'].apply(lambda x: (x == 7.0).sum() / len(x))"",
+    },
+    {
+        ""question"": ""What is the standard deviation of resting blood pressure (trestbps) for each chest pain type (cp)?"",
+        ""query"": ""result = df.groupby('cp')['trestbps'].std()"",
+    },
+    {
+        ""question"": ""Find the age group (10-year intervals) with the highest average number of major vessels colored by fluoroscopy (ca) in patients with heart disease (num > 0)."",
+        ""query"": ""result = df[df['num'] > 0].groupby(pd.cut(df['age'], bins=range(20, 81, 10)))['ca'].mean().idxmax()"",
+    },
+    {
+        ""question"": ""Compare the mean cholesterol levels between patients with and without exercise-induced angina (exang) for each sex."",
+        ""query"": ""result = df.groupby(['sex', 'exang'])['chol'].mean()"",
+    },
+    {
+        ""question"": ""What is the distribution of maximum heart rate achieved (thalach) across different heart disease severity levels?"",
+        ""query"": ""result = df.groupby('num')['thalach'].describe()"",
+    },
+    {
+        ""question"": ""Calculate the average oldpeak (ST depression induced by exercise relative to rest) for each combination of chest pain type (cp) and slope of the peak exercise ST segment (slope)."",
+        ""query"": ""result = df.groupby(['cp', 'slope'])['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""Identify the top three ages with the highest prevalence of heart disease (num > 0)."",
+        ""query"": ""result = df[df['num'] > 0]['age'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""How does the presence of heart disease vary with the number of major vessels colored by fluoroscopy (ca)?"",
+        ""query"": ""result = df.groupby('ca')['num'].value_counts(normalize=True).unstack().fillna(0)"",
+    },
+    {
+        ""question"": ""What is the proportion of patients with reversible defect thalassemia (thal=7.0) among different resting electrocardiographic results (restecg)?"",
+        ""query"": ""result = df.groupby('restecg')['thal'].apply(lambda x: (x == 7.0).mean())"",
+    },
+    {
+        ""question"": ""Determine the relationship between age and cholesterol level, segmented by the presence of heart disease (num)."",
+        ""query"": ""result = df.groupby('num').apply(lambda x: x[['age', 'chol']].corr().iloc[0, 1])"",
+    },
+    {
+        ""question"": ""Find the average number of major vessels colored by fluoroscopy (ca) for patients without heart disease (num = 0) and compare it with patients with heart disease (num > 0)."",
+        ""query"": ""result = df.groupby(df['num'] > 0)['ca'].mean()"",
+    },
+    {
+        ""question"": ""What is the variance in resting blood pressure (trestbps) among different heart disease severity levels?"",
+        ""query"": ""result = df.groupby('num')['trestbps'].var()"",
+    },
+    {
+        ""question"": ""Compare the mean oldpeak values between genders for each heart disease severity level."",
+        ""query"": ""result = df.groupby(['num', 'sex'])['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""Identify the chest pain type (cp) that has the highest median cholesterol level among patients aged 50 and above."",
+        ""query"": ""result = df[df['age'] >= 50].groupby('cp')['chol'].median().idxmax()"",
+    }
+]"
+general user,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Heart Disease
+- Description of dataframe: This database contains 76 attributes, but all published experiments refer to using a subset of 14 of them.  In particular, the Cleveland database is the only one that has been used by ML researchers to date.  The ""goal"" field refers to the presence of heart disease in the patient.  It is integer valued from 0 (no presence) to 4. Experiments with the Cleveland database have concentrated on simply attempting to distinguish presence (values 1,2,3,4) from absence (value 0).  
+   
+The names and social security numbers of the patients were recently removed from the database, replaced with dummy values.
+
+One file has been ""processed"", that one containing the Cleveland database.  All four unprocessed files also exist in this directory.
+
+To see Test Costs (donated by Peter Turney), please see the folder ""Costs"" 
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   age       int   
+1   sex       int   
+2   cp        int   
+3   trestbps  int   
+4   chol      int   
+5   fbs       int   
+6   restecg   int   
+7   thalach   int   
+8   exang     int   
+9   oldpeak   float 
+10  slope     int   
+11  ca        float 
+12  thal      float 
+13  num       int   
+
+- Sample rows of dataframe in CSV format:
+age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,num
+46,0,4,138,243,0,2,152,1,0.0,2,0.0,3.0,0
+57,1,4,110,335,0,0,143,1,3.0,2,1.0,7.0,2
+44,1,4,120,169,0,0,144,1,2.8,3,0.0,6.0,2
+53,0,4,138,234,0,2,160,0,0.0,1,0.0,3.0,0
+53,0,3,128,216,0,2,115,0,0.0,1,0.0,,0
+51,1,4,140,299,0,0,173,1,1.6,1,0.0,7.0,1
+41,0,3,112,268,0,2,172,1,0.0,1,0.0,3.0,0
+58,1,4,125,300,0,2,171,0,0.0,1,2.0,7.0,1
+42,1,4,136,315,0,0,125,1,1.8,2,0.0,6.0,2
+57,1,4,132,207,0,0,168,1,0.0,1,0.0,7.0,0
+34,1,1,118,182,0,2,174,0,0.0,1,0.0,3.0,0
+53,1,3,130,197,1,2,152,0,1.2,3,0.0,3.0,0
+44,1,3,140,235,0,2,180,0,0.0,1,0.0,3.0,0
+60,1,4,140,293,0,2,170,0,1.2,2,2.0,7.0,2
+44,1,4,112,290,0,2,153,0,0.0,1,1.0,3.0,2
+50,0,3,120,219,0,0,158,0,1.6,2,0.0,3.0,0
+52,1,4,128,204,1,0,156,1,1.0,2,0.0,,2
+63,0,4,150,407,0,2,154,0,4.0,2,3.0,7.0,4
+50,1,3,129,196,0,0,163,0,0.0,1,0.0,3.0,0
+37,1,3,130,250,0,0,187,0,3.5,3,0.0,3.0,0
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the general user category.
+
+- Charactoeristics of the questions from general user category:
+Questions designed for users who may not have specialized data analysis skills but are interested in the practical, consumer-oriented aspects of the data. These questions should be formulated based on the nature and context of the data, requiring inferential thinking about its potential end-users. Questions and queries should be structured to be somewhat open-ended, avoiding direct references to specific column names, thus introducing a level of interpretative ambiguity.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average age of individuals in the dataset?"",
+        ""query"": ""result = df['age'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals in the dataset are above the age of 50?"",
+        ""query"": ""result = df[df['age'] > 50].shape[0]"",
+    },
+    {
+        ""question"": ""What proportion of the dataset represents females?"",
+        ""query"": ""result = df[df['sex'] == 0].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""Find the average cholesterol level for individuals without heart disease."",
+        ""query"": ""result = df[df['num'] == 0]['chol'].mean()"",
+    },
+    {
+        ""question"": ""What is the most common type of chest pain among patients with heart disease?"",
+        ""query"": ""result = df[df['num'] != 0]['cp'].mode()[0]"",
+    },
+    {
+        ""question"": ""How many individuals have a resting blood pressure greater than 140?"",
+        ""query"": ""result = df[df['trestbps'] > 140].shape[0]"",
+    },
+    {
+        ""question"": ""What is the maximum heart rate achieved among individuals aged 60 and above?"",
+        ""query"": ""result = df[df['age'] >= 60]['thalach'].max()"",
+    },
+    {
+        ""question"": ""How many individuals have fasting blood sugar above 120 mg/dl?"",
+        ""query"": ""result = df[df['fbs'] == 1].shape[0]"",
+    },
+    {
+        ""question"": ""What is the average oldpeak (ST depression induced by exercise) value for individuals with different types of chest pain?"",
+        ""query"": ""result = df.groupby('cp')['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have exercise-induced angina (exang)?"",
+        ""query"": ""result = df[df['exang'] == 1].shape[0]"",
+    }
+]","[
+    {
+        ""question"": ""How many individuals are there in each category of heart disease severity?"",
+        ""query"": ""result = df['num'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the minimum cholesterol level recorded in the dataset?"",
+        ""query"": ""result = df['chol'].min()"",
+    },
+    {
+        ""question"": ""Calculate the average age of males in the dataset."",
+        ""query"": ""result = df[df['sex'] == 1]['age'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have a normal resting electrocardiographic (restecg) result?"",
+        ""query"": ""result = df[df['restecg'] == 0].shape[0]"",
+    },
+    {
+        ""question"": ""Find the top 5 ages with the highest frequency in the dataset."",
+        ""query"": ""result = df['age'].value_counts().head(5)"",
+    },
+    {
+        ""question"": ""What is the percentage of individuals with a maximum heart rate (thalach) above 150?"",
+        ""query"": ""result = df[df['thalach'] > 150].shape[0] / df.shape[0] * 100"",
+    },
+    {
+        ""question"": ""Determine the average value of 'oldpeak' for each heart disease severity level."",
+        ""query"": ""result = df.groupby('num')['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals do not have exercise-induced angina (exang)?"",
+        ""query"": ""result = df[df['exang'] == 0].shape[0]"",
+    },
+    {
+        ""question"": ""Find the range (max - min) of resting blood pressure (trestbps) in the dataset."",
+        ""query"": ""result = df['trestbps'].max() - df['trestbps'].min()"",
+    },
+    {
+        ""question"": ""What is the count of missing values in the 'thal' column?"",
+        ""query"": ""result = df['thal'].isna().sum()"",
+    }
+]","[
+    {
+        ""question"": ""What is the average age of individuals in the dataset?"",
+        ""query"": ""result = df['age'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals in the dataset are above the age of 50?"",
+        ""query"": ""result = df[df['age'] > 50].shape[0]"",
+    },
+    {
+        ""question"": ""What proportion of the dataset represents females?"",
+        ""query"": ""result = df[df['sex'] == 0].shape[0] / df.shape[0]"",
+    },
+    {
+        ""question"": ""Find the average cholesterol level for individuals without heart disease."",
+        ""query"": ""result = df[df['num'] == 0]['chol'].mean()"",
+    },
+    {
+        ""question"": ""What is the most common type of chest pain among patients with heart disease?"",
+        ""query"": ""result = df[df['num'] != 0]['cp'].mode()[0]"",
+    },
+    {
+        ""question"": ""How many individuals have a resting blood pressure greater than 140?"",
+        ""query"": ""result = df[df['trestbps'] > 140].shape[0]"",
+    },
+    {
+        ""question"": ""What is the maximum heart rate achieved among individuals aged 60 and above?"",
+        ""query"": ""result = df[df['age'] >= 60]['thalach'].max()"",
+    },
+    {
+        ""question"": ""How many individuals have fasting blood sugar above 120 mg/dl?"",
+        ""query"": ""result = df[df['fbs'] == 1].shape[0]"",
+    },
+    {
+        ""question"": ""What is the average oldpeak (ST depression induced by exercise) value for individuals with different types of chest pain?"",
+        ""query"": ""result = df.groupby('cp')['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have exercise-induced angina (exang)?"",
+        ""query"": ""result = df[df['exang'] == 1].shape[0]"",
+    },
+    {
+        ""question"": ""How many individuals are there in each category of heart disease severity?"",
+        ""query"": ""result = df['num'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the minimum cholesterol level recorded in the dataset?"",
+        ""query"": ""result = df['chol'].min()"",
+    },
+    {
+        ""question"": ""Calculate the average age of males in the dataset."",
+        ""query"": ""result = df[df['sex'] == 1]['age'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals have a normal resting electrocardiographic (restecg) result?"",
+        ""query"": ""result = df[df['restecg'] == 0].shape[0]"",
+    },
+    {
+        ""question"": ""Find the top 5 ages with the highest frequency in the dataset."",
+        ""query"": ""result = df['age'].value_counts().head(5)"",
+    },
+    {
+        ""question"": ""What is the percentage of individuals with a maximum heart rate (thalach) above 150?"",
+        ""query"": ""result = df[df['thalach'] > 150].shape[0] / df.shape[0] * 100"",
+    },
+    {
+        ""question"": ""Determine the average value of 'oldpeak' for each heart disease severity level."",
+        ""query"": ""result = df.groupby('num')['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""How many individuals do not have exercise-induced angina (exang)?"",
+        ""query"": ""result = df[df['exang'] == 0].shape[0]"",
+    },
+    {
+        ""question"": ""Find the range (max - min) of resting blood pressure (trestbps) in the dataset."",
+        ""query"": ""result = df['trestbps'].max() - df['trestbps'].min()"",
+    },
+    {
+        ""question"": ""What is the count of missing values in the 'thal' column?"",
+        ""query"": ""result = df['thal'].isna().sum()"",
+    }
+]"
+data owner,"You are given a dataframe and are tasked with generating real-world questions and corresponding Pandas queries for specific roles (customer, data analyst, and company owner, etc.). The dataframe is described as follows:
+
+- Name of dataframe: Heart Disease
+- Description of dataframe: This database contains 76 attributes, but all published experiments refer to using a subset of 14 of them.  In particular, the Cleveland database is the only one that has been used by ML researchers to date.  The ""goal"" field refers to the presence of heart disease in the patient.  It is integer valued from 0 (no presence) to 4. Experiments with the Cleveland database have concentrated on simply attempting to distinguish presence (values 1,2,3,4) from absence (value 0).  
+   
+The names and social security numbers of the patients were recently removed from the database, replaced with dummy values.
+
+One file has been ""processed"", that one containing the Cleveland database.  All four unprocessed files also exist in this directory.
+
+To see Test Costs (donated by Peter Turney), please see the folder ""Costs"" 
+- Column information of dataframe:
+#   Column    Dtype 
+--- ------    ----- 
+0   age       int   
+1   sex       int   
+2   cp        int   
+3   trestbps  int   
+4   chol      int   
+5   fbs       int   
+6   restecg   int   
+7   thalach   int   
+8   exang     int   
+9   oldpeak   float 
+10  slope     int   
+11  ca        float 
+12  thal      float 
+13  num       int   
+
+- Sample rows of dataframe in CSV format:
+age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,num
+48,1,4,122,222,0,2,186,0,0.0,1,0.0,3.0,0
+57,1,3,128,229,0,2,150,0,0.4,2,1.0,7.0,1
+53,1,3,130,197,1,2,152,0,1.2,3,0.0,3.0,0
+64,0,3,140,313,0,0,133,0,0.2,1,0.0,7.0,0
+54,0,3,160,201,0,0,163,0,0.0,1,1.0,3.0,0
+67,1,4,160,286,0,2,108,1,1.5,2,3.0,3.0,2
+65,1,4,120,177,0,0,140,0,0.4,1,0.0,7.0,0
+67,1,4,125,254,1,0,163,0,0.2,2,2.0,7.0,3
+57,1,4,130,131,0,0,115,1,1.2,2,1.0,7.0,3
+69,0,1,140,239,0,0,151,0,1.8,1,2.0,3.0,0
+39,0,3,138,220,0,0,152,0,0.0,2,0.0,3.0,0
+58,1,2,125,220,0,0,144,0,0.4,2,,7.0,0
+56,1,4,132,184,0,2,105,1,2.1,2,1.0,6.0,1
+53,1,3,130,246,1,2,173,0,0.0,1,3.0,3.0,0
+61,0,4,130,330,0,2,169,0,0.0,1,0.0,3.0,1
+57,1,2,124,261,0,0,141,0,0.3,1,0.0,7.0,1
+29,1,2,130,204,0,2,202,0,0.0,1,0.0,3.0,0
+44,0,3,118,242,0,0,149,0,0.3,2,1.0,3.0,0
+62,1,4,120,267,0,0,99,1,1.8,2,2.0,7.0,1
+48,1,2,110,229,0,0,168,0,1.0,3,0.0,7.0,1
+
+- Task: 
+Using the provided information about the dataframe, formulate 10 natural language questions for the data owner category.
+
+- Charactoeristics of the questions from data owner category:
+Questions aimed at individuals or entities who own or have created the data, with a focus on business-oriented insights. These questions should cater to their interest in understanding the broader business implications, trends, and strategic insights that can be derived from the data. The emphasis is on leveraging the data for decision-making, performance tracking, and identifying opportunities or areas for improvement within the business context.
+
+- Guidelines:
+  - All questions must be solvable using the Pandas library in Python.
+  - Questions should encompass a wide range of Pandas operations, from basic to advanced functionalities.
+  - Questions must reflect the real-world interests of the specified role.
+
+- Assumptions:
+  - The Pandas library has been imported as `pd`. You can reference it directly.
+  - The dataframe `df` is loaded and available for use.
+
+- Response:
+  - Store each answer in a variable named `result`.
+  - Do NOT include comments or explanations in your response.
+  - Present your questions and code within the list.
+
+- Expected Response Format:
+```python
+[
+    {
+        ""question"": ""..."",
+        ""query"": ""result = "",
+    },
+    {...},
+    ...
+]
+```","[
+    {
+        ""question"": ""What is the average age of patients in the dataset?"",
+        ""query"": ""result = df['age'].mean()"",
+    },
+    {
+        ""question"": ""How many patients in the dataset have a history of heart disease (num > 0)?"",
+        ""query"": ""result = df[df['num'] > 0].shape[0]"",
+    },
+    {
+        ""question"": ""What is the gender distribution among patients with a high cholesterol level (chol > 240)?"",
+        ""query"": ""result = df[df['chol'] > 240]['sex'].value_counts()"",
+    },
+    {
+        ""question"": ""Which age group (decades: 20s, 30s, etc.) has the highest incidence of heart disease?"",
+        ""query"": ""result = df[df['num'] > 0]['age'].apply(lambda x: x // 10 * 10).value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""What is the average maximum heart rate (thalach) for patients without heart disease compared to those with it?"",
+        ""query"": ""result = df.groupby(df['num'] > 0)['thalach'].mean()"",
+    },
+    {
+        ""question"": ""Are there any correlations between resting blood pressure (trestbps) and cholesterol levels (chol) among patients?"",
+        ""query"": ""result = df[['trestbps', 'chol']].corr()"",
+    },
+    {
+        ""question"": ""What proportion of patients have a fasting blood sugar above 120 mg/dl (fbs = 1)?"",
+        ""query"": ""result = df['fbs'].mean()"",
+    },
+    {
+        ""question"": ""How many patients have chest pain type '4' and a heart disease diagnosis?"",
+        ""query"": ""result = df[(df['cp'] == 4) & (df['num'] > 0)].shape[0]"",
+    },
+    {
+        ""question"": ""What is the median value of the 'oldpeak' attribute for patients over 60 years of age?"",
+        ""query"": ""result = df[df['age'] > 60]['oldpeak'].median()"",
+    },
+    {
+        ""question"": ""How does the average cholesterol level differ between males and females in the dataset?"",
+        ""query"": ""result = df.groupby('sex')['chol'].mean()"",
+    }
+]","[
+    {
+        ""question"": ""How many patients are there in each category of the 'num' column, which indicates the presence of heart disease?"",
+        ""query"": ""result = df['num'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the highest cholesterol level recorded in the dataset?"",
+        ""query"": ""result = df['chol'].max()"",
+    },
+    {
+        ""question"": ""Can we get a breakdown of the average age for each chest pain type (cp)?"",
+        ""query"": ""result = df.groupby('cp')['age'].mean()"",
+    },
+    {
+        ""question"": ""What percentage of patients have a resting electrocardiographic result (restecg) of 0?"",
+        ""query"": ""result = (df['restecg'] == 0).mean() * 100"",
+    },
+    {
+        ""question"": ""What is the average oldpeak value, indicative of ST depression, for patients with heart disease?"",
+        ""query"": ""result = df[df['num'] > 0]['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in maximum heart rate (thalach) between males and females?"",
+        ""query"": ""result = df.groupby('sex')['thalach'].mean()"",
+    },
+    {
+        ""question"": ""What are the top three most common values for the 'ca' column, representing the number of major vessels colored by fluoroscopy?"",
+        ""query"": ""result = df['ca'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""Can we identify the average resting blood pressure (trestbps) for patients with different types of chest pain (cp)?"",
+        ""query"": ""result = df.groupby('cp')['trestbps'].mean()"",
+    },
+    {
+        ""question"": ""What proportion of patients experience exercise induced angina (exang)?"",
+        ""query"": ""result = df['exang'].mean()"",
+    },
+    {
+        ""question"": ""How does the slope of the peak exercise ST segment (slope) vary among different age groups?"",
+        ""query"": ""result = df.groupby(pd.cut(df['age'], bins=[20, 30, 40, 50, 60, 70, 80]))['slope'].mean()"",
+    }
+]","[
+    {
+        ""question"": ""What is the average age of patients in the dataset?"",
+        ""query"": ""result = df['age'].mean()"",
+    },
+    {
+        ""question"": ""How many patients in the dataset have a history of heart disease (num > 0)?"",
+        ""query"": ""result = df[df['num'] > 0].shape[0]"",
+    },
+    {
+        ""question"": ""What is the gender distribution among patients with a high cholesterol level (chol > 240)?"",
+        ""query"": ""result = df[df['chol'] > 240]['sex'].value_counts()"",
+    },
+    {
+        ""question"": ""Which age group (decades: 20s, 30s, etc.) has the highest incidence of heart disease?"",
+        ""query"": ""result = df[df['num'] > 0]['age'].apply(lambda x: x // 10 * 10).value_counts().idxmax()"",
+    },
+    {
+        ""question"": ""What is the average maximum heart rate (thalach) for patients without heart disease compared to those with it?"",
+        ""query"": ""result = df.groupby(df['num'] > 0)['thalach'].mean()"",
+    },
+    {
+        ""question"": ""Are there any correlations between resting blood pressure (trestbps) and cholesterol levels (chol) among patients?"",
+        ""query"": ""result = df[['trestbps', 'chol']].corr()"",
+    },
+    {
+        ""question"": ""What proportion of patients have a fasting blood sugar above 120 mg/dl (fbs = 1)?"",
+        ""query"": ""result = df['fbs'].mean()"",
+    },
+    {
+        ""question"": ""How many patients have chest pain type '4' and a heart disease diagnosis?"",
+        ""query"": ""result = df[(df['cp'] == 4) & (df['num'] > 0)].shape[0]"",
+    },
+    {
+        ""question"": ""What is the median value of the 'oldpeak' attribute for patients over 60 years of age?"",
+        ""query"": ""result = df[df['age'] > 60]['oldpeak'].median()"",
+    },
+    {
+        ""question"": ""How does the average cholesterol level differ between males and females in the dataset?"",
+        ""query"": ""result = df.groupby('sex')['chol'].mean()"",
+    },
+    {
+        ""question"": ""How many patients are there in each category of the 'num' column, which indicates the presence of heart disease?"",
+        ""query"": ""result = df['num'].value_counts()"",
+    },
+    {
+        ""question"": ""What is the highest cholesterol level recorded in the dataset?"",
+        ""query"": ""result = df['chol'].max()"",
+    },
+    {
+        ""question"": ""Can we get a breakdown of the average age for each chest pain type (cp)?"",
+        ""query"": ""result = df.groupby('cp')['age'].mean()"",
+    },
+    {
+        ""question"": ""What percentage of patients have a resting electrocardiographic result (restecg) of 0?"",
+        ""query"": ""result = (df['restecg'] == 0).mean() * 100"",
+    },
+    {
+        ""question"": ""What is the average oldpeak value, indicative of ST depression, for patients with heart disease?"",
+        ""query"": ""result = df[df['num'] > 0]['oldpeak'].mean()"",
+    },
+    {
+        ""question"": ""Is there a significant difference in maximum heart rate (thalach) between males and females?"",
+        ""query"": ""result = df.groupby('sex')['thalach'].mean()"",
+    },
+    {
+        ""question"": ""What are the top three most common values for the 'ca' column, representing the number of major vessels colored by fluoroscopy?"",
+        ""query"": ""result = df['ca'].value_counts().head(3)"",
+    },
+    {
+        ""question"": ""Can we identify the average resting blood pressure (trestbps) for patients with different types of chest pain (cp)?"",
+        ""query"": ""result = df.groupby('cp')['trestbps'].mean()"",
+    },
+    {
+        ""question"": ""What proportion of patients experience exercise induced angina (exang)?"",
+        ""query"": ""result = df['exang'].mean()"",
+    },
+    {
+        ""question"": ""How does the slope of the peak exercise ST segment (slope) vary among different age groups?"",
+        ""query"": ""result = df.groupby(pd.cut(df['age'], bins=[20, 30, 40, 50, 60, 70, 80]))['slope'].mean()"",
+    }
+]"
