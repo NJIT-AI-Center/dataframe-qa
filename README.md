@@ -1,4 +1,3 @@
-```markdown
 # DataFrameQA
 
 ![DataFrameQA](prompt_code_generation.png)
@@ -41,4 +40,3 @@ DataFrameQA represents a significant advancement in the field of data analysis, 
 ---
 
 For more details, please refer to our full paper.
-```
