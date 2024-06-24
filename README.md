@@ -1,7 +1,7 @@
 # DataFrameQA
 
 <p align="center">
-  <img src="prompt_code_generation.png" alt="DataFrameQA" width="400"/>
+  <img src="prompt_code_generation.png" alt="DataFrameQA" width="500"/>
 </p>
 
 
