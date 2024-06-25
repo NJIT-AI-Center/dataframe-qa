@@ -39,4 +39,5 @@ DataFrameQA represents a significant advancement in the field of data analysis, 
 
 ---
 
-For more details, please refer to our full paper.
+For more details, please refer to [Appendix](./appendix.pdf).
+
