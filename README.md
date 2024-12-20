@@ -7,7 +7,10 @@
 ## News
 - [2024/11] 🔥 **Our DataFrame QA paper is accepted by [ACML 2024](https://www.acml-conf.org/2024/).**
 
-## Introduction
+## TL;DR
+A Universal LLM Framework on DataFrame Question Answering Without Data Exposure.
+
+## Abstract
 This paper introduces DataFrame Question Answering (QA), a novel task that utilizes natural language processing (NLP) models to generate Pandas queries for information retrieval and data analysis on dataframes, emphasizing safe and non-revealing data handling. Specifically, our method, leveraging a large language model (LLM), which solely relies on dataframe column names, not only ensures data privacy but also significantly reduces the context window in the prompt, streamlining information processing and addressing major challenges in LLM-based data analysis.
 
 We propose DataFrame QA as a comprehensive framework that includes safe Pandas query generation and code execution. Various LLMs are evaluated on the renowned WikiSQL dataset and our newly developed UCI-DataFrameQA, tailored for complex data analysis queries. Our findings indicate that GPT-4 performs well on both datasets, underscoring its capability in securely retrieving and aggregating dataframe values and conducting sophisticated data analyses. This approach, deployable in a zero-shot manner without prior training or adjustments, proves to be highly adaptable and secure for diverse applications.
@@ -45,4 +48,15 @@ DataFrameQA represents a significant advancement in the field of data analysis, 
 ---
 
 For more details, please refer to [Appendix](./appendix.pdf).
+
+## Reference
+If you find this project is helpful to your research, please consider to cite our paper:
+```
+@article{ye2024dataframe,
+  title={DataFrame QA: A Universal LLM Framework on DataFrame Question Answering Without Data Exposure},
+  author={Ye, Junyi and Du, Mengnan and Wang, Guiling},
+  journal={arXiv preprint arXiv:2401.15463},
+  year={2024}
+}
+```
 
