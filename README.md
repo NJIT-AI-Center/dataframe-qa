@@ -1,6 +1,11 @@
-# DataFrameQA
+# DataFrame QA: A Universal LLM Framework on DataFrame Question Answering Without Data Exposure
 
-![DataFrameQA](prompt_code_generation.png)
+[[paper](https://openreview.net/forum?id=rDNj0enuhc)] [[poster](./assets/dataframe_qa_poster.pdf)] [[slides](./assets/dataframe_qa_slides.pdf)]
+
+![DataFrameQA](./assets/figures/dataframe_qa.png)
+
+## News
+- [2024/11] 🔥 **Our DataFrame QA paper is accepted by [ACML 2024](https://www.acml-conf.org/2024/).**
 
 ## Introduction
 This paper introduces DataFrame Question Answering (QA), a novel task that utilizes natural language processing (NLP) models to generate Pandas queries for information retrieval and data analysis on dataframes, emphasizing safe and non-revealing data handling. Specifically, our method, leveraging a large language model (LLM), which solely relies on dataframe column names, not only ensures data privacy but also significantly reduces the context window in the prompt, streamlining information processing and addressing major challenges in LLM-based data analysis.
