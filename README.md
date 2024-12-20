@@ -22,6 +22,11 @@ We propose DataFrame QA as a comprehensive framework that includes safe Pandas q
 - **Versatile:** Proven effective on both WikiSQL and UCI-DataFrameQA datasets.
 - **Zero-shot Deployment:** No prior training or adjustments required for deployment.
 
+
+## Prompt & Example
+![DataFrameQA](./assets/figures/prompt.png)
+
+
 ## Datasets
 ### WikiSQL Dataset
 The WikiSQL dataset is utilized to evaluate the effectiveness of various LLMs in generating accurate Pandas queries for data retrieval and analysis.
