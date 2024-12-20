@@ -2,7 +2,7 @@
 
 [[paper](https://openreview.net/forum?id=rDNj0enuhc)] [[poster](./assets/dataframe_qa_poster.pdf)] [[slides](./assets/dataframe_qa_slides.pdf)]
 
-![DataFrameQA](./assets/figures/dataframe_qa.png)
+![framework](./assets/figures/dataframe_qa.png)
 
 ## News
 - [2024/11] 🔥 **Our DataFrame QA paper is accepted by [ACML 2024](https://www.acml-conf.org/2024/).**
@@ -24,7 +24,7 @@ We propose DataFrame QA as a comprehensive framework that includes safe Pandas q
 
 
 ## Prompt & Example
-![DataFrameQA](./assets/figures/prompt.png)
+![prompt](./assets/figures/prompt.png)
 
 
 ## Datasets
