@@ -56,12 +56,11 @@ For more details, please refer to [Appendix](./appendix.pdf).
 ## Reference
 If you find this project is helpful to your research, please consider to cite our paper:
 ```
-@inproceedings{ye2024dataframe,
-  title={DataFrame {QA}: A Universal {LLM} Framework on DataFrame Question Answering Without Data Exposure},
-  author={Junyi Ye and Mengnan Du and Guiling Wang},
-  booktitle={The 16th Asian Conference on Machine Learning (Conference Track)},
-  year={2024},
-  url={https://openreview.net/forum?id=rDNj0enuhc}
+@article{ye2024dataframe,
+  title={DataFrame QA: A Universal LLM Framework on DataFrame Question Answering Without Data Exposure},
+  author={Ye, Junyi and Du, Mengnan and Wang, Guiling},
+  journal={arXiv preprint arXiv:2401.15463},
+  year={2024}
 }
 ```
 
