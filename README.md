@@ -6,7 +6,10 @@
 
 [[paper](https://openreview.net/forum?id=rDNj0enuhc)] [[poster](./assets/dataframe_qa_poster.pdf)] [[slides](./assets/dataframe_qa_slides.pdf)]
 
-![framework](./assets/figures/dataframe_qa.png)
+
+<p align="center">
+    <img src="./assets/figures/dataframe_qa.png" width="500"> 
+</p>
 
 ## News
 - [2024/11] 🔥 **Our DataFrame QA paper is accepted by [ACML 2024](https://www.acml-conf.org/2024/).**
