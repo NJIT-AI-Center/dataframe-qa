@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="assets/figures/logo.png" width="100"> 
+</p>
+
 # DataFrame QA: A Universal LLM Framework on DataFrame Question Answering Without Data Exposure
 
 [[paper](https://openreview.net/forum?id=rDNj0enuhc)] [[poster](./assets/dataframe_qa_poster.pdf)] [[slides](./assets/dataframe_qa_slides.pdf)]
@@ -24,7 +28,9 @@ We propose DataFrame QA as a comprehensive framework that includes safe Pandas q
 
 
 ## Prompt & Example
-<img src="./assets/figures/prompt.png" alt="prompt" width="500"/>
+<p align="center">
+    <img src="assets/figures/prompt.png" width="500"> 
+</p>
 
 ## Datasets
 ### WikiSQL Dataset
