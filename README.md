@@ -24,7 +24,7 @@ We propose DataFrame QA as a comprehensive framework that includes safe Pandas q
 
 
 ## Prompt & Example
-<img src="./assets/figures/prompt.png" alt="prompt" width="400"/>
+<img src="./assets/figures/prompt.png" alt="prompt" width="500"/>
 
 ## Datasets
 ### WikiSQL Dataset
