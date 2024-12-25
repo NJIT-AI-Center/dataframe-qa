@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="assets/figures/logo.png" width="150"> 
+    <img src="assets/figures/logo.png" width="160"> 
 </p>
 
 # DataFrame QA: A Universal LLM Framework on DataFrame Question Answering Without Data Exposure
@@ -8,7 +8,7 @@
 
 
 <p align="center">
-    <img src="./assets/figures/dataframe_qa.png" width="500"> 
+    <img src="./assets/figures/dataframe_qa.png" width="600"> 
 </p>
 
 ## News
