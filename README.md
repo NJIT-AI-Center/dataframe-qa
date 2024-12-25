@@ -32,7 +32,7 @@ We propose DataFrame QA as a comprehensive framework that includes safe Pandas q
 
 ## Prompt & Example
 <p align="center">
-    <img src="assets/figures/prompt.png" width="500"> 
+    <img src="assets/figures/prompt.png" width="400"> 
 </p>
 
 ## Datasets
