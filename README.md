@@ -8,7 +8,7 @@
 
 
 <p align="center">
-    <img src="./assets/figures/dataframe_qa.png" width="600"> 
+    <img src="./assets/figures/dataframe_qa.png" width="700"> 
 </p>
 
 ## News
