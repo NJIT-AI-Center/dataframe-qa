@@ -8,7 +8,7 @@
 
 
 <p align="center">
-    <img src="./assets/figures/dataframe_qa.png" width="700"> 
+    <img src="./assets/figures/dataframe_qa.png" width="800"> 
 </p>
 
 ## News
@@ -32,7 +32,7 @@ We propose DataFrame QA as a comprehensive framework that includes safe Pandas q
 
 ## Prompt & Example
 <p align="center">
-    <img src="assets/figures/prompt.png" width="400"> 
+    <img src="assets/figures/prompt.png" width="500"> 
 </p>
 
 ## Datasets
